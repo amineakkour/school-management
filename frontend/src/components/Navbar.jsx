@@ -17,9 +17,9 @@ function BurgerMenu({isOpen, setIsOpen}) {
 
   return (
     <button className="z-[100] flex flex-col justify-center items-center md:hidden" onClick={() => setIsOpen(!isOpen)}>
-      <div className={`${genericHamburgerLine} ${isOpen ? "rotate-45 translate-y-3  " : "" }`} />
-      <div className={`${genericHamburgerLine} ${isOpen ? "opacity-0" : ""}`} />
-      <div className={`${genericHamburgerLine} ${ isOpen ? "-rotate-45 -translate-y-3" : "" }`}/>
+      <div className={`${genericHamburgerLine} ${isOpen ? "rotate-45 translate-y-3 bg-blue-400" : "bg-green-600" }`} />
+      <div className={`${genericHamburgerLine} ${isOpen ? "opacity-0" : "bg-purple-700"}`} />
+      <div className={`${genericHamburgerLine} ${ isOpen ? "-rotate-45 -translate-y-3 bg-blue-400" : "bg-orange-400" }`}/>
     </button>
   );
 }

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import directorPic from "../assets/director.jpg";
 import background_src from "../assets/background_2.jpg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 var FAQ_data = [
   {question: "Quels sont les horaires de l'école?", answer: "Nos horaires varient en fonction des niveaux scolaires. Pour obtenir des informations spécifiques sur les horaires de chaque niveau, veuillez consulter la section 'Horaire' de notre site web ou contacter le bureau de l'école."},
@@ -14,20 +14,6 @@ var FAQ_data = [
   {question: "Comment puis-je obtenir des mises à jour et des annonces importantes de l'école?", answer: "Pour rester informé des dernières nouvelles et annonces de l'école, veuillez vous abonner à notre bulletin d'information ou suivre nos réseaux sociaux officiels. Vous pouvez également consulter régulièrement la section 'Actualités' de notre site web pour les mises à jour importantes."},
 ]
 
-function NavForAboutUs() {
-  return (
-  <nav className="bg-green-700 max-w-3xl p-2 bg-contain text-white bg-blend-multiply" style={{backgroundImage: `url(${background_src})`}}>
-    <h5 className="text-lg">Index: </h5>
-    <ul>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">Qui somme-nous?</Link></li>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">Pourquoi Nous?</Link></li>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">Mot de directeur</Link></li>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">Où sommes-nous situés ?</Link></li>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">FAQ </Link></li>
-      <li className="list-disc ml-6"><Link className="hover:underline" to="">Suivez-nous sur les réseaux sociaux</Link></li>
-    </ul>
-  </nav>)
-}
 
 function Division({title, text}) {
   return (
@@ -124,7 +110,7 @@ function Question({question, answer}) {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
-    <div className="bg-green-700 hover:bg-green-800 max-w-3xl p-2 bg-contain text-white bg-blend-multiply rounded-md my-2" style={{backgroundImage: `url(${background_src})`}}>
+    <div className={`bg-green-700 transition-all ${isOpen ? "my-5 scale-105 bg-green-800 shadow-lg" : ""} hover:bg-green-800 max-w-3xl p-2 bg-contain text-white bg-blend-multiply rounded-md my-2`} style={{backgroundImage: `url(${background_src})`}}>
       <div onClick={() => setIsOpen(v => !v)} className="flex justify-between items-center md:text-lg font-semibold cursor-pointer">
         <div>{question}</div>
         <div className={`${isOpen ? "rotate-180" : ""}`}><i className="fa-solid fa-chevron-down"></i></div>
@@ -136,23 +122,61 @@ function Question({question, answer}) {
 }
 
 export default function AboutUs() {
+  const div1 = useRef(null);
+  const div2 = useRef(null);
+  const div3 = useRef(null);
+  const div4 = useRef(null);
+  const div5 = useRef(null);
+  const [isUpArrowVisible, setIsUppArrowVisible] = useState(window.scrollY > 300);
+
+  useEffect(() => {
+    document.addEventListener("scroll", () => {
+      setIsUppArrowVisible(window.scrollY > 300)
+    })
+  })
+
+  function scrollToElement(element) {
+    window.scroll({top: element.getBoundingClientRect().top - 100, behavior: "smooth"})
+  }
+  
   return (
     <div className="m-2 md:mx-auto p-4">
       <div id="rain-bow"></div>
-      <NavForAboutUs />
+      {isUpArrowVisible && <button id="up-arrow" className="fixed bottom-5 right-8 hover:border border-black bg-cyan-500 w-12 h-12 hover:scale-125 transition-all rounded-full text-xl" onClick={() => window.scroll({top: 0, behavior: "smooth"})}><i className="fa-solid fa-up-long"></i></button>}
+
+      <nav className="bg-green-700 max-w-3xl p-2 bg-contain text-white bg-blend-multiply" style={{backgroundImage: `url(${background_src})`}}>
+        <h5 className="text-lg">Index: </h5>
+        <ul>
+          <li className="list-disc ml-6"><Link className="hover:underline" to="" onClick={() => scrollToElement(div1.current)}>Qui somme-nous?</Link></li>
+          <li className="list-disc ml-6"><Link className="hover:underline" to="" onClick={() => scrollToElement(div2.current)}>Pourquoi Nous?</Link></li>
+          <li className="list-disc ml-6"><Link className="hover:underline" to="" onClick={() => scrollToElement(div3.current)}>Mot de directeur</Link></li>
+          <li className="list-disc ml-6"><Link className="hover:underline" to="" onClick={() => scrollToElement(div4.current)}>Où sommes-nous situés ?</Link></li>
+          <li className="list-disc ml-6"><Link className="hover:underline" to="" onClick={() => scrollToElement(div5.current)}>FAQ </Link></li>
+        </ul>
+      </nav>
 
       <div className="mt-20">
-        <Division title={"Qui somme-nous?"} text="Nous sommes une équipe passionnée et dévouée qui s'engage à fournir une éducation de qualité et à soutenir le développement de chaque élève. Notre école est bien plus qu'un simple établissement d'enseignement; nous sommes une communauté dynamique où les élèves, les enseignants, le personnel et les parents travaillent ensemble pour créer un environnement d'apprentissage enrichissant. Avec une équipe d'enseignants hautement qualifiés et des installations modernes, nous nous efforçons de fournir à nos élèves les outils nécessaires pour réussir dans un monde en constante évolution." />
+        <div ref={div1}>
+          <Division title={"Qui somme-nous?"} text="Nous sommes une équipe passionnée et dévouée qui s'engage à fournir une éducation de qualité et à soutenir le développement de chaque élève. Notre école est bien plus qu'un simple établissement d'enseignement; nous sommes une communauté dynamique où les élèves, les enseignants, le personnel et les parents travaillent ensemble pour créer un environnement d'apprentissage enrichissant. Avec une équipe d'enseignants hautement qualifiés et des installations modernes, nous nous efforçons de fournir à nos élèves les outils nécessaires pour réussir dans un monde en constante évolution." />
+        </div>
 
-        <Division title={"Pour quoi Nous?"} text="Nous sommes convaincus que notre approche pédagogique unique et notre engagement envers l'excellence font de nous le choix idéal pour votre parcours éducatif. En tant qu'équipe, nous mettons l'accent sur l'individualisation de l'enseignement, en reconnaissant et en répondant aux besoins uniques de chaque élève. Nous offrons un environnement inclusif où la diversité est célébrée et où chaque voix est valorisée. De plus, notre équipe dévouée d'enseignants et de membrescv du personnel est résolue à fournir un soutien complet, tant sur le plan académique que social, pour garantir la réussite de chaque élève. Rejoignez-nous dans notre voyage vers l'excellence éducative !" />
+        <div ref={div2}>
+          <Division title={"Pour quoi Nous?"} text="Nous sommes convaincus que notre approche pédagogique unique et notre engagement envers l'excellence font de nous le choix idéal pour votre parcours éducatif. En tant qu'équipe, nous mettons l'accent sur l'individualisation de l'enseignement, en reconnaissant et en répondant aux besoins uniques de chaque élève. Nous offrons un environnement inclusif où la diversité est célébrée et où chaque voix est valorisée. De plus, notre équipe dévouée d'enseignants et de membrescv du personnel est résolue à fournir un soutien complet, tant sur le plan académique que social, pour garantir la réussite de chaque élève. Rejoignez-nous dans notre voyage vers l'excellence éducative !" />
+        </div>
 
-        <Division title={"Mot de directeur"} text={<DirectorWord />} />
+        <div ref={div3}>
+          <Division title={"Mot de directeur"} text={<DirectorWord />} />
+        </div>
 
 
-        <Division title={"Où sommes-nous situés?"} text={<Map />} />
+        <div ref={div4}>
+          <Division title={"Où sommes-nous situés?"} text={<Map />} />
+        </div>
         
-        
-        <Division title={"FAQ"} text={<FAQ />} />
+        <div ref={div5}>
+          <Division title={"FAQ"} text={<FAQ />} />
+        </div>
+
       </div>
     </div>
   )
