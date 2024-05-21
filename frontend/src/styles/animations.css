@@ -2,10 +2,6 @@
   animation: popUp .4s backwards;
 }
 
-.rotate:hover{
-  animation:  rotate .4s backwards;
-}
-
 @keyframes popUp {
   0%{
     transform: scale(.7);
@@ -14,11 +10,5 @@
   100% {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-@keyframes rotate {
-  100%{
-    transform: rotate(360deg);
   }
 }

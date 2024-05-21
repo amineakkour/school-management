@@ -17,7 +17,7 @@ var FAQ_data = [
 
 function Division({title, text}) {
   return (
-    <div className="my-5 md:my-8 pop-up">
+    <div className="my-5 md:my-8">
       <h2 className="text-3xl mb-2 md:mb-4">{title}</h2>
       <div>{text}</div>
     </div>
@@ -135,11 +135,39 @@ export default function AboutUs() {
       setIsUppArrowVisible(window.scrollY > 300)
     })
   })
+  
+  useEffect(() => {
+    const screenHeight = window.outerHeight;
+    const elements = [div1?.current, div2?.current, div3?.current, div4?.current, div5?.current];
+
+    function flashElementsWhileScrolling() {
+      elements.map(el => {
+        const divPosition = el?.getBoundingClientRect().top;
+
+        if(divPosition < screenHeight) {
+          el.classList.add("pop-up")
+        }
+
+      })
+    }
+
+    flashElementsWhileScrolling()
+    
+    window.addEventListener("scroll", flashElementsWhileScrolling)
+  }, [])
 
   function scrollToElement(element) {
-    window.scroll({top: element.getBoundingClientRect().top - 100, behavior: "smooth"})
+    const scrollToY = element.getBoundingClientRect().top - 100;
+    const delay = scrollToY * 100 / 450;
+
+    window.scroll({top: scrollToY, behavior: "smooth"})
+    element.classList.remove("pop-up");
+    
+    setTimeout(() => {
+      element.classList.add("pop-up");
+    }, delay);
   }
-  
+
   return (
     <div className="m-2 md:mx-auto p-4">
       <div id="rain-bow"></div>
