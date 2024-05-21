@@ -35,14 +35,14 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   return (
     <div className={`h-screen ${bgColor} flex justify-center items-center`}>
       {alertText && <Alert text={alertText} />}
-      <div className="max-w-screen-lg p-5 flex rounded-md gap-5 transition-all bg-white shadow-md hover:shadow-2xl">
+      <div className="w-full mx-4 max-w-lg md:max-w-screen-md p-5 flex rounded-md gap-5 transition-all bg-white shadow-md hover:shadow-2xl">
         
         <div className='hidden md:block'>
-            <img src={tmpImgURL} alt="" className={`w-80 h-80 object-cover rounded-md object-right-top ${!isImgLoaded ? "block": "hidden"}`} />
+            <img src={tmpImgURL} alt="Login Picture" className={`w-80 h-80 object-cover rounded-md object-right-top ${!isImgLoaded ? "block": "hidden"}`} />
             <img src={imgURL} alt="" onLoad={() => setIsImageLoaded(true)} className={`w-80 h-80 object-cover rounded-md object-right-top ${isImgLoaded ? "block": "hidden"}`} />
         </div>
 
-        <div className={styles.formContainer}>
+        <div className={`${styles.formContainer} w-full md:max-w-96`}>
           {/* ////// FORM_START ////// */}
           <form className="md:min-w-96" onSubmit={handleSubmit(submit)}>
             

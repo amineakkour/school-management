@@ -20,6 +20,7 @@ function App() {
         </Route>
 
         <Route path="connexion">
+          <Route index  element={<StudentLogin />} />
           <Route path="etudiant" element={<StudentLogin />} />
           <Route path="enseignant" element={<TeacherLogin />} />
           <Route path="adminstrateur" element={<AdminLogin />} />

@@ -60,7 +60,8 @@ function DirectorWord() {
 function Map() {
   return (
     <div>
-      <p className="mb-2">Notre école est idéalement située au cœur de Casablanca, offrant un accès facile aux élèves de toute la région. Nichée dans un environnement paisible et propice à l'apprentissage, notre campus est un lieu dynamique où les élèves peuvent s'épanouir tant sur le plan académique que personnel. Avec des installations modernes et des espaces verts inspirants, notre emplacement offre le cadre parfait pour une éducation de qualité. Que vous veniez de près ou de loin, nous sommes impatients de vous accueillir dans notre communauté scolaire dynamique.</p>
+      <p className="mb-2">Notre école est idéalement située au cœur de Casablanca, offrant un accès facile aux élèves de toute la région. Nichée dans un environnement paisible et propice à l'apprentissage, notre campus est un lieu dynamique où les élèves peuvent s'épanouir tant sur le plan académique que personnel. Avec des installations modernes et des espaces verts inspirants, notre emplacement offre le cadre parfait pour une éducation de qualité.</p>
+
       <iframe className="w-full h-96 md:h-[500px]" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11857.923534796317!2d-7.682808602630834!3d33.58039168238759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1716222231200!5m2!1sfr!2sma" styles={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
     </div>
   )
