@@ -1,14 +1,44 @@
 .pop-up{
-  animation: popUp .4s backwards;
+  animation: pop-up .4s backwards;
 }
 
-@keyframes popUp {
+.left-to-right{
+  animation: left-to-right .4s backwards;
+}
+
+.right-to-left{
+  animation: right-to-left .4s backwards;
+}
+
+@keyframes pop-up {
   0%{
     transform: scale(.7);
     opacity: 0;
   }
   100% {
     transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes left-to-right {
+  0%{
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes right-to-left {
+  0%{
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100%{
+    transform: translateX(0);
     opacity: 1;
   }
 }

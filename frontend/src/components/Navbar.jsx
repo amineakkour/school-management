@@ -25,19 +25,19 @@ function BurgerMenu({isOpen, setIsOpen}) {
 }
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(!(window.innerWidth < 600)); // if widown smaller than 600 then set isOpen to false 
+  const [isOpen, setIsOpen] = useState(!(window.innerWidth < 760)); // if widown smaller than 600 then set isOpen to false 
   
   return (
-  <nav id="nav-bar" className={`block md:flex justify-between items-center px-5 md:px-10 shadow-md relative`}>  
+  <nav id="nav-bar" className={`overflow-hidden block md:flex justify-between items-center px-5 md:px-10 shadow-md relative`}>  
     <div className="absolute right-3 top-4">
       <BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
-    <div className="w-16 h-16">
-      <img src={logo} alt="Logo" />
+    <div className="w-16 h-full">
+      <img src={logo} alt="Logo" className="left-to-right" />
     </div>
 
-    <ul className={`gap-3 block md:flex ${isOpen ? "" : "h-0"} overflow-hidden `}>
-      {navItems.map((item, ind) => <li className="bg-red- my-3" key={ind}><Link className={`${colorsOmg[ind]} hover:text-purple-500`} to={item.path}><i className={`inline-block min-w-5 text-center ${item.fontAwsomeIconClass}`}></i> {item.label}</Link></li>)}
+    <ul className={`right-to-left gap-3 block md:flex ${isOpen ? "" : "h-0"} overflow-hidden `}>
+      {navItems.map((item, ind) => <li className="pop-up bg-red- my-3" key={ind}><Link className={`${colorsOmg[ind]} hover:text-purple-500`} to={item.path}><i className={`inline-block min-w-5 text-center ${item.fontAwsomeIconClass}`}></i> {item.label}</Link></li>)}
     </ul>
   </nav>
   )

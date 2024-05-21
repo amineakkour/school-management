@@ -172,7 +172,7 @@ export default function AboutUs() {
   return (
     <div className="m-2 md:mx-auto p-4">
       <div id="rain-bow"></div>
-      {isUpArrowVisible && <button style={{background:"linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)"}} id="up-arrow" className="fixed bottom-5 right-8 bg-cyan-500 w-12 h-12 hover:scale-125 transition-all rounded-full text-xl" onClick={() => window.scroll({top: 0, behavior: "smooth"})}><i className="fa-solid fa-up-long"></i></button>}
+      {isUpArrowVisible && <button style={{background:"linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)"}} id="up-arrow" className="pop-up fixed bottom-5 right-8 bg-cyan-500 w-12 h-12 hover:scale-125 transition-all rounded-full text-xl" onClick={() => window.scroll({top: 0, behavior: "smooth"})}><i className="fa-solid fa-up-long"></i></button>}
 
       <nav className={`pop-up bg-green-700 max-w-3xl p-2 bg-contain text-white bg-blend-multiply`} style={{backgroundImage: `url(${background_src})`}}>
         <h5 className="text-lg">Index: </h5>
