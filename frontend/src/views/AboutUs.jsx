@@ -144,8 +144,9 @@ export default function AboutUs() {
       elements.map(el => {
         const divPosition = el?.getBoundingClientRect().top;
 
-        if(divPosition < screenHeight) {
+        if(divPosition < (screenHeight - 250)) {
           el.classList.add("pop-up")
+          el.classList.remove("opacity-0")
         }
 
       })
@@ -185,24 +186,24 @@ export default function AboutUs() {
       </nav>
 
       <div className="mt-20">
-        <div ref={div1}>
+        <div ref={div1} className="opacity-0">
           <Division title={"Qui somme-nous?"} text="Nous sommes une équipe passionnée et dévouée qui s'engage à fournir une éducation de qualité et à soutenir le développement de chaque élève. Notre école est bien plus qu'un simple établissement d'enseignement; nous sommes une communauté dynamique où les élèves, les enseignants, le personnel et les parents travaillent ensemble pour créer un environnement d'apprentissage enrichissant. Avec une équipe d'enseignants hautement qualifiés et des installations modernes, nous nous efforçons de fournir à nos élèves les outils nécessaires pour réussir dans un monde en constante évolution." />
         </div>
 
-        <div ref={div2}>
+        <div ref={div2} className="opacity-0">
           <Division title={"Pour quoi Nous?"} text="Nous sommes convaincus que notre approche pédagogique unique et notre engagement envers l'excellence font de nous le choix idéal pour votre parcours éducatif. En tant qu'équipe, nous mettons l'accent sur l'individualisation de l'enseignement, en reconnaissant et en répondant aux besoins uniques de chaque élève. Nous offrons un environnement inclusif où la diversité est célébrée et où chaque voix est valorisée. De plus, notre équipe dévouée d'enseignants et de membrescv du personnel est résolue à fournir un soutien complet, tant sur le plan académique que social, pour garantir la réussite de chaque élève. Rejoignez-nous dans notre voyage vers l'excellence éducative !" />
         </div>
 
-        <div ref={div3}>
+        <div ref={div3} className="opacity-0">
           <Division title={"Mot de directeur"} text={<DirectorWord />} />
         </div>
 
 
-        <div ref={div4}>
+        <div ref={div4} className="opacity-0">
           <Division title={"Où sommes-nous situés?"} text={<Map />} />
         </div>
         
-        <div ref={div5}>
+        <div  className="opacity-0" ref={div5}>
           <Division title={"FAQ"} text={<FAQ />} />
         </div>
 
