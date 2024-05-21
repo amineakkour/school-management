@@ -7,27 +7,31 @@ import Blog from "./views/Blog";
 import MainLayout from "./Layout/MainLayout";
 import AboutUs from "./views/AboutUs";
 import PageNotFound from "./views/PageNotFound";
+import { ThemeProvider } from "./context/ThemeProvider";
+
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<GuestHome />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="a-propos-de-nous" element={<AboutUs />} />
-        </Route>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route index element={<GuestHome />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="a-propos-de-nous" element={<AboutUs />} />
+          </Route>
 
-        <Route path="connexion">
-          <Route index  element={<StudentLogin />} />
-          <Route path="etudiant" element={<StudentLogin />} />
-          <Route path="enseignant" element={<TeacherLogin />} />
-          <Route path="adminstrateur" element={<AdminLogin />} />
-        </Route>
+          <Route path="connexion">
+            <Route index  element={<StudentLogin />} />
+            <Route path="etudiant" element={<StudentLogin />} />
+            <Route path="enseignant" element={<TeacherLogin />} />
+            <Route path="adminstrateur" element={<AdminLogin />} />
+          </Route>
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </ThemeProvider>
     </BrowserRouter>
   )
 }

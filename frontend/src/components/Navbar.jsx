@@ -1,6 +1,7 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { ModeToggle } from "./ModeToggle";
 
 const colorsOmg = ['text-blue-500', 'text-red-500', 'text-yellow-500',   'text-green-500', 'text-orange-500',];
 
@@ -38,6 +39,8 @@ export default function Navbar() {
 
     <ul className={`right-to-left gap-3 block md:flex ${isOpen ? "" : "h-0"} overflow-hidden `}>
       {navItems.map((item, ind) => <li className="pop-up bg-red- my-3" key={ind}><Link className={`${colorsOmg[ind]} hover:text-purple-500`} to={item.path}><i className={`inline-block min-w-5 text-center ${item.fontAwsomeIconClass}`}></i> {item.label}</Link></li>)}
+
+      <ModeToggle />
     </ul>
   </nav>
   )

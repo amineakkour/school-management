@@ -1,10 +1,10 @@
-import GuestNavbar from "../components/Navbar";
+import { Button } from "@/components/ui/button"
 
 export default function GuestHome() {
   return (
     <div>
       <div id="rain-bow"></div>
-      Hello
+      <Button>Button</Button>
     </div>
   );
 }
