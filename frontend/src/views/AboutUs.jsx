@@ -144,7 +144,7 @@ export default function AboutUs() {
       elements.map(el => {
         const divPosition = el?.getBoundingClientRect().top;
 
-        if(divPosition < (screenHeight - 250)) {
+        if(divPosition < (screenHeight - 300)) {
           el.classList.add("pop-up")
           el.classList.remove("opacity-0")
         }
