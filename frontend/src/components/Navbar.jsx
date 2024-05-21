@@ -29,7 +29,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(!(window.innerWidth < 760)); // if widown smaller than 600 then set isOpen to false 
   
   return (
-  <nav id="nav-bar" className={`overflow-hidden block md:flex justify-between items-center px-5 md:px-10 shadow-md relative`}>  
+  <nav id="nav-bar" className={`overflow-hidden block md:flex justify-between items-center px-5 md:px-10 relative`}>  
     <div className="absolute right-3 top-4">
       <BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
