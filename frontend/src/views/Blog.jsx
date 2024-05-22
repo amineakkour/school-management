@@ -1,7 +1,10 @@
 import HomeNavbar from "../components/Navbar";
+import { useTheme } from "../context/ThemeProvider";
 
 function Card({title, createdAt, text, imgURL}) {
-  return <div className="rounded-lg bg-stone-100 p-4 mb-10 shadow-md pop-up">
+  const { theme } = useTheme();
+
+  return <div className={`bg-secondary rounded-lg p-4 mb-10 shadow-md pop-up`}>
     <h3 className="text-xl">{title}</h3>
     <div className="text-gray-400 mb-3">Créé à {createdAt}</div>
     <div className="">
@@ -12,8 +15,9 @@ function Card({title, createdAt, text, imgURL}) {
 }
 
 export default function Blog() {
+  const { theme } = useTheme();
   return (
-    <div className="bg-stone-50 md:max-w-6xl p-5 mx-2 md:mx-auto">
+    <div className={`md:max-w-6xl p-5 mx-2 md:mx-auto`}>
       <div id="rain-bow"></div>
       <h1 className="text-4xl py-5 pop-up">Blogs</h1>
 

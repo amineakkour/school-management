@@ -10,6 +10,14 @@
   animation: right-to-left .4s backwards;
 }
 
+.dow-to-up{
+  animation: dow-to-up .4s backwards;
+}
+
+.up-to-down{
+  animation: up-to-down .4s backwards;
+}
+
 @keyframes pop-up {
   0%{
     transform: scale(.7);
@@ -36,6 +44,28 @@
   0%{
     opacity: 0;
     transform: translateX(100px);
+  }
+  100%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes dow-to-up {
+  0%{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes up-to-down {
+  0%{
+    opacity: 0;
+    transform: translateY(-20px);
   }
   100%{
     transform: translateX(0);

@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Spinner from "../components/Spinner";
 import Alert from "../components/Alert";
+import { useTheme } from "../context/ThemeProvider";
 
 
 export const loginSchema = z.object({
@@ -17,6 +18,8 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   const [isImgLoaded, setIsImageLoaded] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [alertText, setAlertText] = useState("")
+  const { theme } = useTheme();
+
   const { register, handleSubmit, formState: { errors }} = useForm({
     defaultValues: {
       email: "amineakour6@gmail.com",
@@ -33,9 +36,9 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   } 
 
   return (
-    <div className={`h-screen ${bgColor} flex justify-center items-center`}>
+    <div className={`h-screen ${theme === "dark" ? "" : bgColor} flex justify-center items-center`}>
       {alertText && <Alert text={alertText} />}
-      <div className="w-full mx-4 max-w-lg md:max-w-screen-md p-5 flex rounded-md gap-5 transition-all bg-white shadow-md hover:shadow-2xl">
+      <div className={`${theme === "dark" ? "bg-secondary" : "bg-white"} w-full mx-4 max-w-lg md:max-w-screen-md p-5 flex rounded-md gap-5 transition-all shadow-md hover:shadow-2xl`}>
         
         <div className='hidden md:block'>
             <img src={tmpImgURL} alt="Login Picture" className={`w-80 h-80 object-cover rounded-md object-right-top ${!isImgLoaded ? "block": "hidden"}`} />

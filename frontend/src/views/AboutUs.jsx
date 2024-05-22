@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import directorPic from "../assets/director.jpg";
 import background_src from "../assets/background_2.jpg";
 import { useEffect, useRef, useState } from "react";
+import { flashElementsWhileScrolling } from "../functions/flashElementsWhileScrolling";
+import { useTheme } from "../context/ThemeProvider";
 
 var FAQ_data = [
   {question: "Quels sont les horaires de l'école?", answer: "Nos horaires varient en fonction des niveaux scolaires. Pour obtenir des informations spécifiques sur les horaires de chaque niveau, veuillez consulter la section 'Horaire' de notre site web ou contacter le bureau de l'école."},
@@ -109,9 +111,10 @@ function FAQ() {
 
 function Question({question, answer}) {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
   
   return (
-    <div className={`bg-green-700 transition-all ${isOpen ? "my-5 scale-105 bg-green-800 shadow-lg" : ""} hover:bg-green-800 max-w-3xl p-2 bg-contain text-white bg-blend-multiply rounded-md my-2`} style={{backgroundImage: `url(${background_src})`}}>
+    <div className={`${theme === "dark" ? "bg-secondary" : "bg-green-700"} transition-all ${isOpen ? `my-5 scale-105 ${theme === "dark" ? "bg-secondary" : "bg-green-800 hover:bg-green-800"} shadow-lg` : ""}  max-w-3xl p-2 bg-contain text-white bg-blend-multiply rounded-md my-2`} id={{backgroundImage: `url(${background_src})`}} style={{backgroundImage: `url(${isOpen ? background_src : ''}), linear-gradient(#fff, #fff)`}}>
       <div onClick={() => setIsOpen(v => !v)} className="flex justify-between items-center md:text-lg font-semibold cursor-pointer">
         <div>{question}</div>
         <div className={`${isOpen ? "rotate-180" : ""}`}><i className="fa-solid fa-chevron-down"></i></div>
@@ -137,24 +140,11 @@ export default function AboutUs() {
   })
   
   useEffect(() => {
-    const screenHeight = window.outerHeight;
     const elements = [div1?.current, div2?.current, div3?.current, div4?.current, div5?.current];
 
-    function flashElementsWhileScrolling() {
-      elements.map(el => {
-        const divPosition = el?.getBoundingClientRect().top;
-
-        if(divPosition < (screenHeight - 300)) {
-          el.classList.add("pop-up")
-          el.classList.remove("opacity-0")
-        }
-
-      })
-    }
-
-    flashElementsWhileScrolling()
+    flashElementsWhileScrolling(elements)
     
-    window.addEventListener("scroll", flashElementsWhileScrolling)
+    window.addEventListener("scroll", () => flashElementsWhileScrolling(elements))
   }, [])
 
   function scrollToElement(element) {
