@@ -14,11 +14,11 @@ function Footer() {
           <div>
             <h3 className="text-2xl">Informations</h3>
             <ul>
-              <li><i class="fa-solid fa-phone"></i> +212 +212 (0) 5 00 00 00 01</li>
-              <li><i class="fa-solid fa-phone"></i> +212 +212 (0) 5 00 00 00 0</li>
-              <li><i class="fa-solid fa-envelope"></i> support@amine.com</li>
-              <li><i class="fa-solid fa-envelope"></i> standard@amine.com</li>
-              <li><i class="fa-solid fa-location-pin"></i> Rue 81 NR 61 dar bouazza, Casablanca</li>
+              <li><i className="fa-solid fa-phone"></i> +212 +212 (0) 5 00 00 00 01</li>
+              <li><i className="fa-solid fa-phone"></i> +212 +212 (0) 5 00 00 00 0</li>
+              <li><i className="fa-solid fa-envelope"></i> support@amine.com</li>
+              <li><i className="fa-solid fa-envelope"></i> standard@amine.com</li>
+              <li><i className="fa-solid fa-location-pin"></i> Rue 81 NR 61 dar bouazza, Casablanca</li>
             </ul>
           </div>
 

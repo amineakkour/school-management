@@ -132,31 +132,22 @@ export default function AboutUs() {
   const div4 = useRef(null);
   const div5 = useRef(null);
   const [isUpArrowVisible, setIsUppArrowVisible] = useState(window.scrollY > 300);
-
-  useEffect(() => {
-    document.addEventListener("scroll", () => {
-      setIsUppArrowVisible(window.scrollY > 300)
-    })
-  })
   
   useEffect(() => {
     const elements = [div1?.current, div2?.current, div3?.current, div4?.current, div5?.current];
 
     flashElementsWhileScrolling(elements)
     
-    window.addEventListener("scroll", () => flashElementsWhileScrolling(elements))
+    window.addEventListener("scroll", () => {
+      flashElementsWhileScrolling(elements);
+      setIsUppArrowVisible(window.scrollY > 300);
+    })
+
   }, [])
 
   function scrollToElement(element) {
-    const scrollToY = element.getBoundingClientRect().top - 100;
-    const delay = scrollToY * 100 / 450;
-
-    window.scroll({top: scrollToY, behavior: "smooth"})
+    element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
     element.classList.remove("pop-up");
-    
-    setTimeout(() => {
-      element.classList.add("pop-up");
-    }, delay);
   }
 
   return (
