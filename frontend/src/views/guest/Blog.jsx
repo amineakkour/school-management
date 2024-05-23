@@ -1,5 +1,5 @@
-import HomeNavbar from "../components/Navbar";
-import { useTheme } from "../context/ThemeProvider";
+import HomeNavbar from "../../components/Navbar";
+import { useTheme } from "../../context/ThemeProvider";
 
 function Card({title, createdAt, text, imgURL}) {
   const { theme } = useTheme();

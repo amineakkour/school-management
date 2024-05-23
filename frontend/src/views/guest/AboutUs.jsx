@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import directorPic from "../assets/director.jpg";
-import background_src from "../assets/background_2.jpg";
+import directorPic from "../../assets/director.jpg";
+import background_src from "../../assets/background_2.jpg";
 import { useEffect, useRef, useState } from "react";
-import { flashElementsWhileScrolling } from "../functions/flashElementsWhileScrolling";
-import { useTheme } from "../context/ThemeProvider";
+import { flashElementsWhileScrolling } from "../../functions/flashElementsWhileScrolling";
+import { useTheme } from "../../context/ThemeProvider";
 
 var FAQ_data = [
   {question: "Quels sont les horaires de l'école?", answer: "Nos horaires varient en fonction des niveaux scolaires. Pour obtenir des informations spécifiques sur les horaires de chaque niveau, veuillez consulter la section 'Horaire' de notre site web ou contacter le bureau de l'école."},

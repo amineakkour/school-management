@@ -2,11 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StudentLogin from "./views/student/StudentLogin";
 import TeacherLogin from "./views/teacher/TeacherLogin";
 import AdminLogin from "./views/admin/AdminLogin";
-import GuestHome from "./views/Home";
-import Blog from "./views/Blog";
+import Home from "./views/guest/Home";
+import Blog from "./views/guest/Blog";
 import MainLayout from "./Layout/MainLayout";
-import AboutUs from "./views/AboutUs";
-import PageNotFound from "./views/PageNotFound";
+import AboutUs from "./views/guest/AboutUs";
+import PageNotFound from "./views/guest/PageNotFound";
 import { ThemeProvider } from "./context/ThemeProvider";
 
 
@@ -17,7 +17,7 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Routes>
           <Route element={<MainLayout />}>
-            <Route index element={<GuestHome />} />
+            <Route index element={<Home />} />
             <Route path="blog" element={<Blog />} />
             <Route path="a-propos-de-nous" element={<AboutUs />} />
           </Route>

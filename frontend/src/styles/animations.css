@@ -18,6 +18,10 @@
   animation: up-to-down .4s backwards;
 }
 
+.flash{
+  animation: flash 1s backwards infinite;
+}
+
 @keyframes pop-up {
   0%{
     transform: scale(.7);
@@ -69,6 +73,15 @@
   }
   100%{
     transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flash {
+  0%{
+    opacity: 0;
+  }
+  100%{
     opacity: 1;
   }
 }

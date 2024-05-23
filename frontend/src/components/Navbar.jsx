@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "./ModeToggle";
+import { useTheme } from "../context/ThemeProvider";
 
 const colorsOmg = ['text-blue-500', 'text-red-500', 'text-yellow-500',   'text-green-500', 'text-orange-500',];
 
@@ -10,7 +11,6 @@ const navItems = [
   {label: "Blog", fontAwsomeIconClass: 'fa-brands fa-blogger-b', path: "/blog"},
   {label: "A propos de nous", fontAwsomeIconClass: 'fa-regular fa-address-card', path: "/a-propos-de-nous"},
   {label: "Connexion", fontAwsomeIconClass: 'fa-solid fa-unlock-keyhole', path: "/connexion/etudiant"},
-  // {label: "Service à la clintèle", fontAwsomeIconClass: 'fa-regular fa-circle-down', path: "/"},
 ]
 
 function DropDownItem() {
@@ -20,7 +20,6 @@ function DropDownItem() {
   const handleClickOutside = (event) => {
     if (ulElement.current && !ulElement.current.contains(event.target)) {
       setIsOpen(false);
-      console.log("close")
     }
   };
 
@@ -62,22 +61,58 @@ function BurgerMenu({isOpen, setIsOpen}) {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(!(window.innerWidth < 760)); // if widown smaller than 600 then set isOpen to false 
+  const { theme } = useTheme();
+  const navEl = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("scroll", () => {
+      if(window.scrollY >= 50) {
+        navEl.current?.classList.remove("relative");
+        navEl.current?.classList.add("fixed");
+      }else{
+        navEl.current?.classList.remove("fixed");
+        navEl.current?.classList.add("relative");
+      }
+    })
+  })
   
   return (
-  <nav id="nav-bar" className={`block md:flex justify-between items-center px-5 md:px-10 relative overflow-hidden md:overflow-visible`}>  
-    <div className="absolute right-3 top-4">
-      <BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
-    </div>
-    <div className="w-16 h-full">
-      <img src={logo} alt="Logo" className="left-to-right" />
-    </div>
+    <header className="relative">
+      <div className="md:flex flex-wrap justify-between items-center p-5 py-3 border-b up-to-down gap-5">
+        <ul className="flex text-lg items-center justify-around">
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-youtube"></i></a></li>
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-square-facebook"></i></a></li>
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-linkedin"></i></a></li>
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-x-twitter"></i></a></li>
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-square-instagram"></i></a></li>
+          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-tiktok"></i></a></li>
+        </ul>
 
-    <ul className={`right-to-left gap-3 block md:flex ${isOpen ? "" : "h-0"}`}>
-      {navItems.map((item, ind) => <li className="pop-up bg-red- my-3" key={ind}><Link className={`${colorsOmg[ind]} hover:text-purple-500`} to={item.path}><i className={`inline-block min-w-5 text-center ${item.fontAwsomeIconClass}`}></i> {item.label}</Link></li>)}
+        <h3 className="text-base font-bold my-3 md:my-0 flex justify-center items-center gap-1">
+          <img src={logo} alt="Logo" className="w-10 h-10" /> GROUPE SCOLAIRE AMINE
+        </h3>
 
-      <DropDownItem />
-      <ModeToggle className="border" />
-    </ul>
-  </nav>
+        <div className={`flex items-center justify-between gap-5 text-xs ${theme === "dark" ? "" : "text-pink-600"}`}>
+          <div>Inscription: +212 (0) 5 00 00 00 00</div>
+          <div>Standard: +212 (0) 5 00 00 00 00</div>
+        </div>
+      </div>
+
+    <nav ref={navEl} id="nav-bar" className={`shadow-md z-50 2xl:shadow-none block relative top-0 w-full max-w-screen-2xl md:flex justify-between items-center px-5 md:px-10 bg-background overflow-hidden md:overflow-visible`}>  
+        <div className="absolute right-3 top-4">
+          <BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+        </div>
+        <div className="w-16 h-full">
+          <img src={logo} alt="Logo" className="left-to-right" />
+        </div>
+
+        <ul className={`right-to-left gap-3 block md:flex ${isOpen ? "" : "h-0"}`}>
+          {navItems.map((item, ind) => <li className="pop-up bg-red- my-3" key={ind}><Link className={`${colorsOmg[ind]} hover:text-purple-500`} to={item.path}><i className={`inline-block min-w-5 text-center ${item.fontAwsomeIconClass}`}></i> {item.label}</Link></li>)}
+
+          <DropDownItem />
+          <ModeToggle className="border" />
+        </ul>
+      </nav>
+    </header>
   )
 }
