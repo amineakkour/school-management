@@ -5,7 +5,7 @@ export default function Alert({text}) {
 
   useEffect(() => {
     setTimeout(() => setDispaly(false), 5_000);
-  })
+  });
 
   return (
   <div id="alert-2" className={`${dispaly ? "block" : "hidden"} absolute top-2 right-2 md:top-4 md:right-4 flex items-center gap-2 p-3 px-2 md:p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400`} role="alert">

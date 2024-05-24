@@ -145,8 +145,10 @@ export default function AboutUs() {
 
   }, [])
 
-  function scrollToElement(element) {
-    element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+  function scrollToElement(element){
+    const scrollToY = element.getBoundingClientRect().top - 200;
+    window.scroll({top: scrollToY, behavior: "smooth"})
+    
     element.classList.remove("pop-up");
   }
 

@@ -77,7 +77,7 @@ export default function Navbar() {
   })
   
   return (
-    <header className="relative">
+    <header className="relative text-xs">
       <div className="md:flex flex-wrap justify-between items-center p-5 py-3 border-b up-to-down gap-5">
         <ul className="flex text-lg items-center justify-around">
           <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-youtube"></i></a></li>
