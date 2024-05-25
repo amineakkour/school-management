@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from "react-router-dom";
 
 const contactSchema = z.object({
   fullName: z.string().nonempty("Le nom complet est requis"),
   messageObject: z.string().nonempty("L'objet est requis"),
-  email: z.string().email("Email invalide").nonempty("L'email est requis"),
+  phoneNumber: z.string().nonempty("Le numéro de téléphone est requis").min(10, "le numéro de téléphone doit être composé de 10 chiffres").max(10, "le numéro de téléphone doit être composé de 10 chiffres"),
   message: z.string().min(50, "Le message doit contenir 50 caractères au minimum").max(250, "Le message doit contenir 250 caractères au maximum").nonempty("Le message est requis"),
 });
 
@@ -21,9 +22,12 @@ function Contact(props) {
   };
 
   return (
-    <div className="bg-gray-50 p-4">
+    <div className="bg-secondary rounded-sm p-4">
       <h1 className="text-2xl">Nous contacter</h1>
-      <div className="text-gray-500 text-xs mb-8">Nous nous ferons un plaisir de répondre à vos questions le plus rapidement possible via votre numéro de téléphone.</div>
+      <div className="text-gray-500 text-xs">Nous nous ferons un plaisir de répondre à vos questions le plus rapidement possible via votre numéro de téléphone.</div>
+      <div className="text-gray-500 text-xs mb-8"><a href="/a-propos-de-nous#faq" className="underline">Visiter FAQ page.</a> Pour gagner du tmeps.</div>
+
+      {/* question fréquemment posée */}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-2">
@@ -33,9 +37,9 @@ function Contact(props) {
         </div>
 
         <div className="my-2">
-          <label className="block mb-1 font-semibold">Email</label>
-          <input type="text" {...register('email')} className="input-1 max-w-96 text-xs" />
-          {errors.email && <div className="text-red-500 text-xs">{errors.email.message}</div>}
+          <label className="block mb-1 font-semibold">Numéro de téléphone</label>
+          <input type="text" {...register('phoneNumber')} className="input-1 max-w-96 text-xs" />
+          {errors.phoneNumber && <div className="text-red-500 text-xs">{errors.phoneNumber.message}</div>}
         </div>
         
         <div className="my-2">

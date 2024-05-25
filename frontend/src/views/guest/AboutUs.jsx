@@ -103,7 +103,7 @@ function FAQ() {
             }
           </div>
         </div>
-        {data.length ? data.map((q, ind) => <Question key={ind} question={q.question} answer={q.answer} /> ) : <p className="mt-3 text-stone-500">Si vous ne trouvez pas la question que vous recherchez, vous pouvez nous <Link to="/message" className="underline hover:text-stone-900">Envoyer un Message.</Link></p>}
+        {data.length ? data.map((q, ind) => <Question key={ind} question={q.question} answer={q.answer} /> ) : <p className="mt-3 text-gray-500">Si vous ne trouvez pas la question que vous recherchez, vous pouvez nous <Link to="/contact" className="underline hover:text-stone-900">Envoyer un Message.</Link></p>}
       </div>
     </div>
   )
@@ -186,7 +186,7 @@ export default function AboutUs() {
           <Division title={"Où sommes-nous situés?"} text={<Map />} />
         </div>
         
-        <div  className="opacity-0" ref={div5}>
+        <div  className="opacity-0" ref={div5} id="faq">
           <Division title={"FAQ"} text={<FAQ />} />
         </div>
 

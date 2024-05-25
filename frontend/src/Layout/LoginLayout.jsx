@@ -60,7 +60,7 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
             <div className="my-4">
               <label htmlFor="password" className='block mb-1'>Mot de passe</label>
               <div className="relative">
-                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="input-1" placeholder='Entrez votre mot de passe' />
+                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="input-1 bg-white" placeholder='Entrez votre mot de passe' />
                 <div className="absolute top-2 right-3 text-gray-600">
                   <button type="button" onClick={() => setVisiblePassword(v => !v)}><i className={`fa-solid ${visiblePassword ? "fa-eye-slash" : "fa-eye"}`}></i></button>
                 </div>

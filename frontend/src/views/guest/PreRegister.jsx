@@ -97,6 +97,7 @@ function PreRegister(props) {
 
       <div className="my-5">
         <button type="submit" className="button-1">Enregistrer</button>
+        <div className="text-xs mt-2 text-gray-500">Si vous avez rencontré un problème. Veuillez nous contacter sur <a href="mailto:amineakour6@mail.com" className="underline hover:text-gray-600">amineakour6@mail.com</a></div> 
       </div>
     </form>
   );
