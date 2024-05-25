@@ -3,6 +3,7 @@ import StudentLogin from "./views/student/StudentLogin";
 import TeacherLogin from "./views/teacher/TeacherLogin";
 import AdminLogin from "./views/admin/AdminLogin";
 import Home from "./views/guest/Home";
+import Contact from "./views/guest/Contact";
 import Blog from "./views/guest/Blog";
 import MainLayout from "./Layout/MainLayout";
 import AboutUs from "./views/guest/AboutUs";
@@ -20,6 +21,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="blog" element={<Blog />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="a-propos-de-nous" element={<AboutUs />} />
           </Route>
 

@@ -39,8 +39,8 @@ function DropDownItem() {
       {isOpen && 
         <ul ref={ulElement} className="md:absolute p-2 w-full mt-2 up-to-down bg-secondary rounded-sm text-primary" style={{zIndex: "999"}}>
           <li className="hover:underline"><Link className="drop-down-item" to={"/payer-frais"}>Payer Frais</Link></li>
-          <li className="hover:underline"><Link className="drop-down-item" to={"/"}>Pre-Inscription</Link></li>
-          <li className="hover:underline"><Link className="drop-down-item" to={"/"}>Nous contacter</Link></li>
+          <li className="hover:underline"><Link className="drop-down-item" to={"/pre-inscription"}>Pre-Inscription</Link></li>
+          <li className="hover:underline"><Link className="drop-down-item" to={"/contact"}>Nous contacter</Link></li>
         </ul> 
       }
     </li>
