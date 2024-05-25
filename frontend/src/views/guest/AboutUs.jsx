@@ -4,6 +4,7 @@ import background_src from "../../assets/background_2.jpg";
 import { useEffect, useRef, useState } from "react";
 import { flashElementsWhileScrolling } from "../../functions/flashElementsWhileScrolling";
 import { useTheme } from "../../context/ThemeProvider";
+import doubleQuotes from "../../assets/double-quotes-.png"
 
 var FAQ_data = [
   {question: "Quels sont les horaires de l'école?", answer: "Nos horaires varient en fonction des niveaux scolaires. Pour obtenir des informations spécifiques sur les horaires de chaque niveau, veuillez consulter la section 'Horaire' de notre site web ou contacter le bureau de l'école."},
@@ -26,15 +27,18 @@ function Division({title, text}) {
   )
 }
 
-function DirectorWord() {
+function PresidentWords() {
   return (
-
-    <div className="flex flex-col md:flex-row gap-5">
-      <div className="max-w-96">
-        <img src={directorPic} alt="L'image de directeur de l'établissement" />
+    <div className="flex flex-col md:flex-row gap-10 md:gap-5">
+      <div className="max-w-96 overflow-hidden">
+        <img src={directorPic} alt="L'image de directeur de l'établissement" className="cursor-pointer hover:scale-110 duration-500" />
       </div>
       
       <div className="w-full">
+        <div>
+          <img src={doubleQuotes} className="w-10 opacity-20 mb-2" alt="double_quotes.png" />
+        </div>
+
         <div className="text-lg font-semibold mb-2">Chers élèves, parents et membres de la communauté</div>
 
         <p>C'est avec un immense plaisir que je vous souhaite la bienvenue sur le site de notre école. En tant que directeur, je suis honoré de diriger une institution dédiée à l'excellence académique et au développement holistique de chaque élève.</p>
@@ -88,7 +92,7 @@ function FAQ() {
     <div>
       <h3 className="text-xl">Avez-vous des questions? Nous avons des rèponses!</h3>
       <div className="text-gray-500">
-        Envoyez vos questions vers cet email <a className="underline hover:text-gray-800" href="mailto:amineakour6@gmail.com">amineakour6@gmail.com</a>. Nous serons heureux de répondre à toutes vos questions
+       Veuillez adresser vos questions à l'adresse suivante <a className="underline hover:text-gray-800" href="mailto:amineakour6@gmail.com">amineakour6@gmail.com</a>. Nous serons ravis de répondre à toutes vos demandes.
       </div>
 
       <div className="mt-4">
@@ -155,7 +159,7 @@ export default function AboutUs() {
   return (
     <div className="m-2 md:mx-auto p-4">
       <div id="rain-bow"></div>
-      {isUpArrowVisible && <button style={{background:"linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)"}} id="up-arrow" className="pop-up fixed bottom-5 right-8 bg-cyan-500 w-12 h-12 hover:scale-125 transition-all rounded-full text-xl" onClick={() => window.scroll({top: 0, behavior: "smooth"})}><i className="fa-solid fa-up-long"></i></button>}
+      {isUpArrowVisible && <button style={{background:"linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)"}} id="up-arrow" className="pop-up fixed bottom-5 right-8 bg-cyan-500 w-12 h-12 hover:scale-105 transition-all rounded-full text-xl" onClick={() => window.scroll({top: 0, behavior: "smooth"})}><i className="fa-solid fa-up-long"></i></button>}
 
       <nav className={`pop-up bg-green-700 max-w-3xl p-2 bg-contain text-white bg-blend-multiply`} style={{backgroundImage: `url(${background_src})`}}>
         <h5 className="text-lg">Index: </h5>
@@ -178,7 +182,7 @@ export default function AboutUs() {
         </div>
 
         <div ref={div3} className="opacity-0">
-          <Division title={"Mot de directeur"} text={<DirectorWord />} />
+          <Division title={"Mot de directeur"} text={<PresidentWords />} />
         </div>
 
 
