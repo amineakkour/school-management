@@ -53,14 +53,14 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
             <button type="button" className="text-gray-400 text-xs hover:text-gray-600"><Link to="/"><i className="fa-solid fa-arrow-left"></i> Acceuil</Link></button>
             <div className="my-4">
               <label htmlFor="email" className='block mb-1'>Email</label>
-              <input {...register("email")} type="email" id="email" name='email' className='border text-stone-600 focus:text-stone-900 border-stone-400 focus:border-stone-800 outline-0 rounded-sm p-2 w-full' placeholder="Entrez votre email" />
+              <input {...register("email")} type="email" id="email" name='email' className='input-1' placeholder="Entrez votre email" />
               {errors.email && <div className="text-red-500">{errors.email.message}</div>}
             </div>
 
             <div className="my-4">
               <label htmlFor="password" className='block mb-1'>Mot de passe</label>
               <div className="relative">
-                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="border text-stone-600 focus:text-stone-900 border-stone-400 focus:border-stone-800 outline-0 rounded-sm p-2 w-full" placeholder='Entrez votre mot de passe' />
+                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="input-1" placeholder='Entrez votre mot de passe' />
                 <div className="absolute top-2 right-3 text-gray-600">
                   <button type="button" onClick={() => setVisiblePassword(v => !v)}><i className={`fa-solid ${visiblePassword ? "fa-eye-slash" : "fa-eye"}`}></i></button>
                 </div>
@@ -69,7 +69,7 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
             </div>
 
             <div className="mt-3">
-              <button disabled={submitting} className={`bg-blue-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs ${submitting ? "bg-blue-300" : ""}`}> {submitting && <Spinner />} Connexion</button>
+              <button disabled={submitting} className={`button-1 ${submitting ? "bg-blue-300" : ""}`}> {submitting && <Spinner />} Connexion</button>
               <div className="mt-1 text-gray-400 flex gap-2 text-xs">
                 <div>{"Rediriger vers l'éspace:"}</div>
                 <ul className="flex gap-1">

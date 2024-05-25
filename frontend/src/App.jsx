@@ -8,6 +8,7 @@ import MainLayout from "./Layout/MainLayout";
 import AboutUs from "./views/guest/AboutUs";
 import PageNotFound from "./views/guest/PageNotFound";
 import { ThemeProvider } from "./context/ThemeProvider";
+import Payment from "./views/guest/Payment";
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
             <Route path="a-propos-de-nous" element={<AboutUs />} />
           </Route>
 
+          <Route path="payer-frais" element={<Payment />} />
+          
           <Route path="connexion">
             <Route index  element={<StudentLogin />} />
             <Route path="etudiant" element={<StudentLogin />} />

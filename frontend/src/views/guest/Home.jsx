@@ -37,8 +37,8 @@ function Carousel() {
         <SwiperSlide><img className="h-48 md:h-96 w-full object-cover" src={bg_6} alt="" /></SwiperSlide>
       </Swiper>
 
-      <div className="swiper-button-next absolute right-[-20px] top-1/2 z-50 h-8 w-8 rounded-full cursor-pointer text-lg text-center bg-blue-400"><i className="fa-solid fa-angle-right"></i></div>
-      <div className="swiper-button-prev absolute left-[-20px] top-1/2 z-50 h-8 w-8 rounded-full cursor-pointer text-lg text-center bg-blue-400"><i className="fa-solid fa-angle-left"></i></div>
+      <div className="swiper-button-next absolute right-0 top-1/2 z-50 h-8 w-8 rounded-full cursor-pointer text-lg text-center bg-blue-400 right-to-left"><i className="fa-solid fa-angle-right"></i></div>
+      <div className="swiper-button-prev absolute left-0 top-1/2 z-50 h-8 w-8 rounded-full cursor-pointer text-lg text-center bg-blue-400 left-to-right"><i className="fa-solid fa-angle-left"></i></div>
     </div>
   );
 }
