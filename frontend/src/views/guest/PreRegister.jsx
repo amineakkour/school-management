@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ReCAPTCHA from "react-google-recaptcha";
 
 registerLocale('fr', fr);
 
@@ -20,11 +21,16 @@ const preRegisterSchema = z.object({
 });
 
 function PreRegister(props) {
-  const { register, handleSubmit, control, formState: { errors } } = useForm({
+  const [recaptchaValue, setRecaptchaValue] = useState(false);
+  const { register, handleSubmit, control, formState: { errors }, setError } = useForm({
     resolver: zodResolver(preRegisterSchema),
   });
   
   const onSubmit = (data) => {
+    if(!recaptchaValue) {
+      setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
+      return ""
+    }
     console.log(data);
   };
 
@@ -95,6 +101,11 @@ function PreRegister(props) {
         </div>
       </div>
 
+      <div className="my-2">
+        <ReCAPTCHA sitekey="6LeSCOgpAAAAALHK-0oGYg2U1ggQXBtCIQQ5s3xc" onChange={v => setRecaptchaValue(v)} />
+        {errors.recaptcha && <div className="text-red-500 text-xs">{errors?.recaptcha?.message}</div>}
+      </div>
+      
       <div className="my-5">
         <button type="submit" className="button-1">Enregistrer</button>
         <div className="text-xs mt-2 text-gray-500">Si vous avez rencontré un problème. Veuillez nous contacter sur <a href="mailto:amineakour6@mail.com" className="underline hover:text-gray-600">amineakour6@mail.com</a></div> 

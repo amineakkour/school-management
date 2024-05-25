@@ -3,9 +3,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import { fr } from 'date-fns/locale';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form"
-import { format } from 'date-fns';
+import ReCAPTCHA from "react-google-recaptcha";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -22,15 +22,22 @@ const schema = z.object({
 function Payment(props) {
   const [name, setName] = useState("");
   const [step, setStep] = useState(1);
-  const { handleSubmit, control, register, formState: {errors} } = useForm({
+  const navigate = useNavigate();
+  const [recaptchaValue, setRecaptchaValue] = useState(false);
+  const { handleSubmit, control, register, formState: {errors}, setError } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       fullname: "",
       birthday: new Date(),
     }
-  });;
+  });
 
   function submit(data) {
+    if(!recaptchaValue) {
+      setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
+      return ""
+    }
+    console.log(data);
     setStep(2)
   }
 
@@ -68,6 +75,11 @@ function Payment(props) {
             />
             {errors.date && <div className="text-xs text-red-500">{errors.date.message}</div>}
           </div>
+
+          <div className="my-4">
+            <ReCAPTCHA sitekey="6LeSCOgpAAAAALHK-0oGYg2U1ggQXBtCIQQ5s3xc" onChange={v => setRecaptchaValue(v)} />
+            {errors.recaptcha && <div className="text-red-500 text-xs">{errors?.recaptcha?.message}</div>}
+          </div>
         </>
         : "Hello"
         }
@@ -75,7 +87,7 @@ function Payment(props) {
 
 
         <div className="flex gap-1">
-          <button type="button" className="button-2"><Link to="/">Annuler</Link></button>
+          <button type="button" className="button-2" onClick={() => navigate("/")}>Annuler</button>
           <button className="button-1">Suivant <i className="fa-solid fa-arrow-right"></i></button>
         </div>
 

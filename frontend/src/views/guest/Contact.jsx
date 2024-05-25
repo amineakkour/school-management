@@ -64,7 +64,7 @@ function Contact(props) {
           {errors.message && <div className="text-red-500 text-xs">{errors.message.message}</div>}
         </div>
 
-        <div className="my-2 max-w-md">
+        <div className="my-2">
           <ReCAPTCHA sitekey="6LeSCOgpAAAAALHK-0oGYg2U1ggQXBtCIQQ5s3xc" onChange={v => setRecaptchaValue(v)} />
           {errors.recaptcha && <div className="text-red-500 text-xs">{errors?.recaptcha?.message}</div>}
         </div>
