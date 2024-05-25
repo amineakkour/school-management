@@ -4,6 +4,7 @@ import TeacherLogin from "./views/teacher/TeacherLogin";
 import AdminLogin from "./views/admin/AdminLogin";
 import Home from "./views/guest/Home";
 import Contact from "./views/guest/Contact";
+import PreRegister from "./views/guest/PreRegister";
 import Blog from "./views/guest/Blog";
 import MainLayout from "./Layout/MainLayout";
 import AboutUs from "./views/guest/AboutUs";
@@ -22,6 +23,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="blog" element={<Blog />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="pre-inscription" element={<PreRegister />} />
             <Route path="a-propos-de-nous" element={<AboutUs />} />
           </Route>
 
