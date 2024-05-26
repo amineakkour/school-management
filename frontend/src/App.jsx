@@ -11,6 +11,8 @@ import AboutUs from "./views/guest/AboutUs";
 import PageNotFound from "./views/guest/PageNotFound";
 import { ThemeProvider } from "./context/ThemeProvider";
 import Payment from "./views/guest/Payment";
+import AdminDashboard from "./views/admin/AdminDashboard";
+import AdminLayout from "./Layout/AdminLayout";
 
 
 function App() {
@@ -34,6 +36,11 @@ function App() {
             <Route path="etudiant" element={<StudentLogin />} />
             <Route path="enseignant" element={<TeacherLogin />} />
             <Route path="adminstrateur" element={<AdminLogin />} />
+          </Route>
+
+          <Route path="admin">
+            <Route index  element={<AdminLayout />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

@@ -96,6 +96,22 @@ body{
 
 }
 
+.link-1{
+  @apply text-xs text-gray-400 hover:text-gray-700
+}
+
+.tabel-1{
+  @apply w-full
+}
+
+.tabel-1 th, .tabel-1 td{
+  @apply border text-center p-2
+}
+
+.tabel-1 td a{
+  @apply text-blue-500 underline font-semibold hover:text-blue-700
+}
+
 #rain-bow{
   content: "";
   position: absolute;
