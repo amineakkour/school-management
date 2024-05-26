@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Home, LayoutDashboard, CreditCard, HandCoins, SquarePen, BookOpenCheck, Library, BellElectric, User } from "lucide-react";
+import { Home, LayoutDashboard, CreditCard, HandCoins, SquarePen, BookOpenCheck, Library, BellElectric, User, MessageSquareMore } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,12 +32,12 @@ function Profile() {
   )
 }
 
-function Sidebar({ dashboardEl }) {
+function Sidebar() {
   const initialSideBareWidth = 80;
   const [isDragging, setIsDragging] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(initialSideBareWidth);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = () => {
     console.log("Hello");
     setIsDragging(true);
   };
@@ -55,7 +55,6 @@ function Sidebar({ dashboardEl }) {
   };
 
   useEffect(() => {
-    const currentDashboardEl = dashboardEl.current;
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -69,39 +68,43 @@ function Sidebar({ dashboardEl }) {
     <div className="relative">
       <nav className="bg-stone-900 text-stone-100 shrink-0 overflow-hidden h-full" style={{ width: `${sidebarWidth}px` }}>
         <ul className={`flex flex-col justify-center ${sidebarWidth <= initialSideBareWidth ? "items-center" : "items-start"} py-5 px-3 md:px-5 gap-4`}>  
-          <li className="">
+          <li title="Accueil">
             <Link class="flex items-center gap-1 hover:opacity-70"><Home className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Accuiel</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Dashboard">
             <Link class="flex items-center gap-1 hover:opacity-70"><LayoutDashboard className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Dashboard</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Comptes">
             <Link class="flex items-center gap-1 hover:opacity-70"><User className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Comptes</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Messages">
+            <Link class="flex items-center gap-1 hover:opacity-70"><MessageSquareMore className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Messages</span>}</Link>
+          </li>
+
+          <li title="E-payment">
             <Link class="flex items-center gap-1 hover:opacity-70"><CreditCard className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">E-paiement</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Paiement">
             <Link class="flex items-center gap-1 hover:opacity-70"><HandCoins  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Paiement</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Emplois">
             <Link class="flex items-center gap-1 hover:opacity-70"><BellElectric  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Emplois</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Absence">
             <Link class="flex items-center gap-1 hover:opacity-70"><SquarePen  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Absence</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Exams">
             <Link class="flex items-center gap-1 hover:opacity-70"><Library  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Exams</span>}</Link>
           </li>
 
-          <li className="">
+          <li title="Notes">
             <Link class="flex items-center gap-1 hover:opacity-70"><BookOpenCheck  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Notes</span>}</Link>
           </li>
           
@@ -127,7 +130,6 @@ function Card({ children, title, handelClickOnSettings }) {
 }
 
 export default function AdminDashboard() {
-  const dashboardEl = useRef(null);
   var [frenchDate, setFrenchDate] = useState(null);
 
   useEffect(() => {
@@ -137,8 +139,8 @@ export default function AdminDashboard() {
   }, [])
 
   return (
-    <div ref={dashboardEl} className="flex max-w-screen-2xl mx-auto">
-      <Sidebar dashboardEl={dashboardEl} />
+    <div className="flex max-w-screen-2xl mx-auto">
+      <Sidebar />
       <div className="m-4 w-full md:px-10">
         <div className="flex justify-between items-center">
           <div>
