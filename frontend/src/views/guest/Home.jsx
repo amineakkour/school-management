@@ -55,6 +55,17 @@ export default function GuestHome() {
     <div className="">
       <div id="rain-bow"></div>
       
+      <div className="mt-20 pop-up">
+        <h3 className="text-2xl md:text-4xl text-center font-bold mb-4">
+          <span className="text-violet-900">BIENVENUE À GS AMINE</span> <br /> 
+          <span className="text-lg md:text-2xl tracking-widest">LA MEILLEURE ECOLE DE CASBALNCA</span>
+        </h3>
+
+        <div className="flex items-start justify-center h-40 ">
+          <div className="border-t-4 border-pink-800 w-52"></div>
+        </div>
+      </div>
+      
       <div className="mb-10 p-5 bg-blue-700">
         <h3 className="text-xl md:text-4xl text-center flash">
           <Link to="/pre-inscription" className="hover:underline font-1 text-pink-100">Inscriptions Ouvertes Pour 2024-2025</Link>
