@@ -1,12 +1,14 @@
 import styles from "../styles/login.module.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Spinner from "../components/Spinner";
 import Alert from "../components/Alert";
 import { useTheme } from "../context/ThemeProvider";
+import { customAxios } from "../api/customAxios";
+import { useDispatch } from 'react-redux';
 
 
 export const loginSchema = z.object({
@@ -20,19 +22,56 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   const [alertText, setAlertText] = useState("")
   const { theme } = useTheme();
 
-  const { register, handleSubmit, formState: { errors }} = useForm({
+  useEffect(() => {
+    if(alertText){
+      var id = setTimeout(() => setAlertText(''), 5_000);
+    }
+    return () => clearTimeout(id);
+  }, [alertText])
+
+  const { register, handleSubmit, formState: { errors }, setError} = useForm({
     defaultValues: {
-      email: "amineakour6@gmail.com",
-      password: "amineakour6@gmail.com",
+      email: "student@student.com",
+      password: "password@password.com",
     },
     resolver: zodResolver(loginSchema),
   });
   const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loginAttemps, setLoginAttemps] = useState(1)
   
-  function submit() {
+  async function submit(data) {
     setSubmitting(true)
-    setAlertText("Quelque chose ne va pas, veuillez réessayer plus tard")
-    console.log("submit to " + formPath);
+    try {
+      const response = await customAxios.post(formPath, data);
+      
+      const message = await response.data;
+
+      switch(message.role){
+        case "student": 
+          dispatch({type: "user/login", payload: {token: message.token, userInfos: message.user, role: message.role}})
+          navigate("/student/tableau-de-board");
+          break;
+
+        default: 
+          setAlertText("something went wrong!");
+      }
+
+    }catch(e) {
+      if(e.response.status == 401){
+        setError("email", {message: "Email ou Mot de passe incorrect"});
+
+        if(loginAttemps % 3 == 0) setAlertText("Si vous pensez que vous avez rencontré un problème, veuillez contacter l'administration.")
+      }else{
+        setAlertText("Something Went wrong!")
+      }
+      console.error(e);
+      // setError("")
+    }
+
+    setLoginAttemps(v => v +1);
+    setSubmitting(false)
   } 
 
   return (

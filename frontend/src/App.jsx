@@ -12,13 +12,17 @@ import PageNotFound from "./views/guest/PageNotFound";
 import { ThemeProvider } from "./context/ThemeProvider";
 import Payment from "./views/guest/Payment";
 import AdminDashboard from "./views/admin/AdminDashboard";
+import StudentDashboard from "./views/student/StudentDashboard";
 import AdminLayout from "./Layout/AdminLayout";
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 
 function App() {
 
   return (
     <BrowserRouter>
+      <Provider store={store}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Routes>
           <Route element={<MainLayout />}>
@@ -43,9 +47,15 @@ function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
           </Route>
 
+          <Route path="etudiant">
+            {/* <Route index  element={<AdminLayout />} /> */}
+            <Route path="tableau-de-bord" element={<StudentDashboard />} />
+          </Route>
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </ThemeProvider>
+      </Provider>
     </BrowserRouter>
   )
 }

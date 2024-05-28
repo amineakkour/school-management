@@ -3,10 +3,6 @@ import { useEffect, useState } from "react"
 export default function Alert({text}) {
   const [dispaly, setDispaly] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setDispaly(false), 5_000);
-  });
-
   return (
   <div id="alert-2" className={`${dispaly ? "block" : "hidden"} absolute top-2 right-2 md:top-4 md:right-4 flex items-center gap-2 p-3 px-2 md:p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400`} role="alert">
     <svg className="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
