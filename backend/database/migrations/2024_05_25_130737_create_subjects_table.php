@@ -16,6 +16,7 @@ return new class extends Migration
             
             $table->string("name", 20); //Mathematique
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

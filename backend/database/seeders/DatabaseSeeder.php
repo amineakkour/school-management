@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
 
         // blogs tabel
         Blog::factory(15)->create([
-            "admin_id" => random_int(0, Admin::all()->count() -1),
+            "admin_id" => random_int(1, Admin::all()->count()),
         ]);
 
         // sepcialities tabel
@@ -82,15 +82,15 @@ class DatabaseSeeder extends Seeder
 
         // groups tabel
         Group::factory(15)->create([
-            "speciality_id" => random_int(0, Speciality::all()->count() -1),
+            "speciality_id" => random_int(1, Speciality::all()->count()),
         ]);
 
         // registrations tabel
         Registration::factory(200)->create([
             'school_year' => 2024,
-            'student_id' => random_int(0, Student::all()->count() -1),
-            'group_id' => random_int(0, Group::all()->count() -1),
-            'created_by' => random_int(0, Admin::all()->count() -1),
+            'student_id' => random_int(1, Student::all()->count()),
+            'group_id' => random_int(1, Group::all()->count()),
+            'created_by' => random_int(1, Admin::all()->count()),
         ]);
 
         // subjects tabel
@@ -105,37 +105,37 @@ class DatabaseSeeder extends Seeder
 
         // group_subjects tabel
         GroupSubject::factory(20)->create([
-            'teacher_id' => random_int(0, Teacher::all()->count() -1),
-            'group_id' => random_int(0, Group::all()->count() -1),
-            'subject_id' => random_int(0, Subject::all()->count() -1),
+            'teacher_id' => random_int(1, Teacher::all()->count()),
+            'group_id' => random_int(1, Group::all()->count()),
+            'subject_id' => random_int(1, Subject::all()->count()),
         ]);
 
         // courses tabel
         Course::factory(50)->create([
-            'group_subject_id' => random_int(0, GroupSubject::all()->count() -1),
-            'class_room_id' => random_int(0, ClassRoom::all()->count() -1),
+            'group_subject_id' => random_int(1, GroupSubject::all()->count()),
+            'class_room_id' => random_int(1, ClassRoom::all()->count()),
         ]);
 
         // absensereports table
         AbsenceReport::factory(200)->create([
-            'student_id' => random_int(0, Student::all()->count() -1),
-            'course_id' => random_int(0, Course::all()->count() -1),
+            'student_id' => random_int(1, Student::all()->count()),
+            'course_id' => random_int(1, Course::all()->count()),
         ]);
 
         // payement_tranches tabel
         PaymenetTranche::factory(40)->create([
-            'registration_id' => random_int(0, Registration::all()->count() -1),
+            'registration_id' => random_int(1, Registration::all()->count()),
         ]);
 
         // exams tabel
         Exam::factory(10)->create([
-            "group_subject_id" => random_int(0, GroupSubject::all()->count() -1),
+            "group_subject_id" => random_int(1, GroupSubject::all()->count()),
         ]);
 
         //students tabel
         Grade::factory(100)->create([
-            'exam_id' => random_int(0, Exam::all()->count() -1),
-            'student_id' => random_int(0, Student::all()->count() -1),
+            'exam_id' => random_int(1, Exam::all()->count()),
+            'student_id' => random_int(1, Student::all()->count()),
         ]);
     }
 }
