@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('specialities', function (Blueprint $table) {
             $table->id();
+            
+            $table->string("name", 40); //Ex: science Physique et chemie
+            $table->string("code", 5); //Ex: PC
+
             $table->timestamps();
         });
     }

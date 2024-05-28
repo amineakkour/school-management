@@ -16,17 +16,21 @@ return new class extends Migration
 
             $table->string("first_name", 20);
             $table->string("last_name", 20);
-            $table->string("email", 100);
-            $table->string("phone_number", 10);
+            $table->string("email", 100)->unique();
+            $table->string("phone_number", 10)->unique();
             $table->date("birthday");
             $table->string("password");
-            $table->string("cin", 10)->nullable();
+            $table->string("cin", 10)->unique();
             $table->string("address");
             $table->string("photo")->nullable();
             $table->enum("blood_type", ["A-", "A+", "B-", "B+", "AB+", "AB-", "O+", "O-"])->nullable();
             $table->enum("gender", ["m", "f"]);
             $table->date("hire_date");
+            $table->timestamp("last_seen");
+            $table->boolean("has_disability")->default(false);
+            $table->string("disability_type", 50)->nullable();
             
+            $table->softDeletes();
             $table->timestamps();
         });
     }

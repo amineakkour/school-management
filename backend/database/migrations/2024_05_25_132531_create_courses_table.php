@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            
+            $table->enum('day', [0, 1, 2, 3, 4, 5, 6]); // Example: 0 = Monday
+            $table->time('starts_at'); // Example: 14:00
+            $table->time('ends_at'); // Example: 15:00
+            
+            $table->unsignedBigInteger('group_subject_id'); // Example: 5
+            $table->unsignedBigInteger('class_room_id'); // Example: 10
+            
+            $table->foreign('group_subject_id')->references('id')->on('group_subjects');
+            $table->foreign('class_room_id')->references('id')->on('class_rooms');
+
             $table->timestamps();
         });
     }

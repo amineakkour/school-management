@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
+
+            $table->string("title");
+            $table->unsignedTinyInteger("max_grade");
+            $table->text("document_url")->nullable();
+            $table->string("version", 1); //viriant
+            $table->string("versions_number", 1); 
+            $table->unsignedTinyInteger("school_year");
+            $table->enum("quarter", [1, 2, 3]);
+
+            $table->unsignedBigInteger("group_subject_id");
+
+            $table->foreign("group_subject_id")->references("id")->on("group_subjects");
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Level;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 
-class LevelController extends Controller
+class RegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class LevelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Level $level)
+    public function show(Registration $Registration)
     {
         //
     }
@@ -34,7 +34,7 @@ class LevelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Level $level)
+    public function update(Request $request, Registration $Registration)
     {
         //
     }
@@ -42,7 +42,7 @@ class LevelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Level $level)
+    public function destroy(Registration $Registration)
     {
         //
     }

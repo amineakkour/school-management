@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
+
+            $table->string("title", 100);
+            $table->text("content");
+            $table->text("photo_url");
+
+            $table->unsignedBigInteger("admin_id");
+
+            $table->foreign('admin_id')->references('id')->on('admins');
+
             $table->timestamps();
         });
     }

@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('absence_reports', function (Blueprint $table) {
             $table->id();
+
+            $table->string("reason", 100)->nullable();
+            $table->unsignedTinyInteger("school_year");
+            $table->enum("quarter", [1, 2, 3]);
+
+            $table->unsignedBigInteger("student_id");
+            $table->unsignedBigInteger("course_id");
+
+            $table->foreign("student_id")->references('id')->on('students');
+            $table->foreign("course_id")->references("id")->on("courses");
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

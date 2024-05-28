@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('class_rooms', function (Blueprint $table) {
-            $table->unsignedTinyInteger("room_number")->primary(false);
+            $table->id();
+
+            $table->unsignedTinyInteger("classroom_number");
+            $table->string("classroom_type", 30)->nullable(); //salle scientifique, salle de sport...
+            
             $table->timestamps();
         });
     }

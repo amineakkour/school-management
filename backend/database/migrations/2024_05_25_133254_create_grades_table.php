@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
+
+            $table->float("grade")->default(0);
+            $table->string("comment", 30)->nullable();
+
+            $table->unsignedBigInteger("exam_id");
+            $table->unsignedBigInteger("student_id");
+
+            $table->foreign("exam_id")->references("id")->on("exams");
+            $table->foreign("student_id")->references("id")->on("students");
+
             $table->timestamps();
         });
     }

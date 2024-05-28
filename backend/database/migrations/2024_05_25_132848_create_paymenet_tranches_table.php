@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('paymenet_tranches', function (Blueprint $table) {
             $table->id();
+            
+            $table->enum("payment_method", ["check", "transfer", "cash", "card", "terminal"]);
+            $table->timestamp("verfied_at")->nullable();
+            $table->unsignedBigInteger("registration_id");
+
+            $table->foreign("registration_id")->references('id')->on('registrations');
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,17 +17,17 @@ return new class extends Migration
             $table->string("fullname", 50);
             $table->string("email", 100)->nullable();
             $table->string("phone_number", 10)->nullable();
-            $table->string("classe", 50);
+            $table->string("classe", 50); // Ex: premeire annee college
             $table->string("address", 250)->nullable();
             $table->date("birthday");
-            
+            $table->boolean("has_disability");
+            $table->string("disability_type", 50)->nullable();
+            $table->boolean("seen")->default(false);
+
             $table->string("parent_name", 50);
             $table->string("parent_phone_number", 10);
             $table->string("parenting_job", 50)->nullable();
-
-            $table->boolean("validated")->default("false");
-
-            $table->softDeletes();
+            
             $table->timestamps();
         });
     }
