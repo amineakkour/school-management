@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string("reason", 100)->nullable();
-            $table->unsignedTinyInteger("school_year");
+            $table->unsignedSmallInteger("school_year");
             $table->enum("quarter", [1, 2, 3]);
 
             $table->unsignedBigInteger("student_id");

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedTinyInteger("school_year");
+            $table->unsignedSmallInteger("school_year");
 
             $table->unsignedBigInteger("student_id");
             $table->unsignedBigInteger("group_id");

@@ -17,7 +17,11 @@ class PaymenetTrancheFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'payment_method' => $this->faker->randomElement(["check", "transfer", "cash", "card", "terminal"]),
+            'verified_at' => $this->faker->optional()->dateTime(),
+            'registration_id' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

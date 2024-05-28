@@ -17,7 +17,13 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'day' => $this->faker->randomElement(["0", "1", "2", "3", "4", "5", "6"]),
+            'starts_at' => $this->faker->time('H:i'),
+            'ends_at' => $this->faker->time('H:i'),
+            'group_subject_id' => null,
+            'class_room_id' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

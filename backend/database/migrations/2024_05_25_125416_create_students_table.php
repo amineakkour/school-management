@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string("parent_full_name", 50);
             $table->string("parent_phone_number", 10);
             $table->enum("parent_blood_type", ["A-", "A+", "B-", "B+", "AB+", "AB-", "O+", "PO-"])->nullable();
+            $table->string("parenting_job", 50)->nullable();
             
             $table->softDeletes();
             $table->timestamps();

@@ -17,7 +17,11 @@ class GroupSubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'teacher_id' => null,
+            'group_id' => null,
+            'subject_id' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

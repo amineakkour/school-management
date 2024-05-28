@@ -17,7 +17,12 @@ class BlogFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(6, true),
+            'content' => $this->faker->paragraphs(3, true),
+            'photo_url' => $this->faker->imageUrl(800, 600, 'nature', true, 'Faker'),
+            'admin_id' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

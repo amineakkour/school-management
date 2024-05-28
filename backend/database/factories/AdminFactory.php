@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
@@ -17,7 +18,25 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone_number' => $this->faker->unique()->numerify('##########'), 
+            'birthday' => $this->faker->date(),
+            'password' => Hash::make('password'),
+            'cin' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
+            'address' => $this->faker->address(),
+            'photo' => $this->faker->optional()->imageUrl(640, 480, 'people'),
+            'blood_type' => $this->faker->optional()->randomElement(['A-', 'A+', 'B-', 'B+', 'AB+', 'AB-', 'O+', 'O-']),
+            'gender' => $this->faker->randomElement(['m', 'f']),
+            'hire_date' => $this->faker->date(),
+            'last_seen' => $this->faker->dateTime(),
+            'has_disability' => $this->faker->boolean(),
+            'disability_type' => function ($attributes) {
+                return $attributes["has_disability"] ? implode(' ', fake()->words()) : null;
+            },
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

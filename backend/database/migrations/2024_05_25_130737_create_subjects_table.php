@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             
             $table->string("name", 20); //Mathematique
-            $table->string("code", 10); // Maths
 
             $table->timestamps();
         });

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("title");
             $table->unsignedTinyInteger("max_grade");
             $table->text("document_url")->nullable();
-            $table->string("version", 1); //viriant
-            $table->string("versions_number", 1); 
+            $table->string("version", 1); //viriant A
+            $table->string("versions_number", 1);  // max variants 3
             $table->unsignedTinyInteger("school_year");
             $table->enum("quarter", [1, 2, 3]);
 

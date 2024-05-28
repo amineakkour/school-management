@@ -17,7 +17,12 @@ class RegistrationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'school_year' => $this->faker->year(),
+            'student_id' => null,
+            'group_id' => null,
+            'created_by' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
