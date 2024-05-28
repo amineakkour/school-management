@@ -44,11 +44,21 @@ class DatabaseSeeder extends Seeder
         $subjects = ["mathématiques", "physique et chimie", "arabe", "français", "anglais", "espagnol", "histoire", "géographie", "biologie", "éducation civique", "musique", "philosophie", "informatique", "économie", "sociologie", "psychologie", "théâtre", "sport", "religions",
         ];
 
+        User::factory()->create([
+            "email" => "password@password.com",
+            "password" => "password@password.com",
+        ]);
+        
         // pre_reistrations table
         PreRegistration::factory(50)->create();
         
         // stundents table
         Student::factory(300)->create();
+        
+        Student::factory()->create([
+            "email" => "student@student.com",
+            "password" => Hash::make("student@student.com"),
+        ]);
         
         // class_rooms table
         for ($i = 1; $i < 100; $i++) {
@@ -102,6 +112,10 @@ class DatabaseSeeder extends Seeder
 
         // teachers tabel
         Teacher::factory(50)->create();
+        Teacher::factory()->create([
+            "email" => "teacher@teacher.com",
+            "password" => Hash::make("teacher@teacher.com"),
+        ]);
 
         // group_subjects tabel
         GroupSubject::factory(20)->create([
