@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("name", 40); //Ex: science Physique et chemie
             $table->string("code", 5); //Ex: PC
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

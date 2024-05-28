@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedTinyInteger("classroom_number");
             $table->string("classroom_type", 30)->nullable(); //salle scientifique, salle de sport...
             
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('group_subject_id')->references('id')->on('group_subjects');
             $table->foreign('class_room_id')->references('id')->on('class_rooms');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

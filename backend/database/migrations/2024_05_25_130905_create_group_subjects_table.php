@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign("group_id")->references("id")->on("groups");
             $table->foreign("subject_id")->references("id")->on("subjects");
     
+            $table->softDeletes();
             $table->timestamps();
         });
     }

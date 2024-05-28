@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string("parent_phone_number", 10);
             $table->string("parenting_job", 50)->nullable();
             
+            $table->softDeletes();
             $table->timestamps();
         });
     }

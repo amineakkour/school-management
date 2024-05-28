@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign("created_by")->references("id")->on("admins");
             
+            $table->softDeletes();
             $table->timestamps();
         });
     }
