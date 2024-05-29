@@ -37,6 +37,7 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
+            'user' => $admin,
         ]);
     }
     
@@ -65,13 +66,13 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
+            'user' => $teacher,
         ]);
     }
 
 
     public function student_login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:8',
@@ -94,12 +95,19 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
+            'user' => $student,
         ]);
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    public function logout_from_all_devices(Request $request) {
+        $request->user()->tokens()->delete();
 
         return response()->json(['message' => 'Logged out successfully']);
     }
