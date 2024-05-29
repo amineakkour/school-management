@@ -16,8 +16,8 @@ Route::post("/admin/login", [LoginController::class, "admin_login"]);
 Route::post("/teacher/login", [LoginController::class, "teacher_login"]);
 
 
-Route::post("/logout", [LoginController::class, "logout"]);
-Route::post("/logout_from_all_devices", [LoginController::class, "logout_from_all_devices"]);
+Route::post("/logout", [LoginController::class, "logout"])->middleware("auth:sanctum");
+Route::post("/logout_from_all_devices", [LoginController::class, "logout_from_all_devices"])->middleware("auth:sanctum");
 
 Route::resource("admin", AdminController::class);
 

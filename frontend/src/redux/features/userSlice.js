@@ -24,6 +24,8 @@ const userSlice = createSlice({
       state.token = null;
       state.userInfos = null;
       state.role = null;
+
+      localStorage.clear()
     },
   },
 });
