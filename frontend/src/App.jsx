@@ -16,6 +16,7 @@ import StudentDashboard from "./views/student/StudentDashboard";
 import AdminLayout from "./Layout/AdminLayout";
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import StudentLayout from "./Layout/StudentLayout";
 
 
 function App() {
@@ -36,19 +37,17 @@ function App() {
           <Route path="payer-frais" element={<Payment />} />
           
           <Route path="connexion">
-            <Route index  element={<StudentLogin />} />
+            <Route index element={<StudentLogin />} />
             <Route path="etudiant" element={<StudentLogin />} />
             <Route path="enseignant" element={<TeacherLogin />} />
             <Route path="adminstrateur" element={<AdminLogin />} />
           </Route>
 
-          <Route path="admin">
-            <Route index  element={<AdminLayout />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="adminstrateur" element={<AdminLayout />}>
+            <Route path="tableau-de-bord" element={<AdminDashboard />} />
           </Route>
 
-          <Route path="etudiant">
-            {/* <Route index  element={<AdminLayout />} /> */}
+          <Route path="etudiant" element={<StudentLayout />}>
             <Route path="tableau-de-bord" element={<StudentDashboard />} />
           </Route>
 

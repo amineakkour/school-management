@@ -14,7 +14,7 @@ function StudentLogin() {
     document.title = "Connexion | Etudiant"
   }, [])
 
-  return <LoginLayout bgColor="bg-green-200" userSpace="Etudiant" tmpImgURL={tmpImgURL} imgURL={imageURL} formPath="/student/login" nextPath="./etudiant/tableau-de-bord" redirectSpaces={redirectSpaces} />
+  return <LoginLayout bgColor="bg-green-200" userSpace="Etudiant" tmpImgURL={tmpImgURL} imgURL={imageURL} formPath="/student/login" redirectSpaces={redirectSpaces} />
 }
 
 export default StudentLogin;

@@ -8,7 +8,8 @@ import Spinner from "../components/Spinner";
 import Alert from "../components/Alert";
 import { useTheme } from "../context/ThemeProvider";
 import { customAxios } from "../api/customAxios";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { switchToUrlBaseOnUserRole } from "../functions/switchToUrlBaseOnUserRole";
 
 
 export const loginSchema = z.object({
@@ -21,14 +22,22 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [alertText, setAlertText] = useState("")
   const { theme } = useTheme();
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loginAttemps, setLoginAttemps] = useState(1)
+  const user = useSelector(slice => slice.user);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if(alertText){
-      var id = setTimeout(() => setAlertText(''), 5_000);
+    if(user.token){
+      navigate(switchToUrlBaseOnUserRole(user.role).dashboardPage, { replace: true });
     }
-    return () => clearTimeout(id);
-  }, [alertText])
 
+    setIsLoaded(true)
+  }, [])
+
+  
   const { register, handleSubmit, formState: { errors }, setError} = useForm({
     defaultValues: {
       email: "student@student.com",
@@ -36,11 +45,14 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
     },
     resolver: zodResolver(loginSchema),
   });
-  const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [loginAttemps, setLoginAttemps] = useState(1)
   
+  useEffect(() => {
+    if(alertText){
+      var id = setTimeout(() => setAlertText(''), 5_000);
+    }
+    return () => clearTimeout(id);
+  }, [alertText])
+
   async function submit(data) {
     setSubmitting(true)
     try {
@@ -48,15 +60,9 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
       
       const message = await response.data;
 
-      switch(message.role){
-        case "student": 
-          dispatch({type: "user/login", payload: {token: message.token, userInfos: message.user, role: message.role}})
-          navigate("/student/tableau-de-board");
-          break;
-
-        default: 
-          setAlertText("something went wrong!");
-      }
+      dispatch({type: "user/login", payload: {token: message.token, userInfos: message.user, role: message.user.role}})
+      
+      navigate(switchToUrlBaseOnUserRole(message.user.role).dashboardPage)
 
     }catch(e) {
       if(e.response.status == 401){
@@ -74,6 +80,8 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
     setSubmitting(false)
   } 
 
+  if(!isLoaded) return ''
+  
   return (
     <div className={`h-screen ${theme === "dark" ? "" : bgColor} flex justify-center items-center`}>
       {alertText && <Alert text={alertText} />}

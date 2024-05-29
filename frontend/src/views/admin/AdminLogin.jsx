@@ -14,7 +14,7 @@ function AdminLogin() {
     document.title = "Connexion | Adminstrateur"
   }, [])
 
-  return <LoginLayout bgColor="bg-yellow-200" userSpace="Adminstrateur" tmpImgURL={tmpImgURL} imgURL={imageURL}  formPath="/api/login" redirectSpaces={redirectSpaces} />
+  return <LoginLayout bgColor="bg-yellow-200" userSpace="Adminstrateur" tmpImgURL={tmpImgURL} imgURL={imageURL} redirectSpaces={redirectSpaces} formPath="/admin/login" />
 }
 
 export default AdminLogin;

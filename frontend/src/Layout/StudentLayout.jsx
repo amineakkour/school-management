@@ -4,14 +4,14 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { switchToUrlBaseOnUserRole } from '../functions/switchToUrlBaseOnUserRole';
 
-function AdminLayout() {
+function StudentLayout() {
   const user = useSelector(slice => slice.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(user.role !== "admin" || !user.token){
-      navigate(switchToUrlBaseOnUserRole('admin').loginPage, { replace: true })
+    if(user.role !== "student" || !user.token){
+      navigate(switchToUrlBaseOnUserRole('student').loginPage, { replace: true })
     }
 
     setIsLoaded(true)
@@ -25,4 +25,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default StudentLayout;

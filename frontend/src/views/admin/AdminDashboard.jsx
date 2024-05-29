@@ -38,7 +38,6 @@ function Sidebar() {
   const [sidebarWidth, setSidebarWidth] = useState(initialSideBareWidth);
 
   const handleMouseDown = () => {
-    console.log("Hello");
     setIsDragging(true);
   };
 
