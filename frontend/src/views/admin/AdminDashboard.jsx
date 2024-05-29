@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   const [studentCounter, setStudentCounter] = useState(null);
   const [adminCounter, setAdminAcounter] = useState(null);
   const [teacherCounter, setTeacherCounter] = useState(null);
+  const [paymentTranches, setPaymentTranches] = useState(null);
 
   async function fetchData() {
     const headers = {
@@ -33,15 +34,20 @@ export default function AdminDashboard() {
     };
   
     try {
-      const adminRequest = customAxios.get('admin', { headers });
-      const studentsRequest = customAxios.get('student', { headers });
-      const teacherRequest = customAxios.get('teacher', { headers });
+      const adminRequest = customAxios.get('admins', { headers });
+      const studentsRequest = customAxios.get('students', { headers });
+      const teacherRequest = customAxios.get('teachers', { headers });
+
+      const paymentTranches = await customAxios.get('payment-tranches?limit=6', { headers });
 
       const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
 
+      
       setStudentCounter(studentsResponse.data.length);
       setAdminAcounter(adminResponse.data.length);
       setTeacherCounter(teacherResponse.data.length);
+      
+      setPaymentTranches(paymentTranches.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -56,6 +62,12 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchData();
   }, [])
+
+  function formatDate(dateString) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', options);
+  }
 
   return (
     <div className="flex max-w-screen-2xl mx-auto">
@@ -108,52 +120,34 @@ export default function AdminDashboard() {
 
           <div className="my-8">
             <Card title={"Paiements non vérifié"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+              {!paymentTranches ? 
+                <div className=''><Spinner /> Loading...</div>
+              : 
               <table className="tabel-1 mt-2 md:mt-4 text-[9px] md:text-xs">
                 <thead>
                   <tr>
-                    <th>Nom Complet</th>
-                    <th>Date de Paimenet</th>
-                    <th>Tranche</th>
-                    <th>Total</th>
+                    <th>#id</th>
+                    <th>Etudiant</th>
+                    <th>Méthode</th>
+                    <th>Payer a</th>
                     <th>Action</th>
                   </tr>
                 </thead>
 
                 <tbody>
+                  {paymentTranches.map(tranche => 
+                    (<tr>
+                      <td>{tranche.id}</td>
+                      <td>{tranche.registration_id}</td>
+                      <td>{tranche.payment_method}</td>
+                      <td>{formatDate(tranche.created_at)}</td>
+                      <td><Link to="">Afficher</Link></td>
+                    </tr>)
+                  )}
 
-                  <tr>
-                    <td>Amine Akkour</td>
-                    <td>2023/09/01</td>
-                    <td>5</td>
-                    <td>5000 Dhs</td>
-                    <td><Link to="">Afficher</Link></td>
-                  </tr>
-
-                  <tr>
-                    <td>Amine Akkour</td>
-                    <td>2023/09/01</td>
-                    <td>5</td>
-                    <td>5000 Dhs</td>
-                    <td><Link to="">Afficher</Link></td>
-                  </tr>
-
-                  <tr>
-                    <td>Amine Akkour</td>
-                    <td>2023/09/01</td>
-                    <td>5</td>
-                    <td>5000 Dhs</td>
-                    <td><Link to="">Afficher</Link></td>
-                  </tr>
-
-                  <tr>
-                    <td>Amine Akkour</td>
-                    <td>2023/09/01</td>
-                    <td>5</td>
-                    <td>5000 Dhs</td>
-                    <td><Link to="">Afficher</Link></td>
-                  </tr>
                 </tbody>
               </table>
+              }
             </Card>
           </div>
 
