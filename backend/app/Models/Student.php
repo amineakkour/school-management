@@ -11,4 +11,12 @@ use Laravel\Sanctum\HasApiTokens;
 class Student extends Authenticatable
 {
     use HasFactory, SoftDeletes, HasApiTokens;
+    
+    protected $hidden = ['password', 'remember_token'];
+
+    public $appends = ["role"];
+
+    public function getRoleAttribute() {
+        return "student";
+    }
 }
