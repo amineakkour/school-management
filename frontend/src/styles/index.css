@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @layer base {
   :root {
@@ -89,53 +87,6 @@ body{
   @apply text-sm;
 }
 
-.font-1{
-  font-family: "PT Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-
-}
-
-.link-1{
-  @apply text-xs text-gray-400 hover:text-gray-700
-}
-
-.tabel-1{
-  @apply w-full
-}
-
-.tabel-1 th, .tabel-1 td{
-  @apply border text-center p-2
-}
-
-.tabel-1 td a{
-  @apply text-blue-500 underline font-semibold hover:text-blue-700
-}
-
-#rain-bow{
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  height: 2px;
-  animation: progress .5s forwards;
-  background: linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(255, 154, 0, 1) 10%,
-      rgba(208, 222, 33, 1) 20%,
-      rgba(79, 220, 74, 1) 30%,
-      rgba(63, 218, 216, 1) 40%,
-      rgba(47, 201, 226, 1) 50%,
-      rgba(28, 127, 238, 1) 60%,
-      rgba(95, 21, 242, 1) 70%,
-      rgba(186, 12, 248, 1) 80%,
-      rgba(251, 7, 217, 1) 90%,
-      rgba(255, 0, 0, 1) 100%
-  );
-}
-
 @keyframes progress {  
   0%{
     width: 0;
@@ -147,17 +98,4 @@ body{
   100%{
     display: none;
   }
-}
-
-
-.input-1{
-  @apply border text-stone-600 focus:text-stone-900 border-stone-400 focus:border-stone-800 outline-0 rounded-sm p-2 w-full
-}
-
-.button-1{
-  @apply bg-blue-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
-}
-
-.button-2{
-  @apply bg-gray-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
 }
