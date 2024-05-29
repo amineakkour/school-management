@@ -66,7 +66,9 @@ export default function Profile({ profilePicture, profileName, profileDropDownIt
               <span onClick={() => setTheme("dark")}><i className="fa-solid fa-moon mr-1 text-sm"></i> Mode Sombre </span>
             }
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-xs cursor-pointer" onClick={logoutCallBack}>Deconnexion</DropdownMenuItem>
+          <DropdownMenuItem className="text-xs cursor-pointer" onClick={logoutCallBack}>
+            <span><i class="fa-solid fa-right-from-bracket text-sm mr-1"></i>Deconnexion</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

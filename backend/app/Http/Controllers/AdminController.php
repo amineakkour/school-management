@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Cache;
 
 class AdminController extends Controller implements HasMiddleware
 {
@@ -23,6 +24,10 @@ class AdminController extends Controller implements HasMiddleware
     public function index()
     {
         return Admin::all();
+    }
+
+    public function counter(){
+        return Admin::count();
     }
 
     /**

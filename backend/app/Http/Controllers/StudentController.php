@@ -7,6 +7,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller implements HasMiddleware
 {
@@ -25,10 +26,14 @@ class StudentController extends Controller implements HasMiddleware
     {
         return Student::all();
     }
-
     /**
      * Store a newly created resource in storage.
      */
+
+    public function counter(){
+        return Student::count();
+    }
+
     public function store(Request $request)
     {
         //

@@ -34,22 +34,20 @@ export default function AdminDashboard() {
     };
   
     try {
-      const adminRequest = customAxios.get('admins', { headers });
-      const studentsRequest = customAxios.get('students', { headers });
-      const teacherRequest = customAxios.get('teachers', { headers });
+      const adminRequest = customAxios.get('admins-counter', { headers });
+      const studentsRequest = customAxios.get('students-counter', { headers });
+      const teacherRequest = customAxios.get('teachers-counter', { headers });
 
       const paymentTranches = await customAxios.get('payment-tranches?limit=6', { headers });
-
       const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
-
-      
-      setStudentCounter(studentsResponse.data.length);
-      setAdminAcounter(adminResponse.data.length);
-      setTeacherCounter(teacherResponse.data.length);
       
       setPaymentTranches(paymentTranches.data);
+      setTeacherCounter(teacherResponse.data);
+      setStudentCounter(studentsResponse.data);
+      setAdminAcounter(adminResponse.data);
+      
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error(error);
     }
   }
 
@@ -135,8 +133,8 @@ export default function AdminDashboard() {
                 </thead>
 
                 <tbody>
-                  {paymentTranches.map(tranche => 
-                    (<tr>
+                  {paymentTranches.map((tranche, ind) => 
+                    (<tr key={ind}>
                       <td>{tranche.id}</td>
                       <td>{tranche.registration_id}</td>
                       <td>{tranche.payment_method}</td>
@@ -151,9 +149,9 @@ export default function AdminDashboard() {
             </Card>
           </div>
 
-          <div className="my-8">
+          <div className="my-8 text-xs">
             <Card title={"Derniers Messages"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              <ul className="text-base mt-2 md:mt-4 text-[11px] md:text-xs">
+              <ul className="mt-2 md:mt-4">
                 <li className="px-1 py-2 my-1 bg-stone-50 hover:underline">
                   <Link to="" className="flex items-center gap-5 ">
                     <div className=''>25-09-2012</div>
@@ -165,7 +163,7 @@ export default function AdminDashboard() {
                   <Link to="" className="flex items-center gap-5 ">
                     <div className=''>25-09-2012</div>
                     <h5 className="">Lorem ipsum dolor sit amet.</h5>
-                  </Link>
+                  </Link>   
                 </li>
 
                 <li className="px-1 py-2 my-1 bg-stone-50 hover:underline">

@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Cache;
 
 class TeacherController extends Controller implements HasMiddleware
 {
@@ -24,6 +25,10 @@ class TeacherController extends Controller implements HasMiddleware
     public function index()
     {
         return Teacher::all();
+    }
+
+    public function counter(){
+        return Teacher::count();
     }
 
     /**

@@ -5,6 +5,9 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\PaymenetTrancheController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +25,10 @@ Route::post("/logout_from_all_devices", [LoginController::class, "logout_from_al
 Route::resource("admins", AdminController::class);
 
 Route::resource("students", StudentController::class);
+
+Route::get("students-counter", [StudentController::class, "counter"]);
+Route::get("teachers-counter", [TeacherController::class, "counter"]);
+Route::get("admins-counter", [AdminController::class, "counter"]);
 
 Route::resource("teachers", TeacherController::class);
 
