@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\AdminMiddleware;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AdminController extends Controller
+class AdminController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'auth:sanctum',
+            new Middleware(AdminMiddleware::class),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Admin::all();
     }
 
     /**

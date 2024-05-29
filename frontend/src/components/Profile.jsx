@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { customAxios } from "../api/customAxios.js";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/features/userSlice.js";
+import { useTheme } from "../context/ThemeProvider.tsx";
+import { Sun } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +21,7 @@ export default function Profile({ profilePicture, profileName, profileDropDownIt
   const user = useSelector(slice => slice.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {theme, setTheme} = useTheme();
 
   async function logoutCallBack() {
     try {
@@ -35,7 +38,6 @@ export default function Profile({ profilePicture, profileName, profileDropDownIt
     dispatch(logout());
     navigate("/");
   }
-
 
   return (
     <div className='flex items-center'>
@@ -54,6 +56,16 @@ export default function Profile({ profilePicture, profileName, profileDropDownIt
             <Link to={item.to}>{item.text}</Link>
           </DropdownMenuItem>)}
 
+          
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="text-xs cursor-pointer">
+            {
+            theme === "dark" ?
+              <span onClick={() => setTheme("light")}><i className="fa-solid fa-sun text-sm mr-1"></i> Mode lumière</span>
+            :
+              <span onClick={() => setTheme("dark")}><i className="fa-solid fa-moon mr-1 text-sm"></i> Mode Sombre </span>
+            }
+          </DropdownMenuItem>
           <DropdownMenuItem className="text-xs cursor-pointer" onClick={logoutCallBack}>Deconnexion</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useReducer} from 'react';
 import { Link } from "react-router-dom";
 import AdminSideBar from "../../components/AdminSideBar";
 import Profile from "../../components/Profile";
-
-
-
+import { customAxios } from '../../api/customAxios';
+import { useSelector } from 'react-redux';
+import Spinner from '../../components/Spinner';
 
 
 function Card({ children, title, handelClickOnSettings }) {
@@ -21,6 +21,31 @@ function Card({ children, title, handelClickOnSettings }) {
 
 export default function AdminDashboard() {
   var [frenchDate, setFrenchDate] = useState(null);
+  const user = useSelector(slice => slice.user);
+  const [studentCounter, setStudentCounter] = useState(null);
+  const [adminCounter, setAdminAcounter] = useState(null);
+  const [teacherCounter, setTeacherCounter] = useState(null);
+
+  async function fetchData() {
+    const headers = {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + user.token
+    };
+  
+    try {
+      const adminRequest = customAxios.get('admin', { headers });
+      const studentsRequest = customAxios.get('student', { headers });
+      const teacherRequest = customAxios.get('teacher', { headers });
+
+      const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
+
+      setStudentCounter(studentsResponse.data.length);
+      setAdminAcounter(adminResponse.data.length);
+      setTeacherCounter(teacherResponse.data.length);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   useEffect(() => {
     const date = new Date();
@@ -28,10 +53,13 @@ export default function AdminDashboard() {
     setFrenchDate(date.toLocaleDateString('fr-FR', options));
   }, [])
 
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   return (
     <div className="flex max-w-screen-2xl mx-auto">
       <AdminSideBar />
-
 
       <div className="m-4 w-full md:px-10">
         <div className="flex justify-between items-center">
@@ -48,17 +76,31 @@ export default function AdminDashboard() {
           
           <div className="grid md:grid-cols-3 gap-5">
             <Card title={"Etudiants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              <p className="text-lg font-semibold">370/400 <span className="text-xs">comptes</span></p>
+              
+              <p className="text-lg font-semibold">
+                {studentCounter ? 
+                <>{studentCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
+                : <><Spinner /> <span className='text-xs'>Loading...</span></>}
+              </p>
+
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
             
             <Card title={"Enseignants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              <p className="text-lg font-semibold">25/400 <span className="text-xs">comptes</span></p>
+              <p className="text-lg font-semibold">
+                {teacherCounter ? 
+                <>{teacherCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
+                : <><Spinner /> <span className='text-xs'>Loading...</span></>}
+              </p>
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
             <Card title={"Adminstrateur"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              <p className="text-lg font-semibold">5/400 <span className="text-xs">comptes</span></p>
+              <p className="text-lg font-semibold">
+                {adminCounter ? 
+                <>{adminCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
+                : <><Spinner /> <span className='text-xs'>Loading...</span></>}
+              </p>
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
