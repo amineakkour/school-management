@@ -8,6 +8,7 @@ import Spinner from '../../components/Spinner';
 import Alert from "../../components/Alert";
 import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole';
 import { logout } from '../../redux/features/userSlice';
+import { formatDate } from "../../functions/formatDate";
 
 
 function Card({ children, title, handelClickOnSettings }) {
@@ -25,13 +26,14 @@ function Card({ children, title, handelClickOnSettings }) {
 export default function AdminDashboard() {
   var [frenchDate, setFrenchDate] = useState(null);
   const user = useSelector(slice => slice.user);
+  const [alertText, setAlertText] = useState("")
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [studentCounter, setStudentCounter] = useState(null);
   const [adminCounter, setAdminAcounter] = useState(null);
   const [teacherCounter, setTeacherCounter] = useState(null);
   const [paymentTranches, setPaymentTranches] = useState(null);
-  const [alertText, setAlertText] = useState("")
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [messages, setMessages] = useState(null);
 
   async function fetchData() {
     const headers = {
@@ -45,8 +47,11 @@ export default function AdminDashboard() {
       const teacherRequest = customAxios.get('teachers-counter', { headers });
 
       const paymentTranches = await customAxios.get('payment-tranches?limit=6', { headers });
+      const messages = await customAxios.get('messages?limit=6&seen=false', { headers });
       const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
+
       
+      setMessages(messages.data)
       setPaymentTranches(paymentTranches.data);
       setTeacherCounter(teacherResponse.data);
       setStudentCounter(studentsResponse.data);
@@ -69,15 +74,7 @@ export default function AdminDashboard() {
     setFrenchDate(date.toLocaleDateString('fr-FR', options));
   }, [])
 
-  useEffect(() => {
-    fetchData();
-  }, [])
-
-  function formatDate(dateString) {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', options);
-  }
+  useEffect(() => {fetchData()}, [])  
 
   return (
     <div className="flex max-w-screen-2xl mx-auto">
@@ -164,37 +161,32 @@ export default function AdminDashboard() {
           </div>
 
           <div className="my-8 text-xs">
-            <Card title={"Derniers Messages"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              <ul className="mt-2 md:mt-4">
-                <li className="px-1 py-2 my-1 bg-stone-50 hover:underline">
-                  <Link to="" className="flex items-center gap-5 ">
-                    <div className=''>25-09-2012</div>
-                    <h5 className="">Lorem ipsum dolor sit amet.</h5>
-                  </Link>
-                </li>
+          <Card title={"Messages Non lus"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+              {!messages ? 
+                <div className=''><Spinner /> Loading...</div>
+              : 
+              <table className="tabel-1 mt-2 md:mt-4 text-[9px] md:text-xs">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Objet</th>
+                    <th>Envoyé a</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
 
-                <li className="px-1 py-2 my-1 bg-stone-100 hover:underline">
-                  <Link to="" className="flex items-center gap-5 ">
-                    <div className=''>25-09-2012</div>
-                    <h5 className="">Lorem ipsum dolor sit amet.</h5>
-                  </Link>   
-                </li>
-
-                <li className="px-1 py-2 my-1 bg-stone-50 hover:underline">
-                  <Link to="" className="flex items-center gap-5 ">
-                    <div className=''>25-09-2012</div>
-                    <h5 className="">Lorem ipsum dolor sit amet.</h5>
-                  </Link>
-                </li>
-
-                <li className="px-1 py-2 my-1 bg-stone-100 hover:underline">
-                  <Link to="" className="flex items-center gap-5 ">
-                    <div className=''>25-09-2012</div>
-                    <h5 className="">Lorem ipsum dolor sit amet.</h5>
-                  </Link>
-                </li>
-
-              </ul>
+                <tbody>
+                  {messages.map((message, ind) => 
+                    (<tr key={ind}>
+                      <td>{message.name}</td>
+                      <td>{message.title}</td>
+                      <td>{formatDate(message.created_at)}</td>
+                      <td><Link to="">Afficher</Link></td>
+                    </tr>)
+                  )}
+                </tbody>
+              </table>
+              }
             </Card>
           </div>
 

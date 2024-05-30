@@ -36,7 +36,7 @@ export default function AdminSideBar() {
   
   return (
     <div className="relative left-to-right">
-      <nav className="bg-stone-900 text-stone-100 shrink-0 overflow-hidden h-full" style={{ width: `${sidebarWidth}px` }}>
+      <nav className="bg-stone-900 text-stone-100 shrink-0 overflow-hidden h-full min-h-screen" style={{ width: `${sidebarWidth}px` }}>
         <ul className={`flex flex-col justify-center ${sidebarWidth <= initialSideBareWidth ? "items-center" : "items-start"} py-5 px-3 md:px-5 gap-4`}>  
           <li title="Accueil">
             <Link className="flex items-center gap-1 hover:opacity-70"><Home className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Accuiel</span>}</Link>

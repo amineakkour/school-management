@@ -17,14 +17,11 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            // $table->string('name');
-            // $table->string('phone_number', 10);
-            // $table->string('title', 50);
-            // $table->string('message', 250);
             "name" => fake()->name,
             "phone_number" => fake()->numerify("########"),
             "title" => implode(' ', fake()->words(3)),
-            "message" => fake()->paragraph(),
+            "message" => fake()->paragraph(1),
+            "seen_at" => fake()->optional()->dateTime(),
         ];
     }
 }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('title', 50);
             $table->string('message', 250);
 
+            $table->timestamp("seen_at")->nullable();
+
             $table->timestamps();
         });
     }
