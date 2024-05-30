@@ -3,7 +3,66 @@ import { Link } from "react-router-dom";
 import { Home, LayoutDashboard, CreditCard, HandCoins, SquarePen, BookOpenCheck, Library, BellElectric, User, MessageSquareMore, PenLine } from "lucide-react";
 
 
-export default function AdminSideBar() {
+const AdminSideBarItems = [
+  {
+    title: 'Acceuil', 
+    icon: <Home className="shrink-0 mb-8"/>,
+    path: '/', 
+  }, 
+  {
+    title: 'Dashboard', 
+    icon: <LayoutDashboard className="shrink-0"/>,
+    path: '/adminstrateur/tableau-de-bord', 
+  }, 
+  {
+    title: 'Comptes', 
+    icon: <User className="shrink-0"/>,
+    path: '/adminstrateur/comptes', 
+  }, 
+  {
+    title: 'Messages', 
+    icon: <MessageSquareMore className="shrink-0"/>,
+    path: '/adminstrateur/messages', 
+  }, 
+  {
+    title: 'E-payment', 
+    icon: <CreditCard className="shrink-0"/>,
+    path: '/adminstrateur/e-payment', 
+  }, 
+  {
+    title: 'Paiement', 
+    icon: <HandCoins className="shrink-0"/>,
+    path: '/adminstrateur/paiement', 
+  },
+  {
+    title: 'Blogs', 
+    icon: <PenLine className="shrink-0"/>,
+    path: '/adminstrateur/blogs', 
+  },
+  {
+    title: 'Emplois', 
+    icon: <BellElectric className="shrink-0"/>,
+    path: '/adminstrateur/emplois', 
+  },
+  {
+    title: 'Absence', 
+    icon: <SquarePen className="shrink-0"/>,
+    path: '/adminstrateur/absence', 
+  },
+  {
+    title: 'Exams', 
+    icon: <Library className="shrink-0"/>,
+    path: '/adminstrateur/exams', 
+  },
+  {
+    title: 'Notes', 
+    icon: <BookOpenCheck className="shrink-0"/>,
+    path: '/adminstrateur/notes', 
+  },
+]
+
+
+export default function AdminSideBar({ activeItem = 1}) {
   const initialSideBareWidth = 80;
   const [isDragging, setIsDragging] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(initialSideBareWidth);
@@ -35,53 +94,18 @@ export default function AdminSideBar() {
   }, [isDragging]);
   
   return (
-    <div className="relative left-to-right">
+    <div className="relative">
       <nav className="bg-stone-900 text-stone-100 shrink-0 overflow-hidden h-full min-h-screen" style={{ width: `${sidebarWidth}px` }}>
         <ul className={`flex flex-col justify-center ${sidebarWidth <= initialSideBareWidth ? "items-center" : "items-start"} py-5 px-3 md:px-5 gap-4`}>  
-          <li title="Accueil">
-            <Link className="flex items-center gap-1 hover:opacity-70"><Home className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Accuiel</span>}</Link>
-          </li>
-
-          <li title="Dashboard">
-            <Link className="flex items-center gap-1 hover:opacity-70"><LayoutDashboard className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Dashboard</span>}</Link>
-          </li>
-
-          <li title="Comptes">
-            <Link className="flex items-center gap-1 hover:opacity-70"><User className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Comptes</span>}</Link>
-          </li>
-
-          <li title="Messages">
-            <Link className="flex items-center gap-1 hover:opacity-70"><MessageSquareMore className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Messages</span>}</Link>
-          </li>
-
-          <li title="E-payment">
-            <Link className="flex items-center gap-1 hover:opacity-70"><CreditCard className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">E-paiement</span>}</Link>
-          </li>
-
-          <li title="Paiement">
-            <Link className="flex items-center gap-1 hover:opacity-70"><HandCoins  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Paiement</span>}</Link>
-          </li>
-
-          <li title="Emplois">
-            <Link className="flex items-center gap-1 hover:opacity-70"><BellElectric  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Emplois</span>}</Link>
-          </li>
-
-          <li title="Blogs">
-            <Link className="flex items-center gap-1 hover:opacity-70"><PenLine className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Blogs</span>}</Link>
-          </li>
-
-          <li title="Absence">
-            <Link className="flex items-center gap-1 hover:opacity-70"><SquarePen  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Absence</span>}</Link>
-          </li>
-
-          <li title="Exams">
-            <Link className="flex items-center gap-1 hover:opacity-70"><Library  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Exams</span>}</Link>
-          </li>
-
-          <li title="Notes  ">
-            <Link className="flex items-center gap-1 hover:opacity-70"><BookOpenCheck  className="shrink-0" /> {sidebarWidth > initialSideBareWidth && <span className="text-xs whitespace-nowrap">Notes</span>}</Link>
-          </li>
           
+          {AdminSideBarItems.map((item, ind) => {
+            return (
+              <li key={ind} className={`${ind == activeItem ? 'bg-stone-100 text-stone-900' : ''} rounded-md p-1`} title={item.title}>
+                <Link to={item.path} className="flex items-center gap-1 hover:opacity-70">{item.icon} {(sidebarWidth > initialSideBareWidth) && <span className="text-xs whitespace-nowrap">{item.title}</span>}</Link>
+              </li>
+            )
+          }
+          )}
         </ul>
       </nav>
       <div className="h-full w-1 bg-stone-700 absolute top-0 right-0">
