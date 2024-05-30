@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useReducer} from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import AdminSideBar from "../../components/AdminSideBar";
 import Profile from "../../components/Profile";
 import { customAxios } from '../../api/customAxios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../components/Spinner';
+import Alert from "../../components/Alert";
+import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole';
+import { logout } from '../../redux/features/userSlice';
 
 
 function Card({ children, title, handelClickOnSettings }) {
@@ -26,6 +29,9 @@ export default function AdminDashboard() {
   const [adminCounter, setAdminAcounter] = useState(null);
   const [teacherCounter, setTeacherCounter] = useState(null);
   const [paymentTranches, setPaymentTranches] = useState(null);
+  const [alertText, setAlertText] = useState("")
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function fetchData() {
     const headers = {
@@ -48,6 +54,12 @@ export default function AdminDashboard() {
       
     } catch (error) {
       console.error(error);
+      setAlertText("Quelque chose s'est mal passé");
+
+      if(error.response?.status === 401) {
+          dispatch(logout())
+          navigate(switchToUrlBaseOnUserRole('admin').loginPage)
+      }
     }
   }
 
@@ -69,6 +81,8 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex max-w-screen-2xl mx-auto">
+      {alertText && <Alert alertText={alertText} setAlertText={setAlertText} />}
+      
       <AdminSideBar />
 
       <div className="m-4 w-full md:px-10">

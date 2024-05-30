@@ -40,18 +40,11 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   
   const { register, handleSubmit, formState: { errors }, setError} = useForm({
     defaultValues: {
-      email: "student@student.com",
-      password: "password@password.com",
+      email: "admin@admin.com",
+      password: "admin@admin.com",
     },
     resolver: zodResolver(loginSchema),
   });
-  
-  useEffect(() => {
-    if(alertText){
-      var id = setTimeout(() => setAlertText(''), 5_000);
-    }
-    return () => clearTimeout(id);
-  }, [alertText])
 
   async function submit(data) {
     setSubmitting(true)
@@ -84,7 +77,7 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   
   return (
     <div className={`h-screen ${theme === "dark" ? "" : bgColor} flex justify-center items-center`}>
-      {alertText && <Alert text={alertText} />}
+      {alertText && <Alert alertText={alertText} setAlertText={setAlertText} />}
       <div className={`${theme === "dark" ? "bg-secondary" : "bg-white"} w-full mx-4 max-w-lg md:max-w-screen-md p-5 flex rounded-md gap-5 transition-all shadow-md hover:shadow-2xl`}>
         
         <div className='hidden md:block'>

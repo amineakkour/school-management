@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PaymenetTrancheController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -26,10 +27,12 @@ Route::resource("admins", AdminController::class);
 
 Route::resource("students", StudentController::class);
 
-Route::get("students-counter", [StudentController::class, "counter"]);
-Route::get("teachers-counter", [TeacherController::class, "counter"]);
-Route::get("admins-counter", [AdminController::class, "counter"]);
-
 Route::resource("teachers", TeacherController::class);
 
 Route::resource("payment-tranches", PaymenetTrancheController::class);
+
+Route::resource("blogs", BlogController::class);
+
+Route::get("students-counter", [StudentController::class, "counter"]);
+Route::get("teachers-counter", [TeacherController::class, "counter"]);
+Route::get("admins-counter", [AdminController::class, "counter"]);
