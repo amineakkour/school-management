@@ -12,6 +12,7 @@ use App\Models\Exam;
 use App\Models\Grade;
 use App\Models\Group;
 use App\Models\GroupSubject;
+use App\Models\Message;
 use App\Models\PaymenetTranche;
 use App\Models\PreRegistration;
 use App\Models\Registration;
@@ -68,19 +69,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         
-        // admins tabel
+        // admins table
         Admin::factory(5)->create();
         Admin::factory()->create([
             "email" => "admin@admin.com", 
             "password" => Hash::make("admin@admin.com"),
         ]);
 
-        // blogs tabel
+        // blogs table
         Blog::factory(15)->create([
             "admin_id" => random_int(1, Admin::all()->count()),
         ]);
 
-        // sepcialities tabel
+        // sepcialities table
         foreach($specialities as $speciality) {
             Speciality::factory()->create([
                 "name" => $speciality[0],
@@ -90,12 +91,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // groups tabel
+        // groups table
         Group::factory(15)->create([
             "speciality_id" => random_int(1, Speciality::all()->count()),
         ]);
 
-        // registrations tabel
+        // registrations table
         Registration::factory(200)->create([
             'school_year' => 2024,
             'student_id' => random_int(1, Student::all()->count()),
@@ -103,28 +104,28 @@ class DatabaseSeeder extends Seeder
             'created_by' => random_int(1, Admin::all()->count()),
         ]);
 
-        // subjects tabel
+        // subjects table
         foreach($subjects as $subject) {
             Subject::factory()->create([
                 "name" => $subject,
             ]);
         }
 
-        // teachers tabel
+        // teachers table
         Teacher::factory(50)->create();
         Teacher::factory()->create([
             "email" => "teacher@teacher.com",
             "password" => Hash::make("teacher@teacher.com"),
         ]);
 
-        // group_subjects tabel
+        // group_subjects table
         GroupSubject::factory(20)->create([
             'teacher_id' => random_int(1, Teacher::all()->count()),
             'group_id' => random_int(1, Group::all()->count()),
             'subject_id' => random_int(1, Subject::all()->count()),
         ]);
 
-        // courses tabel
+        // courses table
         Course::factory(50)->create([
             'group_subject_id' => random_int(1, GroupSubject::all()->count()),
             'class_room_id' => random_int(1, ClassRoom::all()->count()),
@@ -136,20 +137,23 @@ class DatabaseSeeder extends Seeder
             'course_id' => random_int(1, Course::all()->count()),
         ]);
 
-        // payement_tranches tabel
+        // payement_tranches table
         PaymenetTranche::factory(40)->create([
             'registration_id' => random_int(1, Registration::all()->count()),
         ]);
 
-        // exams tabel
+        // exams table
         Exam::factory(10)->create([
             "group_subject_id" => random_int(1, GroupSubject::all()->count()),
         ]);
 
-        //students tabel
+        //students table
         Grade::factory(100)->create([
             'exam_id' => random_int(1, Exam::all()->count()),
             'student_id' => random_int(1, Student::all()->count()),
         ]);
+
+        //messages table
+        Message::factory(10)->create();
     }
 }
