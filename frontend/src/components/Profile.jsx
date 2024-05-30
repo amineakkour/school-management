@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/features/userSlice.js";
 import { useTheme } from "../context/ThemeProvider.tsx";
 import { Sun } from "lucide-react";
+import profilePictureNotFound from '../assets/profile_picture_not_found.jpg';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-
-
-export default function Profile({ profilePicture, profileName, profileDropDownItems = []}) {
-  const user = useSelector(slice => slice.user);
+export default function Profile({ profileUrl = '/adminstrateur/profile', profileDropDownItems = []}) {
+  const { userInfos } = useSelector(slice => slice.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {theme, setTheme} = useTheme();
@@ -41,16 +40,21 @@ export default function Profile({ profilePicture, profileName, profileDropDownIt
 
   return (
     <div className='flex items-center'>
-      <DropdownMenu>
+      <DropdownMenu className='outline-none'>
         <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src={profilePicture} />
-          <AvatarFallback>Photo de Profile de {profileName}</AvatarFallback>
+        <Avatar className="border">
+          <AvatarImage src={userInfos.profile ? userInfos.profile : profilePictureNotFound} />
+          <AvatarFallback>Photo de Profile de {userInfos.first_name} {userInfos.last_name}</AvatarFallback>
         </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>{profileName}</DropdownMenuLabel>
+          <DropdownMenuLabel>{userInfos.gender === 'm' ? 'M.' : 'Mme.'} {userInfos.last_name} </DropdownMenuLabel>
           <DropdownMenuSeparator />
+
+          
+          <DropdownMenuItem className="text-xs cursor-pointer">
+            <Link to={profileUrl}>Mon Profile</Link>
+          </DropdownMenuItem>
 
           {profileDropDownItems.map(item => <DropdownMenuItem key={item.text} className="text-xs cursor-pointer">
             <Link to={item.to}>{item.text}</Link>

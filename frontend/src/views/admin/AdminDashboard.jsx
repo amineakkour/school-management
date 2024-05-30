@@ -42,20 +42,20 @@ export default function AdminDashboard() {
     };
   
     try {
-      const adminRequest = customAxios.get('admins-counter', { headers });
-      const studentsRequest = customAxios.get('students-counter', { headers });
-      const teacherRequest = customAxios.get('teachers-counter', { headers });
+      const adminRequest = await customAxios.get('admins-counter', { headers });
+      const studentsRequest = await customAxios.get('students-counter', { headers });
+      const teacherRequest = await customAxios.get('teachers-counter', { headers });
 
       const paymentTranches = await customAxios.get('payment-tranches?limit=6', { headers });
       const messages = await customAxios.get('messages?limit=6&seen=false', { headers });
-      const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
+      // const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
 
       
       setMessages(messages.data)
       setPaymentTranches(paymentTranches.data);
-      setTeacherCounter(teacherResponse.data);
-      setStudentCounter(studentsResponse.data);
-      setAdminAcounter(adminResponse.data);
+      setTeacherCounter(adminRequest.data);
+      setStudentCounter(studentsRequest.data);
+      setAdminAcounter(teacherRequest.data);
       
     } catch (error) {
       console.error(error);
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
             <div className="text-xs text-gray-500">{frenchDate}</div>
           </div>
           
-          <Profile profilePicture={"https://github.com/shadcn.png"} profileName={"El Mouda Amine"} profileDropDownItems={[{text: "Mon Profile", to: "/adminstrateur/profile"}]} />
+          <Profile />
 
         </div>
 
