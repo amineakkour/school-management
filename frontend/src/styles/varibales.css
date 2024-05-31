@@ -12,8 +12,16 @@
   @apply bg-gray-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
 }
 
+.button-3{
+  @apply bg-red-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
+}
+
 .link-1{
   @apply text-xs text-gray-400 hover:text-gray-700
+}
+
+.link-2{
+  @apply text-sm text-stone-700 hover:text-stone-900 hover:underline
 }
 
 .font-1{

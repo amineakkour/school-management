@@ -5,10 +5,13 @@ import { Home, LayoutDashboard, CreditCard, HandCoins, SquarePen, BookOpenCheck,
 
 const AdminSideBarItems = [
   {
-    title: 'Acceuil', 
-    icon: <Home className="shrink-0 mb-8"/>,
+    title: "Acceuil", 
+    icon: <Home className="shrink-0"/>,
     path: '/', 
   }, 
+  {
+    icon: <span className="mb-5"></span>
+  },
   {
     title: 'Dashboard', 
     icon: <LayoutDashboard className="shrink-0"/>,
@@ -62,7 +65,7 @@ const AdminSideBarItems = [
 ]
 
 
-export default function AdminSideBar({ activeItem = 1}) {
+export default function AdminSideBar({ activeItem = 2}) {
   const initialSideBareWidth = 80;
   const [isDragging, setIsDragging] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(initialSideBareWidth);

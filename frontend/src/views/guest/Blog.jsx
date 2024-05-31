@@ -15,7 +15,7 @@ function Card({title, createdAt, text, imgURL}) {
 }
 
 export default function Blog() {
-  const { theme } = useTheme();
+
   return (
     <div className={`md:max-w-6xl p-5 mx-2 md:mx-auto`}>
       <div id="rain-bow"></div>

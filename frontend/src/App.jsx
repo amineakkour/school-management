@@ -17,6 +17,8 @@ import AdminLayout from "./Layout/AdminLayout";
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import StudentLayout from "./Layout/StudentLayout";
+import AdminBlogs from "./views/admin/AdminBlogs";
+import AddNewBlog from "./views/admin/AddNewBlog";
 
 
 function App() {
@@ -45,6 +47,10 @@ function App() {
 
           <Route path="adminstrateur" element={<AdminLayout />}>
             <Route path="tableau-de-bord" element={<AdminDashboard />} />
+            <Route path="blogs" >
+              <Route index element={<AdminBlogs />} />
+              <Route path="ajouter" element={<AddNewBlog />} />
+            </Route>
           </Route>
 
           <Route path="etudiant" element={<StudentLayout />}>

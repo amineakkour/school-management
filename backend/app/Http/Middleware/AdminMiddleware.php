@@ -15,10 +15,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()['role']){
+        if(auth()->user() && auth()->user()['role']){
             return $next($request);
         }else{
-            response("Not authorized", 404);
+            return response("Not authorized", 404);
         }
     }
 }

@@ -42,20 +42,17 @@ export default function AdminDashboard() {
     };
   
     try {
-      const adminRequest = await customAxios.get('admins-counter', { headers });
-      const studentsRequest = await customAxios.get('students-counter', { headers });
-      const teacherRequest = await customAxios.get('teachers-counter', { headers });
-
       const paymentTranches = await customAxios.get('payment-tranches?limit=6', { headers });
-      const messages = await customAxios.get('messages?limit=6&seen=false', { headers });
-      // const [adminResponse, studentsResponse, teacherResponse] = await Promise.all([adminRequest, studentsRequest, teacherRequest]);
-
-      
-      setMessages(messages.data)
       setPaymentTranches(paymentTranches.data);
+      const messages = await customAxios.get('messages?limit=6&seen=false', { headers });
+      setMessages(messages.data)
+      const adminRequest = await customAxios.get('admins-counter', { headers });
       setTeacherCounter(adminRequest.data);
-      setStudentCounter(studentsRequest.data);
+      const teacherRequest = await customAxios.get('teachers-counter', { headers });
       setAdminAcounter(teacherRequest.data);
+      const studentsRequest = await customAxios.get('students-counter', { headers });
+      setStudentCounter(studentsRequest.data);
+      
       
     } catch (error) {
       console.error(error);
