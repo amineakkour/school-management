@@ -3,15 +3,25 @@ import { customAxios } from '../../api/customAxios.js';
 import AdminSideBare from "../../components/AdminSideBar";
 import { Link, useSearchParams} from 'react-router-dom';
 import Profile from "../../components/Profile";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton"
 
-function Blog({ imgUrl, title, id}) {
+
+function Blog({ imgUrl, title, text, id}) {
+  const [more, setMore] = useState(false);
+
   return <div className='bg-secondary p-3 rounded-md mb-3  shadow-sm border'>
     <div className="flex gap-5">
       <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={imgUrl} alt={title} /></div>
 
       <div className="">
         <h3 className="md:text-xl font-semibold">{title}</h3>
+        <button className='link-1 flex border-b items-center border-gray-400' onClick={() => setMore(v => !v)}>
+          {more ? 
+          <><span className='block w-28 text-start'>Réduire</span> <i className="fa-solid fa-caret-up"></i></> : 
+          <><span className='block w-28 text-start'>Afficher le contenu</span> <i className="fa-solid fa-caret-down"></i></>}
+        </button>
+        <div className='mt-1 border-gray-400'>{more && text}</div>
         <div className="flex gap-2 mt-2">
           <button className="button-1 ">Modifier</button>
           <button className="button-3">Supprimer</button>
@@ -21,9 +31,26 @@ function Blog({ imgUrl, title, id}) {
   </div>
 }
 
+function BlogSkeleton() {
+  return <div className='my-5'>
+    <div>
+      <Skeleton className="w-full p-5 flex gap-5">
+        <Skeleton className="w-32 h-20 bg-black/15 shrink-0" />
+        <div className='w-full'>
+          <Skeleton className="w-full md:w-96 h-[20px] bg-black/15" />
+          <div className='flex gap-5 mt-5'>
+          <Skeleton className="w-16 h-[30px] bg-black/15" />
+          <Skeleton className="w-16 h-[30px] bg-black/15" />
+          </div>
+        </div>
+      </Skeleton>
+    </div>
+  </div>
+}
 
 function AdminBlogs(props) {
   const [blogs, setBlogs] = useState([]);
+  const [fetched, setFetched] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [keywords, setKeywords] = useState(searchParams.get('keywords') || '');
   const [showDeleted, setShowDeleted] = useState(false);
@@ -32,8 +59,7 @@ function AdminBlogs(props) {
     const reponse = await customAxios.get(`blogs?keywords=${keywords}`);
 
     setBlogs(reponse.data);
-
-    console.log(reponse.data);
+    setFetched(true)
   }
 
   useEffect(() => {
@@ -47,6 +73,7 @@ function AdminBlogs(props) {
   function submit(event) {
     event.preventDefault();
     setBlogs([]);
+    setFetched(false)
     fetchData();
   }
   
@@ -80,8 +107,17 @@ function AdminBlogs(props) {
           </form>
 
           <div>
-            <div className="font-semibold mb-1">Resultat: {blogs.length}</div>
-            {blogs.map(blog => <Blog key={blog.id} title={blog.title} imgUrl={blog.photo_url} id={blog.id} />)}
+            <div className="font-semibold mb-1">Resultat: {fetched ? blogs.length : "..."}</div>
+
+            <div>
+              {
+                fetched
+                ? 
+                blogs.map(blog => <Blog key={blog.id} text={blog.content} title={blog.title} imgUrl={blog.photo_url} id={blog.id} />)
+                :
+                <div>{Array.from({ length: 20 }, (_, i) => i + 1).map(() => <BlogSkeleton />)}</div>
+              }
+            </div>
           </div>
         </div>
 
