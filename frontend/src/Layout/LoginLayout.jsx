@@ -55,7 +55,7 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
 
       dispatch({type: "user/login", payload: {token: message.token, userInfos: message.user, role: message.user.role}})
       
-      navigate(switchToUrlBaseOnUserRole(message.user.role).dashboardPage)
+      navigate(switchToUrlBaseOnUserRole(message.user.role).dashboardPage, { replace: true });
 
     }catch(e) {
       if(e.response.status == 401){
@@ -93,14 +93,14 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
             <button type="button" className="text-gray-400 text-xs hover:text-gray-600"><Link to="/"><i className="fa-solid fa-arrow-left"></i> Acceuil</Link></button>
             <div className="my-4">
               <label htmlFor="email" className='block mb-1'>Email</label>
-              <input {...register("email")} type="email" id="email" name='email' className='input-1' placeholder="Entrez votre email" />
+              <input {...register("email")} type="email" id="email" name='email' className='input-2' placeholder="Entrez votre email" />
               {errors.email && <div className="text-red-500">{errors.email.message}</div>}
             </div>
 
             <div className="my-4">
               <label htmlFor="password" className='block mb-1'>Mot de passe</label>
               <div className="relative">
-                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="input-1 bg-white" placeholder='Entrez votre mot de passe' />
+                <input {...register("password")} type={visiblePassword ? "text" : "password"} id="password" name='password' className="input-2 bg-white" placeholder='Entrez votre mot de passe' />
                 <div className="absolute top-2 right-3 text-gray-600">
                   <button type="button" onClick={() => setVisiblePassword(v => !v)}><i className={`fa-solid ${visiblePassword ? "fa-eye-slash" : "fa-eye"}`}></i></button>
                 </div>
