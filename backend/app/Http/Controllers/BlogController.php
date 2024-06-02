@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
 
 class BlogController extends Controller implements HasMiddleware
 {
@@ -35,24 +40,43 @@ class BlogController extends Controller implements HasMiddleware
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'photo_url' => 'nullable|url',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:100',
+        'content' => 'required|min:100|string',
+        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+    ], [
+        'title.required' => 'Le champ titre est requis.',
+        'title.string' => 'Le champ titre doit être une chaîne de caractères.',
+        'title.max' => 'Le champ titre ne doit pas dépasser 100 caractères.',
+        'content.required' => 'Le champ contenu est requis.',
+        'content.min' => 'Le champ contenu doit comporter au moins 100 caractères.',
+        'content.string' => 'Le champ contenu doit être une chaîne de caractères.',
+        'photo.required' => 'Le champ photo est requis.',
+        'photo.image' => 'Le champ photo doit être une image.',
+        'photo.mimes' => 'Le champ photo doit être un fichier de type :jpeg, :png, :jpg, :gif, ou :svg.',
+        'photo.max' => 'Le champ photo ne doit pas dépasser 5048 kilo-octets.',
+    ]);
 
-        $blog = new Blog;
-
-        $blog->title = $request->input("title");
-        $blog->content = $request->input("content");
-        $blog->photo_url = $request->input("photo_url");
-        $blog->admin_id = auth()->user()->id;
-
-        $blog->save();
-
-        return response()->json($blog, 201);
+    if ($validator->fails()) {
+        return response()->json([
+            "errors" => $validator->errors()
+        ], 422);
     }
+
+    $fileName = Str::uuid() . '.' . $request->file('photo')->getClientOriginalExtension();
+    $request->file('photo')->move(public_path('photos/blogs'), $fileName);
+
+    $blog = new Blog;
+    $blog->title = $request->input("title");
+    $blog->content = $request->input("content");
+    $blog->photo_url = "/photos/blogs/$fileName";
+    $blog->admin_id = Auth()->user()->id;
+    
+    $blog->save();
+
+    return response()->json(['message' => 'Blog created successfully!', 'blog' => $blog], 201);
+}
 
     /**
      * Display the specified resource.
