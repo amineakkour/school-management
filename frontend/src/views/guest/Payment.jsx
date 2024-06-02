@@ -56,7 +56,7 @@ function Payment(props) {
         {step == 1 ? 
         <>
           <div className="my-4">
-            <label className="block mb-1 font-semibold">Le nom complet de l'étudiant</label>
+            <label className="label-1">Le nom complet de l'étudiant</label>
             <input type="text" className="input-1 max-w-80 text-xs font-semibold" {...register('fullname')} value={name} onChange={e => setName(e.target.value.toUpperCase())} />
             
             {errors.fullname ? 
@@ -67,7 +67,7 @@ function Payment(props) {
           </div>
 
           <div className="my-4">
-            <label className="block mb-1 font-semibold">Date de naissance</label>
+            <label className="label-1">Date de naissance</label>
             <Controller
               name="date"
               control={control}

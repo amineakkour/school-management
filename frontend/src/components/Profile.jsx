@@ -43,12 +43,12 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
       <DropdownMenu className='outline-none'>
         <DropdownMenuTrigger>
         <Avatar className="border">
-          <AvatarImage src={userInfos.profile ? userInfos.profile : profilePictureNotFound} />
-          <AvatarFallback>Photo de Profile de {userInfos.first_name} {userInfos.last_name}</AvatarFallback>
+          <AvatarImage src={userInfos?.profile ? userInfos?.profile : profilePictureNotFound} />
+          <AvatarFallback>Photo de Profile de {userInfos?.first_name} {userInfos?.last_name}</AvatarFallback>
         </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>{userInfos.gender === 'm' ? 'M.' : 'Mme.'} {userInfos.last_name} </DropdownMenuLabel>
+          <DropdownMenuLabel>{userInfos?.gender === 'm' ? 'M.' : 'Mme.'} {userInfos?.last_name} </DropdownMenuLabel>
           <DropdownMenuSeparator />
 
           
@@ -71,7 +71,7 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
             }
           </DropdownMenuItem>
           <DropdownMenuItem className="text-xs cursor-pointer" onClick={logoutCallBack}>
-            <span><i class="fa-solid fa-right-from-bracket text-sm mr-1"></i>Deconnexion</span>
+            <span><i className="fa-solid fa-right-from-bracket text-sm mr-1"></i>Deconnexion</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

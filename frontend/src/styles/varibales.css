@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .input-1{
-  @apply border text-stone-600 focus:text-stone-900 border-stone-400 focus:border-stone-800 outline-0 rounded-sm p-2 w-full
+  @apply border text-stone-400 focus:text-primary border-stone-400 focus:border-primary outline-0 rounded-sm p-2 w-full
+}
+
+.input-2{
+  @apply border text-stone-500 focus:text-stone-800 border-stone-500 focus:border-stone-800 outline-0 rounded-sm p-2 w-full focus:shadow-md focus:scale-[1.005] duration-100 
 }
 
 .button-1{
@@ -14,6 +18,14 @@
 
 .button-3{
   @apply bg-red-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
+}
+
+.button-4{
+  @apply bg-gray-500 px-1 py-2 rounded-sm text-white flex items-center gap-1 text-xs
+}
+
+.label-1{
+  @apply block mb-1 font-semibold
 }
 
 .link-1{
@@ -41,6 +53,31 @@
 .tabel-1 td a{
   @apply text-blue-500 underline font-semibold hover:text-blue-700
 }
+
+.tabel-2{
+  @apply w-full rounded-md overflow-hidden text-black
+}
+
+.tabel-2 th{
+  @apply bg-stone-900 text-stone-100
+}
+
+.tabel-2 th, .tabel-2 td{
+  @apply text-center p-2
+}
+
+.tabel-2 tr:nth-child(odd){
+  @apply bg-gray-100 
+}
+
+.tabel-2 tr:nth-child(even){
+  @apply bg-gray-50
+}
+
+.tabel-2 td a{
+  @apply text-blue-500 underline font-semibold hover:text-blue-700
+}
+
 
 #rain-bow{
   content: "";
