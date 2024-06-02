@@ -1,21 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { customAxios } from '../../api/customAxios.js';
 import AdminSideBare from "../../components/AdminSideBar";
-import { Link, useSearchParams} from 'react-router-dom';
+import { Link, useNavigate, useSearchParams} from 'react-router-dom';
 import Profile from "../../components/Profile";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton"
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../../redux/features/userSlice.js";
+import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole.js';
+import Alert from '../../components/Alert.jsx';
 
-
-function Blog({ imgUrl, title, text, id}) {
+function Blog({ imgUrl, title, text, id, fetchData, setFetched, setAlertText}) {
   const [more, setMore] = useState(false);
+  const { token } = useSelector(slice => slice.user);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function deleteBlog() {
+    setIsDeleting(true);
+    
+    try{
+      const response = await customAxios.delete(`/blogs/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    setFetched(false)
+    fetchData();
+  }
+  catch(error) {
+    console.error(error)
+    setAlertText("Quelque chose s'est mal passé");
+    if(error.response?.status === 401) {
+      dispatch(logout())
+      navigate(switchToUrlBaseOnUserRole('admin').loginPage)
+  }
+  }
+  
+  setIsDeleting(false);
+  }
 
   return <div className='bg-secondary p-3 rounded-md mb-3  shadow-sm border'>
     <div className="flex gap-5">
-      <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={imgUrl} alt={title} /></div>
+      <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={`${import.meta.env.VITE_BACKEND_URL}${imgUrl}`} alt={title} /></div>
 
       <div className="">
-        <h3 className="md:text-xl font-semibold">{title}</h3>
+        <h3 className="md:text-xl font-semibold break-all	">{title}</h3>
         <button className='link-1 flex border-b items-center border-gray-400' onClick={() => setMore(v => !v)}>
           {more ? 
           <><span className='block w-28 text-start'>Réduire</span> <i className="fa-solid fa-caret-up"></i></> : 
@@ -23,8 +54,8 @@ function Blog({ imgUrl, title, text, id}) {
         </button>
         <div className='mt-1 border-gray-400'>{more && text}</div>
         <div className="flex gap-2 mt-2">
-          <button className="button-1 ">Modifier</button>
-          <button className="button-3">Supprimer</button>
+          <button className="button-1">Modifier</button>
+          <button className={`${isDeleting ? 'button-4' : 'button-3'}`} disabled={isDeleting} onClick={deleteBlog}>{isDeleting ? 'Suppression...' : 'Supprimer'}</button>
         </div>
       </div>
     </div>
@@ -54,11 +85,25 @@ function AdminBlogs(props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [keywords, setKeywords] = useState(searchParams.get('keywords') || '');
   const [showDeleted, setShowDeleted] = useState(false);
+  const [alertText, setAlertText] = useState("")
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function fetchData(){
-    const reponse = await customAxios.get(`blogs?keywords=${keywords}`);
+    try{
+      const reponse = await customAxios.get(`blogs?keywords=${keywords}`);
+      setBlogs(reponse.data);
+    }
+    catch(error) {
+      console.error(error)
+      setAlertText("Quelque chose s'est mal passé");
 
-    setBlogs(reponse.data);
+      if(error.response?.status === 401) {
+          dispatch(logout())
+          navigate(switchToUrlBaseOnUserRole('admin').loginPage)
+      }
+    }
+
     setFetched(true)
   }
 
@@ -79,6 +124,7 @@ function AdminBlogs(props) {
   
   return (
     <div className="flex">
+      {alertText && <Alert alertText={alertText} setAlertText={setAlertText} />}
       <AdminSideBare activeItem={7} />
 
       <div className='m-4 w-full md:px-10'>
@@ -107,15 +153,15 @@ function AdminBlogs(props) {
           </form>
 
           <div>
-            <div className="font-semibold mb-1">Resultat: {fetched ? blogs.length : "..."}</div>
+            <div className="font-semibold mb-1">{fetched ? (blogs.length ? `Resultat: ${blogs.length}` : "Aucun Blog trouvé") : "Recherche..."}</div>
 
             <div>
               {
                 fetched
                 ? 
-                blogs.map(blog => <Blog key={blog.id} text={blog.content} title={blog.title} imgUrl={blog.photo_url} id={blog.id} />)
+                blogs.map(blog => <Blog key={blog.id} text={blog.content} title={blog.title} imgUrl={blog.photo_url} id={blog.id} fetchData={fetchData} setFetched={setFetched} setAlertText={setAlertText} />)
                 :
-                <div>{Array.from({ length: 20 }, (_, i) => i + 1).map(() => <BlogSkeleton />)}</div>
+                <div>{Array.from({ length: 20 }, (_, i) => i + 1).map((_, ind) => <BlogSkeleton key={ind} />)}</div>
               }
             </div>
           </div>
