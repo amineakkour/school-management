@@ -9,6 +9,7 @@ import Alert from "../../components/Alert";
 import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole';
 import { logout } from '../../redux/features/userSlice';
 import { formatDate } from "../../functions/formatDate";
+import { useTheme } from '../../context/ThemeProvider';
 
 
 function Card({ children, title, handelClickOnSettings }) {
@@ -34,6 +35,7 @@ export default function AdminDashboard() {
   const [teacherCounter, setTeacherCounter] = useState(null);
   const [paymentTranches, setPaymentTranches] = useState(null);
   const [messages, setMessages] = useState(null);
+  const { theme } = useTheme()
 
   async function fetchData() {
     const headers = {
@@ -52,8 +54,6 @@ export default function AdminDashboard() {
       setAdminAcounter(teacherRequest.data);
       const studentsRequest = await customAxios.get('students-counter', { headers });
       setStudentCounter(studentsRequest.data);
-      
-      
     } catch (error) {
       console.error(error);
       setAlertText("Quelque chose s'est mal passé");
@@ -129,7 +129,7 @@ export default function AdminDashboard() {
               {!paymentTranches ? 
                 <div className=''><Spinner /> Loading...</div>
               : 
-              <table className="tabel-1 mt-2 md:mt-4 text-[9px] md:text-xs">
+              <table className={`${theme == "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4 text-[9px] md:text-xs`}>
                 <thead>
                   <tr>
                     <th>#id</th>
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
               {!messages ? 
                 <div className=''><Spinner /> Loading...</div>
               : 
-              <table className="tabel-1 mt-2 md:mt-4 text-[9px] md:text-xs">
+              <table className={`${theme == "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4 text-[9px] md:text-xs`}>
                 <thead>
                   <tr>
                     <th>Nom</th>
