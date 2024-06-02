@@ -41,6 +41,7 @@ class BlogController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
 {
+    
     $validator = Validator::make($request->all(), [
         'title' => 'required|string|max:100',
         'content' => 'required|min:100|string',
@@ -91,11 +92,32 @@ class BlogController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Blog $blog)
     {
-        $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'content' => 'sometimes|required|string',
-            'photo_url' => 'nullable|url',
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:100',
+            'content' => 'required|min:100|string',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+        ], [
+            'title.required' => 'Le champ titre est requis.',
+            'title.string' => 'Le champ titre doit être une chaîne de caractères.',
+            'title.max' => 'Le champ titre ne doit pas dépasser 100 caractères.',
+            'content.required' => 'Le champ contenu est requis.',
+            'content.min' => 'Le champ contenu doit comporter au moins 100 caractères.',
+            'content.string' => 'Le champ contenu doit être une chaîne de caractères.',
+            'photo.required' => 'Le champ photo est requis.',
+            'photo.image' => 'Le champ photo doit être une image.',
+            'photo.mimes' => 'Le champ photo doit être un fichier de type :jpeg, :png, :jpg, :gif, ou :svg.',
+            'photo.max' => 'Le champ photo ne doit pas dépasser 5048 kilo-octets.',
         ]);
+
+        $pic_validator = Validator::make($request->all(), [
+
+        ]);
+
+        
+        if($validator->fails()){
+            return response()->json(["errors" => $validator->errors()], 422);
+        }
 
         $blog->title = $request->input("title", $blog->title);
         $blog->content = $request->input("content", $blog->content);
