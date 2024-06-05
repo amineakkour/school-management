@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import StudentLayout from "./Layout/StudentLayout";
 import AdminBlogs from "./views/admin/AdminBlogs";
+import EditBlog from "./views/admin/EditBlog";
 import AddNewBlog from "./views/admin/AddNewBlog";
 
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="blogs" >
               <Route index element={<AdminBlogs />} />
               <Route path="ajouter" element={<AddNewBlog />} />
+              <Route path="modifier/:id" element={<EditBlog />} />
             </Route>
           </Route>
 
