@@ -45,7 +45,7 @@ class BlogController extends Controller implements HasMiddleware
     $validator = Validator::make($request->all(), [
         'title' => 'required|string|max:100',
         'content' => 'required|min:100|string',
-        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
     ], [
         'title.required' => 'Le champ titre est requis.',
         'title.string' => 'Le champ titre doit être une chaîne de caractères.',
@@ -56,7 +56,7 @@ class BlogController extends Controller implements HasMiddleware
         'photo.required' => 'Le champ photo est requis.',
         'photo.image' => 'Le champ photo doit être une image.',
         'photo.mimes' => 'Le champ photo doit être un fichier de type :jpeg, :png, :jpg, :gif, ou :svg.',
-        'photo.max' => 'Le champ photo ne doit pas dépasser 5048 kilo-octets.',
+        'photo.max' => 'Le champ photo ne doit pas dépasser 5000MB.',
     ]);
 
     if ($validator->fails()) {
@@ -96,7 +96,6 @@ class BlogController extends Controller implements HasMiddleware
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
             'content' => 'required|min:100|string',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ], [
             'title.required' => 'Le champ titre est requis.',
             'title.string' => 'Le champ titre doit être une chaîne de caractères.',
@@ -104,16 +103,7 @@ class BlogController extends Controller implements HasMiddleware
             'content.required' => 'Le champ contenu est requis.',
             'content.min' => 'Le champ contenu doit comporter au moins 100 caractères.',
             'content.string' => 'Le champ contenu doit être une chaîne de caractères.',
-            'photo.required' => 'Le champ photo est requis.',
-            'photo.image' => 'Le champ photo doit être une image.',
-            'photo.mimes' => 'Le champ photo doit être un fichier de type :jpeg, :png, :jpg, :gif, ou :svg.',
-            'photo.max' => 'Le champ photo ne doit pas dépasser 5048 kilo-octets.',
         ]);
-
-        $pic_validator = Validator::make($request->all(), [
-
-        ]);
-
         
         if($validator->fails()){
             return response()->json(["errors" => $validator->errors()], 422);
@@ -121,7 +111,27 @@ class BlogController extends Controller implements HasMiddleware
 
         $blog->title = $request->input("title", $blog->title);
         $blog->content = $request->input("content", $blog->content);
-        $blog->photo_url = $request->input("photo_url", $blog->photo_url);
+        
+        if($request->hasFile("photo")) {
+            $photo_validator = Validator::make($request->all(), [
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            ],[
+                'photo.required' => 'Le champ photo est requis.',
+                'photo.image' => 'Le champ photo doit être une image.',
+                'photo.mimes' => 'Le champ photo doit être un fichier de type :jpeg, :png, :jpg, :gif, ou :svg.',
+                'photo.max' => 'Le champ photo ne doit pas dépasser 5000MB.',
+                ]
+            ); 
+
+            if($photo_validator->fails()){
+                return response()->json(["errors" => $validator->errors()], 422);
+            }
+
+            $fileName = Str::uuid() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->move(public_path('photos/blogs'), $fileName);
+            
+            $blog->photo_url = "/photos/blogs/$fileName";
+        }
 
         $blog->save();
 
