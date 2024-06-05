@@ -30,13 +30,10 @@ export default function AddNewBlog() {
   });
 
   async function onSubmit(data) {
-    const apiForm = new FormData();
-    apiForm.append('title', data.title);
-    apiForm.append('content', data.content);
-    apiForm.append('photo', data.photo[0]);
+    data = {...data, photo: data.photo[0]};
     
     try {
-      const response = await customAxios.post('/blogs', apiForm, {
+      const response = await customAxios.post('/blogs', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Accept': 'application/json',
