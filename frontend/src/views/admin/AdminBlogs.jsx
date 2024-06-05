@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../redux/features/userSlice.js";
 import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole.js';
 import Alert from '../../components/Alert.jsx';
+import { formatDate } from "../../functions/formatDate.js";
 
-function Blog({ imgUrl, title, text, id, fetchData, setFetched, setAlertText}) {
+function Blog({fetchData, setFetched, setAlertText, blogData}) {
   const [more, setMore] = useState(false);
   const { token } = useSelector(slice => slice.user);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -21,12 +22,11 @@ function Blog({ imgUrl, title, text, id, fetchData, setFetched, setAlertText}) {
     setIsDeleting(true);
     
     try{
-      const response = await customAxios.delete(`/blogs/${id}`, {
+      const response = await customAxios.delete(`/blogs/${blogData.id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    setFetched(false)
     fetchData();
   }
   catch(error) {
@@ -43,18 +43,22 @@ function Blog({ imgUrl, title, text, id, fetchData, setFetched, setAlertText}) {
 
   return <div className='bg-secondary p-3 rounded-md mb-3  shadow-sm border'>
     <div className="flex gap-5">
-      <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={`${import.meta.env.VITE_BACKEND_URL}${imgUrl}`} alt={title} /></div>
+      <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={`${import.meta.env.VITE_BACKEND_URL}${blogData.photo_url}`} alt={blogData.title} /></div>
 
       <div className="">
-        <h3 className="md:text-xl font-semibold break-all	">{title}</h3>
+        <h3 className="md:text-xl font-semibold break-all	">{blogData.title}</h3>
+        <div className='flex gap-3 text-gray-500/75 mb-2 text-[10px]'>
+          <div>Créer le {formatDate(blogData.created_at)} </div>
+          <div>Modifier le {formatDate(blogData.updated_at)}</div>
+        </div>
         <button className='link-1 flex border-b items-center border-gray-400' onClick={() => setMore(v => !v)}>
           {more ? 
           <><span className='block w-28 text-start'>Réduire</span> <i className="fa-solid fa-caret-up"></i></> : 
           <><span className='block w-28 text-start'>Afficher le contenu</span> <i className="fa-solid fa-caret-down"></i></>}
         </button>
-        <div className='mt-1 border-gray-400'>{more && text}</div>
+        <div className='mt-1 border-gray-400'>{more && blogData.content}</div>
         <div className="flex gap-2 mt-2">
-          <button className="button-1">Modifier</button>
+          <Link to={`modifier/${blogData.id}`} className='button-1'>Modifier</Link>
           <button className={`${isDeleting ? 'button-4' : 'button-3'}`} disabled={isDeleting} onClick={deleteBlog}>{isDeleting ? 'Suppression...' : 'Supprimer'}</button>
         </div>
       </div>
@@ -90,6 +94,8 @@ function AdminBlogs(props) {
   const navigate = useNavigate();
 
   async function fetchData(){
+    setFetched(false)
+
     try{
       const reponse = await customAxios.get(`blogs?keywords=${keywords}`);
       setBlogs(reponse.data);
@@ -118,7 +124,6 @@ function AdminBlogs(props) {
   function submit(event) {
     event.preventDefault();
     setBlogs([]);
-    setFetched(false)
     fetchData();
   }
   
@@ -159,7 +164,7 @@ function AdminBlogs(props) {
               {
                 fetched
                 ? 
-                blogs.map(blog => <Blog key={blog.id} text={blog.content} title={blog.title} imgUrl={blog.photo_url} id={blog.id} fetchData={fetchData} setFetched={setFetched} setAlertText={setAlertText} />)
+                blogs.map(blog => <Blog key={blog.id} blogData={blog} fetchData={fetchData} setAlertText={setAlertText} />)
                 :
                 <div>{Array.from({ length: 20 }, (_, i) => i + 1).map((_, ind) => <BlogSkeleton key={ind} />)}</div>
               }
