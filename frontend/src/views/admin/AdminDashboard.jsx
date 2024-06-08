@@ -40,31 +40,39 @@ export default function AdminDashboard() {
     const headers = {
       Accept: 'application/json',
       Authorization: 'Bearer ' + user.token
-    };
+      };
+      
+      try {
 
-    try {
-      if (!sessionStorage.getItem('studentCounter') || !sessionStorage.getItem('adminCounter') || !sessionStorage.getItem('teacherCounter') || !sessionStorage.getItem('paymentTranches') || !sessionStorage.getItem('messages')) {
-        const paymentTranchesResponse = await customAxios.get('payment-tranches?limit=6', { headers });
-        setPaymentTranches(paymentTranchesResponse.data);
+        if(!sessionStorage.getItem('paymentTranches')){
+          const paymentTranchesResponse = await customAxios.get('payment-tranches?limit=6', { headers });
+          setPaymentTranches(paymentTranchesResponse.data);
+          sessionStorage.setItem('paymentTranches', JSON.stringify(paymentTranchesResponse.data));
+        }
+        
+        if(!sessionStorage.getItem('adminCounter')){
+          const adminRequest = await customAxios.get('admins-counter', { headers });
+          setAdminAcounter(adminRequest.data);
+          sessionStorage.setItem('adminCounter', adminRequest.data);
+        }
 
-        const messagesResponse = await customAxios.get('messages?limit=6&seen=false', { headers });
-        setMessages(messagesResponse.data);
+        if(!sessionStorage.getItem('teacherCounter')){
+          const teacherRequest = await customAxios.get('teachers-counter', { headers });
+          setTeacherCounter(teacherRequest.data);
+          sessionStorage.setItem('teacherCounter', teacherRequest.data);
+        }
 
-        const teacherRequest = await customAxios.get('teachers-counter', { headers });
-        setTeacherCounter(teacherRequest.data);
+        if(!sessionStorage.getItem('studentCounter')){
+          const studentsRequest = await customAxios.get('students-counter', { headers });
+          setStudentCounter(studentsRequest.data);
+          sessionStorage.setItem('studentCounter', studentsRequest.data);
+        }
 
-        const adminRequest = await customAxios.get('admins-counter', { headers });
-        setAdminAcounter(adminRequest.data);
-
-        const studentsRequest = await customAxios.get('students-counter', { headers });
-        setStudentCounter(studentsRequest.data);
-
-        sessionStorage.setItem('studentCounter', studentsRequest.data);
-        sessionStorage.setItem('adminCounter', adminRequest.data);
-        sessionStorage.setItem('teacherCounter', teacherRequest.data);
-        sessionStorage.setItem('paymentTranches', JSON.stringify(paymentTranchesResponse.data));
-        sessionStorage.setItem('messages', JSON.stringify(messagesResponse.data));
-      }
+        if(!sessionStorage.getItem('messages')){
+          const messagesResponse = await customAxios.get('messages?limit=6&seen=false', { headers });
+          setMessages(messagesResponse.data);
+          sessionStorage.setItem('messages', JSON.stringify(messagesResponse.data));
+        }
     } catch (error) {
       console.error(error);
       setAlertText("Quelque chose s'est mal passé");
@@ -137,7 +145,7 @@ export default function AdminDashboard() {
               {paymentTranches.length === 0 ?
                 <div className=''><Spinner /> Loading...</div>
                 :
-                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4 text-[9px] md:text-xs`}>
+                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
                   <thead>
                     <tr>
                       <th>#id</th>
@@ -168,7 +176,7 @@ export default function AdminDashboard() {
               {messages.length === 0 ?
                 <div className=''><Spinner /> Loading...</div>
                 :
-                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4 text-[9px] md:text-xs`}>
+                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
                   <thead>
                     <tr>
                       <th>Nom</th>
