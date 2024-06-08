@@ -22,7 +22,7 @@ const preRegisterSchema = z.object({
 
 function PreRegister(props) {
   const [recaptchaValue, setRecaptchaValue] = useState(false);
-  const { register, handleSubmit, control, formState: { errors }, setError } = useForm({
+  const { register, handleSubmit, control, formState: { errors }, setError, reset } = useForm({
     resolver: zodResolver(preRegisterSchema),
   });
   
@@ -32,6 +32,8 @@ function PreRegister(props) {
       return ""
     }
     console.log(data);
+
+    reset()
   };
 
   return (

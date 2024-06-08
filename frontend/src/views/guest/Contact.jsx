@@ -15,7 +15,7 @@ const contactSchema = z.object({
 function Contact(props) {
   const [messageCounter, setMessageCounter] = useState(0);
   const [recaptchaValue, setRecaptchaValue] = useState(false);
-  const { register, handleSubmit, formState: { errors }, setError } = useForm({
+  const { register, handleSubmit, formState: { errors }, setError, reset } = useForm({
     resolver: zodResolver(contactSchema),
   });
 
@@ -26,7 +26,9 @@ function Contact(props) {
       setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
       return ""
     }
-    console.log(data);
+
+    reset()
+    
   };
 
   return (
