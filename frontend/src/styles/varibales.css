@@ -43,7 +43,7 @@
 }
 
 .tabel-1{
-  @apply w-full
+  @apply w-full text-[9px] md:text-xs
 }
 
 .tabel-1 th, .tabel-1 td{
@@ -55,7 +55,7 @@
 }
 
 .tabel-2{
-  @apply w-full rounded-md overflow-hidden text-black
+  @apply w-full rounded-md overflow-hidden text-black text-[9px] md:text-xs
 }
 
 .tabel-2 th{
@@ -77,7 +77,6 @@
 .tabel-2 td a{
   @apply text-blue-500 underline font-semibold hover:text-blue-700
 }
-
 
 #rain-bow{
   content: "";
