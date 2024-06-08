@@ -80,12 +80,12 @@ export default function Navbar() {
     <header className="relative text-xs">
       <div className="md:flex flex-wrap justify-between items-center p-5 py-3 border-b up-to-down gap-5">
         <ul className="flex text-lg items-center justify-around">
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-youtube"></i></a></li>
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-square-facebook"></i></a></li>
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-linkedin"></i></a></li>
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-x-twitter"></i></a></li>
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-square-instagram"></i></a></li>
-          <li><a href="https://www.google.com/"><i className="hover:text-pink-600 flex items-center content-center w-10 h-7 fa-brands fa-tiktok"></i></a></li>
+          <li><a target="_blank" href="https://www.youtube.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-youtube"></i></a></li>
+          <li><a target="_blank" href="https://www.facebook.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-square-facebook"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-linkedin"></i></a></li>
+          <li><a target="_blank" href="https://www.twitter.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-x-twitter"></i></a></li>
+          <li><a target="_blank" href="https://www.instagram.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-square-instagram"></i></a></li>
+          <li><a target="_blank" href="https://www.tiktok.com/"><i className="hover:text-pink-600 p-4 fa-brands fa-tiktok"></i></a></li>
         </ul>
 
         <h3 className="text-base font-bold my-3 md:my-0 flex justify-center items-center gap-1">
