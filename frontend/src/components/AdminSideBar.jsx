@@ -30,7 +30,7 @@ const AdminSideBarItems = [
   {
     title: 'E-payment', 
     icon: <CreditCard className="shrink-0"/>,
-    path: '/adminstrateur/e-payment', 
+    path: '/adminstrateur/e-paiement', 
   }, 
   {
     title: 'Paiement', 
@@ -45,7 +45,7 @@ const AdminSideBarItems = [
   {
     title: 'Emplois', 
     icon: <BellElectric className="shrink-0"/>,
-    path: '/adminstrateur/emplois', 
+    path: '/adminstrateur/emplois-de-temps', 
   },
   {
     title: 'Absence', 
