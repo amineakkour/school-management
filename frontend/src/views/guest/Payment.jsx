@@ -8,9 +8,9 @@ import { useForm, Controller } from "react-hook-form"
 import ReCAPTCHA from "react-google-recaptcha";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { customAxios } from "../../api/customAxios";
 
 registerLocale('fr', fr);
-
 
 const schema = z.object({
     fullname: z.string().min(6, { message: "Le nom doit contenir au moins 6 caractères" }),
@@ -33,14 +33,30 @@ function Payment(props) {
   });
 
   function submit(data) {
-    if(!recaptchaValue) {
-      setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
-      return ""
-    }
-    console.log(data);
-    setStep(2)
-  }
+    const year = data.date.getFullYear();
+    const month = String(data.date.getMonth() + 1).padStart(2, '0');
+    const day = String(data.date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
 
+    async function fetchStudent() {
+      if(!recaptchaValue) {
+        setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
+        return ""
+      }
+    
+      
+      const response = await customAxios.get(`get-student-id?fullName=${data.fullname}&birthdate=${formattedDate}`);
+      
+      console.log(response);
+      setStep(2)
+      }
+      
+      fetchStudent()
+
+    }
+    
+  
+  
   useEffect(() => {
     document.title = "Paiement des frais";
   }, [])
@@ -84,8 +100,6 @@ function Payment(props) {
         : "Hello"
         }
         
-
-
         <div className="flex gap-1">
           <button type="button" className="button-2" onClick={() => navigate("/")}>Annuler</button>
           <button className="button-1">Suivant <i className="fa-solid fa-arrow-right"></i></button>
