@@ -14,7 +14,7 @@ function TeacherLogin() {
     document.title = "Connexion | Enseignant"
   }, [])
 
-  return <LoginLayout bgColor="bg-blue-200" userSpace="Enseignant" tmpImgURL={tmpImgURL} imgURL={imageURL}  formPath="/api/login" redirectSpaces={redirectSpaces} />
+  return <LoginLayout bgColor="bg-blue-200" userSpace="Enseignant" tmpImgURL={tmpImgURL} imgURL={imageURL} formPath="/teacher/login" redirectSpaces={redirectSpaces} />
 }
 
 export default TeacherLogin;
