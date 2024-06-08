@@ -46,7 +46,7 @@ function Blog({fetchData, setFetched, setAlertText, blogData}) {
       <div className="w-32 h-20 border shrink-0"><img className="w-full h-full object-cover rounded-md" src={`${import.meta.env.VITE_BACKEND_URL}${blogData.photo_url}`} alt={blogData.title} /></div>
 
       <div className="">
-        <h3 className="md:text-xl font-semibold break-all	">{blogData.title}</h3>
+        <h3 className="md:text-xl font-semibold break-all	">#{blogData.id}: {blogData.title}</h3>
         <div className='flex gap-3 text-gray-500/75 mb-2 text-[10px]'>
           <div>Créer le {formatDate(blogData.created_at)} </div>
           <div>Modifier le {formatDate(blogData.updated_at)}</div>
