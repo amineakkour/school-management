@@ -7,32 +7,30 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class StudentController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            'auth:sanctum',
-            new Middleware(AdminMiddleware::class),
+            new Middleware('auth:sanctum', except: ['student_id']),
+            new Middleware(AdminMiddleware::class, except: ['student_id']),
         ];
     }
     
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Student::all();
-    }
+        $search = $request->input('search');
 
-    /**
-     * Display the count of the resource.
-     */
-    public function counter()
-    {
-        return Student::count();
+        $records = Student::when($search, function ($query, $search) {
+            return $query->where('id', 'LIKE', "%$search%")->orWhere('first_name', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%");
+        });
+
+        return $records->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -122,4 +120,19 @@ class StudentController extends Controller implements HasMiddleware
 
         return response()->json(null, 204);
     }
+
+    /**
+     * Display the count of the resource.
+     */
+    public function counter()
+    {
+        return Student::count();
+    }
+
+    
+public function student_id(Request $request) {
+    $student = Student::where('birthday', '=', $request->input("birthdate"))->get();
+
+    return $student;
+}
 }
