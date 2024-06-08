@@ -22,9 +22,15 @@ class TeacherController extends Controller implements HasMiddleware
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Teacher::all();
+        $search = $request->input('search');
+
+        $records = Teacher::when($search, function ($query, $search) {
+            return $query->where('id', 'LIKE', "%$search%")->orWhere('first_name', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%");
+        });
+
+        return $records->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
