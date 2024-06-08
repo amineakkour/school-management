@@ -37,5 +37,8 @@ Route::resource("blogs", BlogController::class);
 Route::resource("messages", MessageController::class);
 
 Route::get("students-counter", [StudentController::class, "counter"]);
+Route::get("get-student-id", [StudentController::class, "student_id"]);
+
 Route::get("teachers-counter", [TeacherController::class, "counter"]);
+
 Route::get("admins-counter", [AdminController::class, "counter"]);
