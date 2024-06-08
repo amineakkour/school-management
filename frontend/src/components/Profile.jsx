@@ -53,7 +53,7 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
 
           
           <DropdownMenuItem className="text-xs cursor-pointer">
-            <Link to={profileUrl}>Mon Profile</Link>
+            <Link to={profileUrl}><i className="fa-solid fa-user text-sm mr-1"></i> Mon Profile</Link>
           </DropdownMenuItem>
 
           {profileDropDownItems.map(item => <DropdownMenuItem key={item.text} className="text-xs cursor-pointer">
