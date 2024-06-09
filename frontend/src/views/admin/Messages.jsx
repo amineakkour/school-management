@@ -104,9 +104,9 @@ export default function Messages() {
             <tbody>
               
               {fetched ? 
-                messages.map(mes => {
+                messages.map((mes, ind) => {
                   return (
-                    <MessageRow mes={mes} />
+                    <MessageRow key={ind} mes={mes} />
                   )
                 })
               : <tr>
