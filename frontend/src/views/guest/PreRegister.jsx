@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -35,6 +35,10 @@ function PreRegister(props) {
 
     reset()
   };
+
+  useEffect(() => {
+    document.title = "Fiche de Pre-Inscription"
+  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

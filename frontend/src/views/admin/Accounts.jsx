@@ -81,8 +81,11 @@ export default function Accounts() {
 
   useEffect(() => {
     setSearchParams({recherche: search, type: select, page});
-
   }, [search, select, page])
+
+  useEffect(() => {
+    document.title = "Comptes | Adminstrateur";
+  },  [])
 
   return (
     <div className="flex">

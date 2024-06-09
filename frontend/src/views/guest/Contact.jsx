@@ -28,8 +28,11 @@ function Contact(props) {
     }
 
     reset()
-    
   };
+
+  useEffect(() => {
+    document.title = "Nous Contacter";
+  },  [])
 
   return (
     <div className="bg-secondary rounded-sm p-4">

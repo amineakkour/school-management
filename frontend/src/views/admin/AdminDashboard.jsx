@@ -85,12 +85,15 @@ export default function AdminDashboard() {
   }
 
   useEffect(() => {
-    const date = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-    setFrenchDate(date.toLocaleDateString('fr-FR', options));
+    
   }, []);
 
   useEffect(() => {
+    const date = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+    setFrenchDate(date.toLocaleDateString('fr-FR', options));
+
+    document.title = "Dashboard | Adminstrateur";
     fetchData();
   }, []);
 

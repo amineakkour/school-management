@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Profile from "../../components/Profile";
 import Alert from '../../components/Alert';
 import AdminSideBare from '../../components/AdminSideBar';
 
 export default function Payement() {
   const [alertText, setAlertText] = useState('');
+
+  useEffect(() => {
+    document.title = "Paimenent | Adminstrateur"
+  }, [])
 
   return (
     <div className="flex">

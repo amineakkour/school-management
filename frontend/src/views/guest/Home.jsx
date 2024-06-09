@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -51,6 +51,11 @@ function Carousel() {
 }
 
 export default function GuestHome() {
+
+  useEffect(() => {
+    document.title = "Page d'accueil"
+  }, [])
+
   return (
     <div className="">
       <div id="rain-bow"></div>

@@ -68,6 +68,8 @@ export default function Messages() {
 
   useEffect(() => {
     fetchData();
+
+    document.title = "Messages | Adminstrateur"
   }, [])
   
   return (

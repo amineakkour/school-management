@@ -115,6 +115,8 @@ function AdminBlogs(props) {
 
   useEffect(() => {
     fetchData()
+
+    document.title = "Blogs | Adminstrateur"
   }, []);
 
   useEffect(() => {

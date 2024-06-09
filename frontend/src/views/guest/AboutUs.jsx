@@ -147,6 +147,7 @@ export default function AboutUs() {
       setIsUppArrowVisible(window.scrollY > 300);
     })
 
+    document.title = "A propos de nous"
   }, [])
 
   function scrollToElement(element){

@@ -47,7 +47,8 @@ export default function Blog() {
   } 
 
   useEffect(() => {
-    fetchData()
+    document.title = "Page Blogs";
+    fetchData();
   }, [])
 
   return (
