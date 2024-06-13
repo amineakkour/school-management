@@ -24,6 +24,7 @@ class PaymenetTrancheController extends Controller implements HasMiddleware
      */
     public function index(Request $request)
     {
+        
         $limit = $request->input("limit");
 
         $paymentTranches = PaymenetTranche::when($limit, function ($query, $limit) {
