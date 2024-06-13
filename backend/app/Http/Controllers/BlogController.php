@@ -28,11 +28,14 @@ class BlogController extends Controller implements HasMiddleware
     
     public function index(Request $request)
     {
+        $limit = $request->input('limit');
         $keyword = $request->input("keywords");
 
         return Blog::when($keyword, function ($query) use ($keyword) {
             return $query->where('title', 'LIKE', '%' . $keyword . '%')
                         ->orWhere('content', 'LIKE', '%' . $keyword . '%');
+        })->when($limit, function ($query, $limit) {
+            $query->limit($limit);
         })->latest()->get();
     }
 

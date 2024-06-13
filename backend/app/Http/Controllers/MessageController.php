@@ -14,8 +14,8 @@ class MessageController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            'auth:sanctum',
-            new Middleware(AdminMiddleware::class),
+            new Middleware('auth:sanctum', except: ['store']),
+            new Middleware(AdminMiddleware::class, except: ['store']),
         ];
     }
     
@@ -35,7 +35,7 @@ class MessageController extends Controller implements HasMiddleware
             }else{
                 return $query->whereNull('seen_at');
             }
-        })->get();
+        })->orderBy('id', 'desc')->get();
         
         return $messages;
     }
@@ -45,7 +45,16 @@ class MessageController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $message = new Message();
+
+        $message->name = $request->input('fullName');
+        $message->phone_number = $request->input('phoneNumber');
+        $message->title = $request->input('messageObject');
+        $message->message = $request->input('message');
+
+        $message->save();
+
+        return response()->json(["message" => 'Message sent']); 
     }
 
     /**

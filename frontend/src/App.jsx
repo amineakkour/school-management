@@ -29,6 +29,9 @@ import Absences from "./views/admin/Absences";
 import Exams from "./views/admin/Exams";
 import Notes from "./views/admin/Notes";
 import AdminProfile from "./views/admin/AdminProfile";
+import AddNewStudent from "./views/admin/AddNewStudent";
+import AddNewAdmin from "./views/admin/AddNewAdmin";
+import AddNewTeacher from "./views/admin/AddNewTeacher";
 
 function App() {
 
@@ -38,7 +41,7 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Routes>
           
-          {/* guests */}
+          {/* guest */}
           <Route element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="blog" element={<Blog />} />
@@ -68,8 +71,16 @@ function App() {
             </Route>
 
             <Route path="profile" element={<AdminProfile />} />
-            <Route path="messages" element={<Messages />} />
-            <Route path="comptes" element={<Accounts />} />
+            <Route path="messages" element={<Messages /> } />
+            <Route path="comptes" >
+              <Route index element={<Accounts />} />
+              <Route path="ajouter">
+                <Route index element={<AddNewStudent />} />
+                <Route path="etudiant" element={<AddNewStudent />} />
+                <Route path="adminstrateur" element={<AddNewAdmin />} />
+                <Route path="enseignant" element={<AddNewTeacher />} />
+              </Route>
+            </Route>
             <Route path="emplois-de-temps" element={<Schedule />} />
             <Route path="e-paiement" element={<EPayement />} />
             <Route path="paiement" element={<AdminPayement />} />

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import { customAxios  } from '../../api/customAxios';
 
 const contactSchema = z.object({
   fullName: z.string().nonempty("Le nom complet est requis"),
@@ -19,14 +20,19 @@ function Contact(props) {
     resolver: zodResolver(contactSchema),
   });
 
-  
-
   const onSubmit = (data) => {
     if(!recaptchaValue) {
       setError("recaptcha", {message: "Veuillez vérifier que vous etes pas un robot!"})
       return ""
     }
 
+    async function sendMessage() {
+      var response = await customAxios.post('/messages', data);
+
+      console.log(response)
+    }
+
+    sendMessage()
     reset()
   };
 

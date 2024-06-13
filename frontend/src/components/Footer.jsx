@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useTheme } from '../context/ThemeProvider';
+import { customAxios } from '../api/customAxios';
 
 function Footer() {
   const { theme } = useTheme();
+  const [blogs, setBlogs] = useState([]);
+
+  async function fetchData() {
+    try{
+      const response = await customAxios('/blogs?limit=3');
+      setBlogs(response.data)
+    }catch(error) {
+      console.log(error)
+    }
+  } 
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <footer className={`border-t ${theme == "dark" ? "text-whithe" : "text-stone-900"}`}>
@@ -28,19 +43,18 @@ function Footer() {
           <div>
             <h3 className="text-2xl mb-3">Liens utiles</h3>
             <ul className='underline'>
-              <li><Link to="">Pre-inscription</Link></li>
-              <li><Link to="">Nous contacter</Link></li>
-              <li><Link to="">Payer les frais de scolarité</Link></li>
-              <li><Link to="">Connexion</Link></li>
+              <li><Link to="/pre-inscription">Pre-inscription</Link></li>
+              <li><Link to="/contact">Nous contacter</Link></li>
+              <li><Link to="/payer-frais">Payer les frais de scolarité</Link></li>
+              <li><Link to="/connexion">Connexion</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-2xl mb-3">Derniers blogs</h3>
             <ul className='underline'>
-              <li><Link to="">Ipsum. ipsum dolor sit, amet consectetur...</Link></li>
-              <li><Link to="">Lorem ipsum dolor sit.</Link></li>
-              <li><Link to="">Dolor sit amet ipsum consectetur.</Link></li>
+              {blogs.map((blog, ind) => <li key={ind}><Link to="/blog">{blog.title}</Link></li>)}
+              
             </ul>
           </div>
 
