@@ -107,7 +107,7 @@ export default function Accounts() {
             <div className="flex gap-2">
               <li><Link className="hover:underline" to='ajouter/etudiant'>Etudiant</Link></li> |
               <li><Link className="hover:underline" to='ajouter/enseignant'>Enseignant</Link></li> |
-              <li><Link className="hover:underline" to='ajouter/aminstrateur'>Adminstrateur</Link></li>
+              <li><Link className="hover:underline" to='ajouter/adminstrateur'>Adminstrateur</Link></li>
             </div>
           </ul>
         </div>

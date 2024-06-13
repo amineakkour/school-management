@@ -15,13 +15,7 @@ import Spinner from "../../components/Spinner.jsx";
 
 
 export default function AddNewStudent() {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [alertText, setAlertText] = useState(''); 
-  const [select, setSelect] = useState(searchParams.get('type') || 'students');
-  const [search, setSearch] = useState(searchParams.get('recherche') || '');
-  const [accounts, setAccounts] = useState([]);
-  const [page, setPage] = useState(searchParams.get('page') || 1);
-  const [lastPage, setLastPage] = useState(10);
   const { token } = useSelector(slice => slice.user);
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();
@@ -29,12 +23,13 @@ export default function AddNewStudent() {
 
   async function fetchData(event) {
     event?.preventDefault();
+    var data = [];
   
     setIsFetched(false);
     setAccounts([]);
 
     try {
-      const response = await customAxios.get(`/${select}?page=${page}&search=${search}`, {
+      const response = await customAxios.post(`students`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Accept': 'application/json',
@@ -73,36 +68,15 @@ export default function AddNewStudent() {
             <Profile />
         </div>
 
-        <div className='my-5'>
-          <ul className="bg-secondary flex py-2 px-4 font-mono gap-4 text-xs">
-            <li>Ajouter: </li>
-            <div className="flex gap-2">
-              <li><Link className="hover:underline" to='ajouter/etudiant'>Etudiant</Link></li> |
-              <li><Link className="hover:underline" to='ajouter/enseignant'>Enseignant</Link></li> |
-              <li><Link className="hover:underline" to='ajouter/aminstrateur'>Adminstrateur</Link></li>
-            </div>
+        <div className='my-5 text-xs'>
+          <ul className="bg-secondary flex gap-1 py-2 px-4 font-mono">
+            <li><Link className="hover:underline" to='/adminstrateur/comptes'>Comptes</Link></li>
+            <li>{">"}</li>
+            <li>Ajouter Etudiant</li>
           </ul>
         </div>
 
         <div>
-          <div>
-            <form onSubmit={fetchData} className='md:flex gap-2 mb-5'>
-              <Input type="text" placeholder="Rechercher par nom ou identifiant" className="mb-2" value={search} onChange={e => setSearch(e.target.value)} />
-
-              <Select onValueChange={setSelect}>
-                <SelectTrigger className="md:w-96">
-                  <SelectValue placeholder="Type Comptes" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="students">Etudiants</SelectItem>
-                  <SelectItem value="teachers">Enseignants</SelectItem>
-                  <SelectItem value="admins">Adminstrateur</SelectItem>
-                </SelectContent>
-              </Select>
-            </form>
-
-          </div>
-
 
             <div className='min-h-60'>
               {isFetched ? 
@@ -114,9 +88,6 @@ export default function AddNewStudent() {
             }
             </div>
 
-          <div className="mt-20">
-            <Paginate lastPage={lastPage} activePage={page} setPage={setPage}/>
-          </div>
         </div>
 
       </div>  
