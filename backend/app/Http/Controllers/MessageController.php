@@ -68,9 +68,18 @@ class MessageController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Message $message)
+    public function update(Message $message)
     {
-        //
+        //update method is only charge to set seen_at property
+
+        if($message->seen_at){
+            
+            return response()->json(["error" => "The message has been previously verified"], 409);
+        }else{
+            $message->seen_at = now();
+
+            $message->save();
+        };
     }
 
     /**
