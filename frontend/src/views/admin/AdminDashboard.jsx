@@ -11,12 +11,12 @@ import { logout } from '../../redux/features/userSlice';
 import { formatDate } from "../../functions/formatDate";
 import { useTheme } from '../../context/ThemeProvider';
 
-function Card({ children, title, handelClickOnSettings }) {
+function Card({ children, title, handelClickOnSeeMoreButton }) {
   return (
     <div className="w-full shadow-xl p-2 md:p-5 rounded-lg border border-secondary">
       <div className="flex items-center justify-between">
         <h3 className="text-lg md:text-xl font-bold">{title}</h3>
-        <i className="fa-solid fa-ellipsis-vertical cursor-pointer p-2" onClick={handelClickOnSettings}></i>
+        <Link className="fa-solid fa-ellipsis-vertical cursor-pointer p-2" to={handelClickOnSeeMoreButton}></Link>
       </div>
       {children}
     </div>
@@ -121,7 +121,7 @@ export default function AdminDashboard() {
 
         <div className="mt-5">
           <div className="grid md:grid-cols-3 gap-5">
-            <Card title={"Etudiants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+            <Card title={"Etudiants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=students'>
               <p className="text-lg font-semibold">
                 {isDataFeteched.students ?
                   <>{studentCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
-            <Card title={"Enseignants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+            <Card title={"Enseignants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=teachers'>
               <p className="text-lg font-semibold">
                 {isDataFeteched.teachers ?
                   <>{teacherCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
-            <Card title={"Adminstrateur"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+            <Card title={"Adminstrateur"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=admins'>
               <p className="text-lg font-semibold">
                 {isDataFeteched.admins ?
                   <>{adminCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="my-8">
-            <Card title={"Paiements non vérifié"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+            <Card title={"Paiements non vérifié"} handelClickOnSeeMoreButton={() => console.log("handelClickOnSeeMoreButton")}>
               {!isDataFeteched.payments ?
                 <div className=''><Spinner /> Loading...</div>
                 :
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="my-8 text-xs">
-            <Card title={"Messages Non lus"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
+            <Card title={"Messages Non lus"} handelClickOnSeeMoreButton={'/adminstrateur/messages'}>
               {!isDataFeteched.messages ?
                 <div className=''><Spinner /> Loading...</div>
                 :
@@ -193,7 +193,6 @@ export default function AdminDashboard() {
                       <th>Nom</th>
                       <th>Objet</th>
                       <th>Envoyé a</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -202,7 +201,6 @@ export default function AdminDashboard() {
                         <td>{message.name}</td>
                         <td>{message.title}</td>
                         <td>{formatDate(message.created_at)}</td>
-                        <td><Link to="">Afficher</Link></td>
                       </tr>)
                     )}
 
