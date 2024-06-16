@@ -50,13 +50,14 @@ function Footer() {
             </ul>
           </div>
 
-          <div>
+          <Link to="/blog">
             <h3 className="text-2xl mb-3">Derniers blogs</h3>
             <ul className='underline'>
-              {blogs.map((blog, ind) => <li key={ind}><Link to="/blog">{blog.title}</Link></li>)}
-              
+              {blogs.map((blog, ind) => <li key={ind}>{blog.title}</li>)}
+
+              {!blogs.length && <li>Aucun blog trouvé</li>}
             </ul>
-          </div>
+          </Link>
 
         </div>
 
