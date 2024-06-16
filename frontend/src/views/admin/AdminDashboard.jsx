@@ -13,7 +13,7 @@ import { useTheme } from '../../context/ThemeProvider';
 
 function Card({ children, title, handelClickOnSettings }) {
   return (
-    <div className="w-full shadow-xl p-2 md:p-5 rounded-lg border border-gray-200">
+    <div className="w-full shadow-xl p-2 md:p-5 rounded-lg border border-secondary">
       <div className="flex items-center justify-between">
         <h3 className="text-lg md:text-xl font-bold">{title}</h3>
         <i className="fa-solid fa-ellipsis-vertical cursor-pointer p-2" onClick={handelClickOnSettings}></i>
