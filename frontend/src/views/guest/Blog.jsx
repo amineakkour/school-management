@@ -40,6 +40,7 @@ export default function Blog() {
       setBlogs(response.data)
     }catch(error) {
       setAlertText("Quelque chose s'est mal passé");
+      setIsFetached(false)
       console.log(error)
     }
 
@@ -49,7 +50,7 @@ export default function Blog() {
   useEffect(() => {
     document.title = "Page Blogs";
     fetchData();
-  }, [])
+  }, [])  
 
   return (
     <div className={`md:max-w-6xl p-5 mx-2 md:mx-auto`}>

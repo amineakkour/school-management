@@ -66,7 +66,6 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
         setAlertText("Something Went wrong!")
       }
       console.error(e);
-      // setError("")
     }
 
     setLoginAttemps(v => v +1);
