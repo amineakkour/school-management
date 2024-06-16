@@ -10,8 +10,30 @@ import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUser
 import { formatDate } from "../../functions/formatDate.js";
 import Spinner from "../../components/Spinner";
 
-function MessageRow({ mes }) {
+function MessageRow({ mes, token, fetchData, setFetched }) {
   const [opened, setOpened] = useState(false);
+
+  async function markMessageAsSeen(event, messageId, seen_at) {
+    event.stopPropagation();
+
+    if(seen_at) return false
+
+    setFetched(false)
+
+    try{
+      await customAxios.put(`/messages/${messageId}`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      sessionStorage.removeItem('messages');
+      
+    }catch(error) {
+      console.error(error)
+    }
+    
+    fetchData()
+  }
 
   return (
     <>
@@ -21,11 +43,11 @@ function MessageRow({ mes }) {
         <td>{mes.title}</td>
         <td>{mes.phone_number}</td>
         <td>{formatDate(mes.created_at)}</td>
-        <td><div className={`w-3 h-3 rounded-full ${mes.seen_at ? 'bg-green-500' : 'bg-red-500'}`}></div></td>
+        <td onClick={e => markMessageAsSeen(e, mes.id, mes.seen_at)} className={`${mes.seen_at ? '' : 'active:bg-stone-600 hover:outline outline-2' }`} title={mes.seen_at ? 'lu' : "Marquer comme lu"}><div className={`outline outline-2 w-3 h-3 rounded-full ${mes.seen_at ? 'bg-green-500' : 'bg-red-500'} bg-black`}></div></td>
       </tr>
       {opened && (
         <tr className="bg-secondary">
-          <td colSpan={6} className="text-start">{mes.message}</td>
+          <td colSpan={6}><p className='min-h-10 flex justify-center items-center'>{mes.message}</p></td>
         </tr>
       )}
     </>
@@ -106,7 +128,7 @@ export default function Messages() {
               {fetched ? 
                 messages.map((mes, ind) => {
                   return (
-                    <MessageRow key={ind} mes={mes} />
+                    <MessageRow key={ind} mes={mes} token={token} setFetched={setFetched} fetchData={fetchData} />
                   )
                 })
               : <tr>
