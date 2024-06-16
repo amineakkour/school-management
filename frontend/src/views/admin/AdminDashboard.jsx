@@ -35,6 +35,7 @@ export default function AdminDashboard() {
   const [paymentTranches, setPaymentTranches] = useState(JSON.parse(sessionStorage.getItem('paymentTranches')) || []);
   const [messages, setMessages] = useState(JSON.parse(sessionStorage.getItem('messages')) || []);
   const { theme } = useTheme();
+  const [isDataFeteched, setIsDataFetched] = useState({students: false, admins: false, teachers: false, payments:false, messages: false});
 
   async function fetchData() {
     const headers = {
@@ -43,36 +44,41 @@ export default function AdminDashboard() {
       };
       
       try {
-
         if(!sessionStorage.getItem('paymentTranches')){
           const paymentTranchesResponse = await customAxios.get('payment-tranches?limit=6', { headers });
           setPaymentTranches(paymentTranchesResponse.data);
           sessionStorage.setItem('paymentTranches', JSON.stringify(paymentTranchesResponse.data));
         }
+        setIsDataFetched(v => {return {...v, payments: true}})
         
         if(!sessionStorage.getItem('adminCounter')){
           const adminRequest = await customAxios.get('admins-counter', { headers });
           setAdminAcounter(adminRequest.data);
           sessionStorage.setItem('adminCounter', adminRequest.data);
         }
-
+        setIsDataFetched(v => {return {...v, admins: true}})
+        
         if(!sessionStorage.getItem('teacherCounter')){
           const teacherRequest = await customAxios.get('teachers-counter', { headers });
           setTeacherCounter(teacherRequest.data);
           sessionStorage.setItem('teacherCounter', teacherRequest.data);
         }
-
+        setIsDataFetched(v => {return {...v, teachers: true}})
+        
         if(!sessionStorage.getItem('studentCounter')){
           const studentsRequest = await customAxios.get('students-counter', { headers });
           setStudentCounter(studentsRequest.data);
           sessionStorage.setItem('studentCounter', studentsRequest.data);
         }
-
+        setIsDataFetched(v => {return {...v, students: true}})
+        
         if(!sessionStorage.getItem('messages')){
           const messagesResponse = await customAxios.get('messages?limit=6&seen=false', { headers });
           setMessages(messagesResponse.data);
           sessionStorage.setItem('messages', JSON.stringify(messagesResponse.data));
         }
+        setIsDataFetched(v => {return {...v, messages: true}})
+
     } catch (error) {
       console.error(error);
       setAlertText("Quelque chose s'est mal passé");
@@ -117,7 +123,7 @@ export default function AdminDashboard() {
           <div className="grid md:grid-cols-3 gap-5">
             <Card title={"Etudiants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
               <p className="text-lg font-semibold">
-                {studentCounter ?
+                {isDataFeteched.students ?
                   <>{studentCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
                   : <><Spinner /> <span className='text-xs'>Loading...</span></>}
               </p>
@@ -126,7 +132,7 @@ export default function AdminDashboard() {
 
             <Card title={"Enseignants"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
               <p className="text-lg font-semibold">
-                {teacherCounter ?
+                {isDataFeteched.teachers ?
                   <>{teacherCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
                   : <><Spinner /> <span className='text-xs'>Loading...</span></>}
               </p>
@@ -135,7 +141,7 @@ export default function AdminDashboard() {
 
             <Card title={"Adminstrateur"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
               <p className="text-lg font-semibold">
-                {adminCounter ?
+                {isDataFeteched.admins ?
                   <>{adminCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
                   : <><Spinner /> <span className='text-xs'>Loading...</span></>}
               </p>
@@ -145,7 +151,7 @@ export default function AdminDashboard() {
 
           <div className="my-8">
             <Card title={"Paiements non vérifié"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              {paymentTranches.length === 0 ?
+              {!isDataFeteched.payments ?
                 <div className=''><Spinner /> Loading...</div>
                 :
                 <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
@@ -168,6 +174,8 @@ export default function AdminDashboard() {
                         <td><Link to="">Afficher</Link></td>
                       </tr>)
                     )}
+
+                  {!paymentTranches.length && <tr><td colSpan={5}>Tous les paiment ont été bien vérifié.</td></tr>}
                   </tbody>
                 </table>
               }
@@ -176,7 +184,7 @@ export default function AdminDashboard() {
 
           <div className="my-8 text-xs">
             <Card title={"Messages Non lus"} handelClickOnSettings={() => console.log("handelClickOnSettings")}>
-              {messages.length === 0 ?
+              {!isDataFeteched.messages ?
                 <div className=''><Spinner /> Loading...</div>
                 :
                 <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
@@ -197,6 +205,8 @@ export default function AdminDashboard() {
                         <td><Link to="">Afficher</Link></td>
                       </tr>)
                     )}
+
+                    {!messages.length && <tr><td colSpan={4}>Tous les messages ont été lus.</td></tr>}
                   </tbody>
                 </table>
               }
