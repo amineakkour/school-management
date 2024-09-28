@@ -78,7 +78,7 @@ export default function Payement() {
           <div className="my-2 hover:bg-secondary w-max p-2 rounded-md cursor-pointer" onClick={fetchData}><i className="fa-solid fa-arrows-rotate"></i> Refresh</div>
 
           <div className="flex items-center space-x-2 my-2">
-            <Checkbox id="terms" checked={getOnlyNotVerifiedPaiements} onClick={e => setGetOnlyNotVerifiedPaiements(v => !v)}/>
+            <Checkbox disabled={!isFetched} id="terms" checked={getOnlyNotVerifiedPaiements} onClick={e => setGetOnlyNotVerifiedPaiements(v => !v)}/>
             <label
               htmlFor="terms"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
