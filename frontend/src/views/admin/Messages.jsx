@@ -112,7 +112,7 @@ export default function Messages() {
 
           <div className="my-2 hover:bg-secondary w-max p-2 rounded-md cursor-pointer" onClick={fetchData}><i className="fa-solid fa-arrows-rotate"></i> Refresh</div>
 
-          <table className="tabel-1">
+          <table className="table-3">
             <thead>
               <tr>
                 <th>#Id</th>
@@ -120,6 +120,7 @@ export default function Messages() {
                 <th>Titre de message</th>
                 <th>Numero de telephone</th>
                 <th>Envoyé le</th>
+                <th>Marquer commme lu</th>
               </tr>
             </thead>
 

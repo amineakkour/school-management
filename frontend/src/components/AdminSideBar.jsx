@@ -98,7 +98,7 @@ export default function AdminSideBar({ activeItem = 2}) {
   
   return (
     <div className="relative">
-      <nav className="bg-stone-900 text-stone-100 shrink-0 overflow-hidden h-full min-h-screen" style={{ width: `${sidebarWidth}px` }}>
+      <nav className="bg-black text-stone-100 shrink-0 overflow-hidden h-full min-h-screen" style={{ width: `${sidebarWidth}px` }}>
         <ul className={`flex flex-col justify-center ${sidebarWidth <= initialSideBareWidth ? "items-center" : "items-start"} py-5 px-3 md:px-5 gap-4`}>  
           
           {AdminSideBarItems.map((item, ind) => {

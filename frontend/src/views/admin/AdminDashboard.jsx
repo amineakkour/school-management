@@ -154,7 +154,7 @@ export default function AdminDashboard() {
               {!isDataFeteched.payments ?
                 <div className=''><Spinner /> Loading...</div>
                 :
-                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
+                <table className={`table-3 mt-2 md:mt-4`}>
                   <thead>
                     <tr>
                       <th>#id</th>
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
               {!isDataFeteched.messages ?
                 <div className=''><Spinner /> Loading...</div>
                 :
-                <table className={`${theme === "dark" ? 'tabel-1' : 'tabel-2'} mt-2 md:mt-4`}>
+                <table className={"table-3 mt-2 md:mt-4"}>
                   <thead>
                     <tr>
                       <th>Nom</th>
