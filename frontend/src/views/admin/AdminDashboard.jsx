@@ -161,7 +161,6 @@ export default function AdminDashboard() {
                       <th>Etudiant</th>
                       <th>Méthode</th>
                       <th>Payer a</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -171,7 +170,6 @@ export default function AdminDashboard() {
                         <td>{tranche.registration_id}</td>
                         <td>{tranche.payment_method}</td>
                         <td>{formatDate(tranche.created_at)}</td>
-                        <td><Link to="">Afficher</Link></td>
                       </tr>)
                     )}
 
