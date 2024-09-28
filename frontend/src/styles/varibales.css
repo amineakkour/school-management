@@ -78,6 +78,22 @@
   @apply text-blue-500 underline font-semibold hover:text-blue-700
 }
 
+.table-3{
+  @apply w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400
+}
+
+.table-3 thead{
+  @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400
+}
+
+.table-3 tbody tr{
+  @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700;
+}
+
+.table-3 th, .table-3 td{
+  @apply px-6 py-3
+}
+
 #rain-bow{
   content: "";
   position: absolute;
