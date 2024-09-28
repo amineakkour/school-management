@@ -49,7 +49,7 @@ function MessageRow({ mes, token, fetchData, setFetched }) {
       {opened && (
         <tr className="bg-secondary">
           <td className='cursor-pointer bg-secondary text-center' onClick={() => setOpened(false)}><i className="fa-solid fa-xmark"></i></td>
-          <td colSpan={5}><span className='font-bold'>Message: </span> <span className='min-h-10'>{mes.message}</span></td>
+          <td colSpan={6}><span className='font-bold'>Message: </span> <span className='min-h-10'>{mes.message}</span></td>
         </tr>
       )}
     </>
@@ -136,7 +136,7 @@ export default function Messages() {
                   )
                 })
               : <tr>
-                  <td colSpan={6}>
+                  <td colSpan={7}>
                     <Spinner />
                   </td>
                 </tr>
