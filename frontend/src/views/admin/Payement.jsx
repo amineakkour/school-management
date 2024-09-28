@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { formatDate } from "../../functions/formatDate";
 import { Checkbox } from "@/components/ui/checkbox"
 import { useSearchParams } from "react-router-dom";
+import Spinner from '../../components/Spinner';
 
 
 
@@ -75,20 +76,22 @@ export default function Payement() {
         </div>
 
         <div className='my-10'>
-          <div className="my-2 hover:bg-secondary w-max p-2 rounded-md cursor-pointer" onClick={fetchData}><i className="fa-solid fa-arrows-rotate"></i> Refresh</div>
+          <div className='flex justify-between'>
+            <div className="flex items-center space-x-2 my-5">
+              <Checkbox disabled={!isFetched} id="terms" checked={getOnlyNotVerifiedPaiements} onClick={e => setGetOnlyNotVerifiedPaiements(v => !v)}/>
+              <label
+                htmlFor="terms"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Afficher uniquement les paiements non vérifiés
+              </label>
+            </div>
 
-          <div className="flex items-center space-x-2 my-2">
-            <Checkbox disabled={!isFetched} id="terms" checked={getOnlyNotVerifiedPaiements} onClick={e => setGetOnlyNotVerifiedPaiements(v => !v)}/>
-            <label
-              htmlFor="terms"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Afficher uniquement les paiements non vérifiés
-            </label>
+            <div className="my-2 hover:bg-secondary w-max p-2 rounded-md cursor-pointer" onClick={fetchData}><i className="fa-solid fa-arrows-rotate"></i> Refresh</div>
           </div>
 
           
-          <p className='label-1'>{isFetched && <>Resultat: {payements.length}</>}</p>
+          <p className='label-1'>Resultat: {isFetched && payements.length}</p>
 
           <table className='table-3'>
             <thead>
@@ -97,7 +100,7 @@ export default function Payement() {
                 <th>Method</th>
                 <th>Etudiant</th>
                 <th>Payé a</th>
-                <th>Verifier</th>
+                <th>Verifié à</th>
               </tr>
             </thead>
 
@@ -116,7 +119,7 @@ export default function Payement() {
               })
               :
               <tr>
-                <td colSpan={5}>Loading...</td>
+                <td colSpan={5}>{<Spinner />}</td>
             </tr> 
             }
             </tbody>

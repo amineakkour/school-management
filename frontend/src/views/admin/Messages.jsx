@@ -37,17 +37,19 @@ function MessageRow({ mes, token, fetchData, setFetched }) {
 
   return (
     <>
-      <tr onClick={() => setOpened(v => !v)} className="hover:bg-secondary cursor-pointer">
+      <tr onClick={() => setOpened(v => !v)} className={`hover:bg-secondary cursor-pointer`}>
         <td>{mes.id}</td>
         <td>{mes.name}</td>
         <td>{mes.title}</td>
         <td>{mes.phone_number}</td>
         <td>{formatDate(mes.created_at)}</td>
         <td onClick={e => markMessageAsSeen(e, mes.id, mes.seen_at)} className={`${mes.seen_at ? '' : 'active:bg-stone-600 hover:outline outline-2' }`} title={mes.seen_at ? 'lu' : "Marquer comme lu"}><div className={`outline outline-2 w-3 h-3 rounded-full ${mes.seen_at ? 'bg-green-500' : 'bg-red-500'} bg-black`}></div></td>
+        <td><i className={`fa-solid fa-chevron-${opened ? "up" : "down"}`}></i></td>
       </tr>
       {opened && (
         <tr className="bg-secondary">
-          <td colSpan={6}><p className='min-h-10 flex justify-center items-center'>{mes.message}</p></td>
+          <td className='cursor-pointer bg-secondary text-center' onClick={() => setOpened(false)}><i className="fa-solid fa-xmark"></i></td>
+          <td colSpan={5}><span className='font-bold'>Message: </span> <span className='min-h-10'>{mes.message}</span></td>
         </tr>
       )}
     </>
@@ -121,6 +123,7 @@ export default function Messages() {
                 <th>Numero de telephone</th>
                 <th>Envoyé le</th>
                 <th>Marquer commme lu</th>
+                <th></th>
               </tr>
             </thead>
 
