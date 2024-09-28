@@ -7,7 +7,7 @@ import preschoolPicture from "../../assets/preschool.jpg";
 import primaryPicture from "../../assets/primary.jpg";
 import juniorHightSchoolPicture from "../../assets/junior_high_school.jpg";
 import hightSchoolPicture from "../../assets/high_school.jpg";
-import ElMoudaPhoto from "../../assets/el_mouda_amine.jpg";
+import ExcellentStudent from "../../assets/excellent_student.jpg";
 import doubleQuotesPicture from "../../assets/double-quotes-.png";
 
 
@@ -17,6 +17,7 @@ import bg_3 from "../../assets/home_bg_3.jpg";
 import bg_4 from "../../assets/home_bg_4.jpg";
 import bg_5 from "../../assets/home_bg_5.jpg";
 import bg_6 from "../../assets/home_bg_6.jpg";
+import { useTheme } from '../../context/ThemeProvider';
 
 
 function Carousel() {
@@ -51,6 +52,7 @@ function Carousel() {
 }
 
 export default function GuestHome() {
+  const { theme } = useTheme();
 
   useEffect(() => {
     document.title = "Page d'accueil"
@@ -134,7 +136,7 @@ export default function GuestHome() {
         
       </div>
 
-      <div className="my-8 bg-stone-900 text-white p-5">
+      <div className="my-8 p-5 shadow-lg rounded-2xl">
       <h3 className="text-4xl">Histoire de Réussite</h3>
       <h5 className="text-xl mb-4">d'un Ancien Élève : Diplômé de l'École Amine</h5>
       <p>Nous sommes fiers de mettre en avant le succès de l'un de nos anciens élèves distingués, qui a réalisé des progrès remarquables dans le domaine de la technologie après avoir obtenu baccalauréat chez <span className="font-semibold">Groupe Scolaire Amine</span>.</p>
@@ -142,12 +144,12 @@ export default function GuestHome() {
 
       
       <div className="flex items-center flex-col md:flex-row md:gap-10">
-        <div className="shrink-0 w-full md:w-max"><img className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full" src={ElMoudaPhoto} alt="Image de nous ancien élève El Mouda Amine" /></div>
+        <div className="shrink-0 w-full md:w-max"><img className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full" src={ExcellentStudent} alt="Image de nous ancien élève El Mouda Amine" /></div>
 
         <div className="my-4 font-1 font-semibold text-lg">
           
           <div className="mb-4">
-            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: 'invert(100%)'}} />
+            <img src={doubleQuotesPicture} className="w-4 h-4 bg-blend-darken object-contain" alt="double quotes" style={{filter: `${theme == "dark" ? "invert(100%)" : ""}`}} />
             <p>
               Grâce à l'École Amine, j'ai acquis les bases en mathématiques nécessaires pour étudier l'ingénierie   informatique après le bac. Le programme rigoureux et complet m'a fourni les compétences essentielles pour poursuivre ma passion
             </p>
@@ -155,19 +157,19 @@ export default function GuestHome() {
 
           
           <div className="my-4">
-            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: 'invert(100%)'}} />
+            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: `${theme == "dark" ? "invert(100%)" : ""}`}} />
             <p>
               Je travaille maintenant chez Google, où j'applique chaque jour les connaissances et compétences acquises à l'École Amine. Les techniques analytiques et de résolution de problèmes que j'ai apprises ont été inestimables dans mon rôle.
             </p>
           </div>
 
           <div className="my-4">
-            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: 'invert(100%)'}} />
+            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: `${theme == "dark" ? "invert(100%)" : ""}`}} />
             <p>L'École Amine a une communauté incroyable. Le soutien des pairs et l'esprit de collaboration ont été déterminants dans ma croissance personnelle et professionnelle.</p>
           </div>
 
           <div className="my-4">
-            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: 'invert(100%)'}} />
+            <img src={doubleQuotesPicture} className="bg-blend-darken w-4 h-4 object-contain" alt="double quotes" style={{filter: `${theme == "dark" ? "invert(100%)" : ""}`}} />
             <p>Les enseignants sont formidables. Leur engagement envers la réussite des élèves et leur passion pour l'enseignement ont eu un impact significatif sur mon parcours éducatif.</p>
           </div>
         </div>

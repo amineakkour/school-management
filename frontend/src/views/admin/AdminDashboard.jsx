@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import AdminSideBar from "../../components/AdminSideBar";
 import Profile from "../../components/Profile";
@@ -9,7 +9,6 @@ import Alert from "../../components/Alert";
 import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole';
 import { logout } from '../../redux/features/userSlice';
 import { formatDate } from "../../functions/formatDate";
-import { useTheme } from '../../context/ThemeProvider';
 
 function Card({ children, title, handelClickOnSeeMoreButton }) {
   return (
@@ -34,7 +33,6 @@ export default function AdminDashboard() {
   const [teacherCounter, setTeacherCounter] = useState(Number(sessionStorage.getItem('teacherCounter')) || 0);
   const [paymentTranches, setPaymentTranches] = useState(JSON.parse(sessionStorage.getItem('paymentTranches')) || []);
   const [messages, setMessages] = useState(JSON.parse(sessionStorage.getItem('messages')) || []);
-  const { theme } = useTheme();
   const [isDataFeteched, setIsDataFetched] = useState({students: false, admins: false, teachers: false, payments:false, messages: false});
 
   async function fetchData() {
