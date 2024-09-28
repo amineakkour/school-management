@@ -32,6 +32,8 @@ Route::resource("teachers", TeacherController::class);
 
 Route::resource("payment-tranches", PaymenetTrancheController::class);
 
+Route::post("/payment-tranches-verify", [PaymenetTrancheController::class, "verify"]);
+
 Route::resource("blogs", BlogController::class);
 
 Route::resource("messages", MessageController::class);

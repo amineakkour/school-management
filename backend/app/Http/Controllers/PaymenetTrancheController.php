@@ -24,11 +24,10 @@ class PaymenetTrancheController extends Controller implements HasMiddleware
      */
     public function index(Request $request)
     {
-        
-        $limit = $request->input("limit");
+        $notVerifiedInput = filter_var($request->input("not-verified"), FILTER_VALIDATE_BOOLEAN); ;
 
-        $paymentTranches = PaymenetTranche::when($limit, function ($query, $limit) {
-            return $query->limit($limit);
+        $paymentTranches = PaymenetTranche::when($notVerifiedInput, function ($query) {
+            return $query->whereNull("verified_at");
         })->get();
 
         return response()->json($paymentTranches);
@@ -64,5 +63,16 @@ class PaymenetTrancheController extends Controller implements HasMiddleware
     public function destroy(PaymenetTranche $paymenetTranche)
     {
         //
+    }
+
+    public function verify(Request $request) {
+        $id = $request->input("id");
+        
+        $user = PaymenetTranche::findOrFail($id);
+        
+        $user->verified_at = now();
+
+        $user->save();
+        return response()->json($user->verified_at);
     }
 }
