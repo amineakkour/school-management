@@ -43,7 +43,7 @@ export default function AdminDashboard() {
       
       try {
         if(!sessionStorage.getItem('paymentTranches')){
-          const paymentTranchesResponse = await customAxios.get('payment-tranches?limit=6', { headers });
+          const paymentTranchesResponse = await customAxios.get('payment-tranches?verified=0&limit=5', { headers });
           setPaymentTranches(paymentTranchesResponse.data);
           sessionStorage.setItem('paymentTranches', JSON.stringify(paymentTranchesResponse.data));
         }
