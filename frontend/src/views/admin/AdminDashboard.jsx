@@ -9,10 +9,11 @@ import Alert from "../../components/Alert";
 import { switchToUrlBaseOnUserRole } from '../../functions/switchToUrlBaseOnUserRole';
 import { logout } from '../../redux/features/userSlice';
 import { formatDate } from "../../functions/formatDate";
+import { useTheme } from '../../context/ThemeProvider';
 
-function Card({ children, title, handelClickOnSeeMoreButton }) {
+function Card({ children, title, handelClickOnSeeMoreButton, bgColor }) {
   return (
-    <div className="w-full shadow-xl p-2 md:p-5 rounded-lg border border-secondary">
+    <div className={`w-full shadow-xl p-2 md:p-5 rounded-lg border border-secondary bg-${bgColor}`}>
       <div className="flex items-center justify-between">
         <h3 className="text-lg md:text-xl font-bold">{title}</h3>
         <Link className="fa-solid fa-ellipsis-vertical cursor-pointer p-2" to={handelClickOnSeeMoreButton}></Link>
@@ -25,6 +26,7 @@ function Card({ children, title, handelClickOnSeeMoreButton }) {
 export default function AdminDashboard() {
   const [frenchDate, setFrenchDate] = useState(null);
   const user = useSelector(slice => slice.user);
+  const {theme} = useTheme();
   const [alertText, setAlertText] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -119,7 +121,7 @@ export default function AdminDashboard() {
 
         <div className="mt-5">
           <div className="grid md:grid-cols-3 gap-5">
-            <Card title={"Etudiants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=students'>
+            <Card title={"Etudiants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=students' bgColor={`${theme == "dark" ? "secondary" : "" }`}>
               <p className="text-lg font-semibold">
                 {isDataFeteched.students ?
                   <>{studentCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
@@ -128,7 +130,7 @@ export default function AdminDashboard() {
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
-            <Card title={"Enseignants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=teachers'>
+            <Card title={"Enseignants"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=teachers' bgColor={`${theme == "dark" ? "secondary" : "" }`}>
               <p className="text-lg font-semibold">
                 {isDataFeteched.teachers ?
                   <>{teacherCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
@@ -137,7 +139,7 @@ export default function AdminDashboard() {
               <div><Link className="link-1" to="">Créer compte</Link></div>
             </Card>
 
-            <Card title={"Adminstrateur"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=admins'>
+            <Card title={"Adminstrateur"} handelClickOnSeeMoreButton='/adminstrateur/comptes?type=admins' bgColor={`${theme == "dark" ? "secondary" : "" }`}>
               <p className="text-lg font-semibold">
                 {isDataFeteched.admins ?
                   <>{adminCounter}/{studentCounter + teacherCounter + adminCounter} <span className="text-xs">comptes</span></>
