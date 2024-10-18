@@ -32,72 +32,81 @@ import AdminProfile from "./views/admin/AdminProfile";
 import AddNewStudent from "./views/admin/AddNewStudent";
 import AddNewAdmin from "./views/admin/AddNewAdmin";
 import AddNewTeacher from "./views/admin/AddNewTeacher";
+import AccountDetailsLayout from "./views/admin/AccountDetailsLayout";
+import ShowStudentAccount from "./views/admin/ShowStudentAccount";
+import ShowAdminAccount from "./views/admin/ShowAdminAccount";
+import ShowTeacherAccount from "./views/admin/ShowTeacherAccount";
 
 function App() {
 
   return (
     <BrowserRouter>
       <Provider store={store}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Routes>
-          
-          {/* guest */}
-          <Route element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="pre-inscription" element={<PreRegister />} />
-            <Route path="a-propos-de-nous" element={<AboutUs />} />
-          </Route>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <Routes>
 
-          <Route path="payer-frais" element={<Payment />} />
-          
-          {/* login */}
-          <Route path="connexion">
-            <Route index element={<StudentLogin />} />
-            <Route path="etudiant" element={<StudentLogin />} />
-            <Route path="enseignant" element={<TeacherLogin />} />
-            <Route path="adminstrateur" element={<AdminLogin />} />
-          </Route>
-
-          {/* admins */}
-          <Route path="adminstrateur" element={<AdminLayout />}>
-            <Route path="tableau-de-bord" element={<AdminDashboard />} />
-
-            <Route path="blogs" >
-              <Route index element={<AdminBlogs />} />
-              <Route path="ajouter" element={<AddNewBlog />} />
-              <Route path="modifier/:id" element={<EditBlog />} />
+            {/* guest */}
+            <Route element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="pre-inscription" element={<PreRegister />} />
+              <Route path="a-propos-de-nous" element={<AboutUs />} />
             </Route>
 
-            <Route path="profile" element={<AdminProfile />} />
-            <Route path="messages" element={<Messages /> } />
-            <Route path="comptes" >
-              <Route index element={<Accounts />} />
-              <Route path="ajouter">
-                <Route index element={<AddNewStudent />} />
-                <Route path="etudiant" element={<AddNewStudent />} />
-                <Route path="adminstrateur" element={<AddNewAdmin />} />
-                <Route path="enseignant" element={<AddNewTeacher />} />
+            <Route path="payer-frais" element={<Payment />} />
+
+            {/* login */}
+            <Route path="connexion">
+              <Route index element={<StudentLogin />} />
+              <Route path="etudiant" element={<StudentLogin />} />
+              <Route path="enseignant" element={<TeacherLogin />} />
+              <Route path="adminstrateur" element={<AdminLogin />} />
+            </Route>
+
+            {/* admins */}
+            <Route path="adminstrateur" element={<AdminLayout />}>
+              <Route path="tableau-de-bord" element={<AdminDashboard />} />
+
+              <Route path="blogs" >
+                <Route index element={<AdminBlogs />} />
+                <Route path="ajouter" element={<AddNewBlog />} />
+                <Route path="modifier/:id" element={<EditBlog />} />
               </Route>
+
+              <Route path="profile" element={<AdminProfile />} />
+              <Route path="messages" element={<Messages />} />
+              <Route path="comptes" >
+                <Route index element={<Accounts />} />
+                <Route path="afficher" element={<AccountDetailsLayout />}>
+                  <Route path="etudiant/:id" element={<ShowStudentAccount />} />
+                  <Route path="adminstrateur/:id" element={<ShowAdminAccount />} />
+                  <Route path="enseignant/:id" element={<ShowTeacherAccount />} />
+                </Route>
+                <Route path="ajouter">
+                  <Route index element={<AddNewStudent />} />
+                  <Route path="etudiant" element={<AddNewStudent />} />
+                  <Route path="adminstrateur" element={<AddNewAdmin />} />
+                  <Route path="enseignant" element={<AddNewTeacher />} />
+                </Route>
+              </Route>
+              <Route path="emplois-de-temps" element={<Schedule />} />
+              <Route path="e-paiement" element={<EPayement />} />
+              <Route path="paiement" element={<AdminPayement />} />
+              <Route path="absence" element={<Absences />} />
+              <Route path="exams" element={<Exams />} />
+              <Route path="notes" element={<Notes />} />
+
             </Route>
-            <Route path="emplois-de-temps" element={<Schedule />} />
-            <Route path="e-paiement" element={<EPayement />} />
-            <Route path="paiement" element={<AdminPayement />} />
-            <Route path="absence" element={<Absences />} />
-            <Route path="exams" element={<Exams />} />
-            <Route path="notes" element={<Notes />} />
 
-          </Route>
+            {/* stuents */}
+            <Route path="etudiant" element={<StudentLayout />}>
+              <Route path="tableau-de-bord" element={<StudentDashboard />} />
+            </Route>
 
-          {/* stuents */}
-          <Route path="etudiant" element={<StudentLayout />}>
-            <Route path="tableau-de-bord" element={<StudentDashboard />} />
-          </Route>
-
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </ThemeProvider>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   )

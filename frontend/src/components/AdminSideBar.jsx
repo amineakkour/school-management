@@ -104,7 +104,7 @@ export default function AdminSideBar({ activeItem = 2}) {
           {AdminSideBarItems.map((item, ind) => {
             return (
               <li key={ind} className={`${ind == activeItem ? 'bg-stone-100 text-stone-900' : ''} rounded-md p-1`} title={item.title}>
-                <Link to={item.path} className="flex items-center gap-1 hover:opacity-70">{item.icon} {(sidebarWidth > initialSideBareWidth) && <span className="text-xs whitespace-nowrap">{item.title}</span>}</Link>
+                <Link to={item.path} className="p-1 flex items-center gap-2 hover:opacity-70">{item.icon} {(sidebarWidth > initialSideBareWidth) && <span className="whitespace-nowrap">{item.title}</span>}</Link>
               </li>
             )
           }
