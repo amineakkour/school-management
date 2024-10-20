@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { switchToUrlBaseOnUserRole } from '../functions/switchToUrlBaseOnUserRole';
+import { useDispatch, useSelector } from 'react-redux';
 import { customAxios } from '../api/customAxios';
 import Spinner from '../components/Spinner';
+import { logout } from '../redux/features/userSlice';
 
 function AdminLayout() {
   const user = useSelector(slice => slice.user);
   const [isLoaded, setIsLoaded] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // useEffect(() => {
-  //   if(user.role !== "admin" || !user.token){
-  //     navigate(switchToUrlBaseOnUserRole('admin').loginPage, { replace: true })
-  //   }
-
-  //   setIsLoaded(true)
-  // }, [])
 
   async function checkApiTokenIsValid() {
     const headers = {
@@ -29,8 +22,9 @@ function AdminLayout() {
       const response = await customAxios.post("user", {}, { headers });
       setIsLoaded(true);
     }catch(error) {
-      console.error(error);
       setIsLoaded(false);
+      dispatch(logout());
+      console.error(error);
       navigate("/connexion/adminstrateur");
     }
   }
