@@ -39,10 +39,6 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
 
   
   const { register, handleSubmit, formState: { errors }, setError} = useForm({
-    defaultValues: {
-      email: "admin@admin.com",
-      password: "admin@admin.com",
-    },
     resolver: zodResolver(loginSchema),
   });
 
