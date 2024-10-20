@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { Home, LayoutDashboard, CreditCard, HandCoins, SquarePen, BookOpenCheck, Library, BellElectric, User, MessageSquareMore, PenLine } from "lucide-react";
-
+import { useTheme } from "../context/ThemeProvider";
 
 const AdminSideBarItems = [
   {
@@ -69,6 +69,7 @@ export default function AdminSideBar({ activeItem = 2}) {
   const initialSideBareWidth = 80;
   const [isDragging, setIsDragging] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(initialSideBareWidth);
+  const { theme } = useTheme();
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -98,7 +99,7 @@ export default function AdminSideBar({ activeItem = 2}) {
   
   return (
     <div className="relative">
-      <nav className="bg-black text-stone-100 shrink-0 overflow-hidden h-full min-h-screen" style={{ width: `${sidebarWidth}px` }}>
+      <nav className={`${theme == "dark" ? "bg-secondary": "bg-black"} text-stone-100 shrink-0 overflow-hidden h-full min-h-screen`} style={{ width: `${sidebarWidth}px` }}>
         <ul className={`flex flex-col justify-center ${sidebarWidth <= initialSideBareWidth ? "items-center" : "items-start"} py-5 px-3 md:px-5 gap-4`}>  
           
           {AdminSideBarItems.map((item, ind) => {
