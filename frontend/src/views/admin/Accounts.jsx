@@ -15,9 +15,16 @@ import Spinner from "../../components/Spinner.jsx";
 
 
 function Account({ accountData }) {
+  function swtichRoleToFrench() {
+    switch (accountData.role) {
+      case "teacher": return "enseignant"
+      case "admin": return "adminstrateur"
+      default: return "etudiant";
+    }
+  }
 
   return (
-    <Link to={`${accountData.id}`} className="bg-secondary rounded-sm my-2 p-2 flex gap-3 justify-between items-center cursor-pointer">
+    <Link to={`afficher/${swtichRoleToFrench()}/${accountData.id}`} className="bg-secondary rounded-sm my-2 p-2 flex gap-3 justify-between items-center cursor-pointer">
       <div><img src={guestPicture} className='w-12 h-12 rounded-full object-cover' alt="Profile picture of ${accountData.id}" /></div>
 
       <div className='w-full'>
