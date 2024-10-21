@@ -3,15 +3,9 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "../context/ThemeProvider";
+import { useSelector } from "react-redux";
 
 const colorsOmg = ['text-blue-500', 'text-red-500', 'text-yellow-500',   'text-green-500', 'text-orange-500',];
-
-const navItems = [
-  {label: `Acceuil`, fontAwsomeIconClass: 'fa-solid fa-house', path: "/"},
-  {label: "Blog", fontAwsomeIconClass: 'fa-brands fa-blogger-b', path: "/blog"},
-  {label: "A propos de nous", fontAwsomeIconClass: 'fa-regular fa-address-card', path: "/a-propos-de-nous"},
-  {label: "Connexion", fontAwsomeIconClass: 'fa-solid fa-unlock-keyhole', path: "/connexion/etudiant"},
-]
 
 function DropDownItem() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +57,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(!(window.innerWidth < 760)); // if widown smaller than 600 then set isOpen to false 
   const { theme } = useTheme();
   const navEl = useRef(null);
+  const {token} = useSelector(sl => sl.user);
+
+  const navItems = [
+    {label: `Acceuil`, fontAwsomeIconClass: 'fa-solid fa-house', path: "/"},
+    {label: "Blog", fontAwsomeIconClass: 'fa-brands fa-blogger-b', path: "/blog"},
+    {label: "A propos de nous", fontAwsomeIconClass: 'fa-regular fa-address-card', path: "/a-propos-de-nous"},
+    {label: `${token ? "Dashboard" : "Connextion"}`, fontAwsomeIconClass: 'fa-solid fa-unlock-keyhole', path: "/connexion/etudiant"},
+  ]
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
