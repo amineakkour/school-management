@@ -73,7 +73,7 @@ export default function LoginLayout({bgColor, userSpace, tmpImgURL, imgURL, form
   return (
     <div className={`h-screen ${theme === "dark" ? "" : bgColor} flex justify-center items-center`}>
       {alertText && <Alert alertText={alertText} setAlertText={setAlertText} />}
-      <div className={`${theme === "dark" ? "bg-secondary" : "bg-white"} w-full mx-4 max-w-lg md:max-w-screen-md p-5 flex rounded-md gap-5 transition-all shadow-md hover:shadow-2xl`}>
+      <div className={`${theme === "dark" ? "bg-secondary" : "bg-white"} w-full mx-4 max-w-lg md:max-w-screen-sm p-5 flex rounded-md gap-5 transition-all shadow-md hover:shadow-2xl`}>
         
         <div className='hidden md:block'>
             <img src={tmpImgURL} alt="Login Picture" className={`w-80 h-80 object-cover rounded-md object-right-top ${!isImgLoaded ? "block": "hidden"}`} />
