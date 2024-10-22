@@ -105,7 +105,7 @@ export default function Navbar() {
           <BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
         <div className="w-16 h-full">
-          <img src={logo} alt="Logo" className="left-to-right" />
+          <Link to="/"><img src={logo} alt="Logo" className="left-to-right" /></Link>
         </div>
 
         <ul className={`right-to-left gap-3 block md:flex ${isOpen ? "" : "h-0"}`}>
