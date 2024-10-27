@@ -109,7 +109,7 @@ export default function Accounts() {
         </div>
 
         <div className='my-5'>
-          <ul className="bg-secondary flex py-2 px-4 font-mono gap-4">
+          <ul className="bg-secondary flex py-2 px-4 font-mono gap-4f">
             <li>Ajouter: </li>
             <div className="flex gap-2">
               <li><Link className="hover:underline" to='ajouter/etudiant'>Etudiant</Link></li> |

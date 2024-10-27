@@ -17,7 +17,7 @@ import {
 
 
 export default function Profile({ profileUrl = '/adminstrateur/profile', profileDropDownItems = []}) {
-  const { userInfos } = useSelector(slice => slice.user);
+  const { userInfos, token } = useSelector(slice => slice.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {theme, setTheme} = useTheme();
@@ -26,7 +26,7 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
     try {
       const headers = {
         accept: 'application/json',
-        Authorization: 'Bearer ' + user.token
+        Authorization: 'Bearer ' + token
       };
       const response = await customAxios.post("/logout", {}, { headers });
       
@@ -35,7 +35,24 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
     }
 
     dispatch(logout());
-    navigate("/");
+    navigate("/connexion/adminstrateur");
+  }
+
+  async function logoutAllDevicesCallBack() {
+
+    try {
+      const headers = {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + token
+      };
+      const response = await customAxios.post("/logout-all-devices", {}, { headers });
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+
+    dispatch(logout());
+    navigate("/connexion/adminstrateur");
   }
 
   return (
@@ -60,7 +77,6 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
             <Link to={item.to}>{item.text}</Link>
           </DropdownMenuItem>)}
 
-          
           <DropdownMenuSeparator />
           <DropdownMenuItem className="text-xs cursor-pointer">
             {
@@ -70,10 +86,21 @@ export default function Profile({ profileUrl = '/adminstrateur/profile', profile
               <span onClick={() => setTheme("dark")}><i className="fa-solid fa-moon mr-1 text-sm"></i> Mode Sombre </span>
             }
           </DropdownMenuItem>
+          
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Déconnexion</DropdownMenuLabel>
+
           <DropdownMenuItem className="text-xs cursor-pointer" onClick={logoutCallBack}>
-            <span><i className="fa-solid fa-right-from-bracket text-sm mr-1"></i>Deconnexion</span>
+
+            <span><i className="fa-solid fa-right-from-bracket text-sm mr-1"></i>Mon appareil</span>
           </DropdownMenuItem>
+
+          <DropdownMenuItem className="text-xs cursor-pointer bg-secondary" onClick={logoutAllDevicesCallBack}>
+              <span><i className="fa-solid fa-right-from-bracket text-sm mr-1"></i>Tous les appareils</span>
+          </DropdownMenuItem>
+
         </DropdownMenuContent>
+
       </DropdownMenu>
     </div>
   )

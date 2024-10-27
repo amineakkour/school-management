@@ -35,7 +35,7 @@ Route::get("admins-counter", [AdminController::class, "counter"]);
 
 Route::post("/payment-tranches-verify", [PaymenetTrancheController::class, "verify"]);
 
-Route::post("/logout_from_all_devices", [LoginController::class, "logout_from_all_devices"])->middleware("auth:sanctum");
+Route::post("/logout-all-devices", [LoginController::class, "logout_from_all_devices"])->middleware("auth:sanctum");
 Route::post("/logout", [LoginController::class, "logout"])->middleware("auth:sanctum");
 Route::post("/student/login", [LoginController::class, "student_login"]);
 Route::post("/admin/login", [LoginController::class, "admin_login"]);
