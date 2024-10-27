@@ -20,40 +20,7 @@ export default function AddNewStudent() {
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  async function fetchData(event) {
-    event?.preventDefault();
-    var data = [];
   
-    setIsFetched(false);
-    setAccounts([]);
-
-    try {
-      const response = await customAxios.post(`students`, data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      setAccounts(response.data.data);
-      setLastPage(response.data.last_page);
-
-    } catch(error) {
-      console.error(error);
-
-      if(error.response?.status == 401) {
-        dispatch(logout())
-        navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-      }
-      else{
-        setAlertText("Quelque chose s'est mal passé");
-      }
-    }
-    setIsFetched(true)
-  }
-
   return (
     <div className="flex">
       {alertText && <Alert alertText={alertText} setAlertText={setAlertText} />}
@@ -68,13 +35,7 @@ export default function AddNewStudent() {
             <Profile />
         </div>
 
-        <div className='my-5 text-xs'>
-          <ul className="bg-secondary flex gap-1 py-2 px-4 font-mono">
-            <li><Link className="hover:underline" to='/adminstrateur/comptes'>Comptes</Link></li>
-            <li>{">"}</li>
-            <li>Ajouter Etudiant</li>
-          </ul>
-        </div>
+        
 
         <div>
 

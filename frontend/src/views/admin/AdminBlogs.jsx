@@ -146,7 +146,7 @@ function AdminBlogs(props) {
         <div className='my-5'>
           <nav>
               <ul className="flex gap-3 bg-secondary items-center py-2 px-4 font-mono">
-                <li><Link className="hover:underline text-xs" to="ajouter">Ajouter blog</Link></li>
+                <li><Link className="hover:underline" to="ajouter">Ajouter</Link></li>
               </ul>
             </nav>
 

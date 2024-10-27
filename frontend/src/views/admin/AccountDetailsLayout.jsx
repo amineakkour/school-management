@@ -21,13 +21,13 @@ export default function AccountDetailsLayout() {
                     <Profile />
                 </div>
 
-                <div className='my-5 text-xs'>
+                <nav className='my-5'>
                     <ul className="bg-secondary flex gap-1 py-2 px-4 font-mono">
                         <li><Link className="hover:underline" to='/adminstrateur/comptes'>Comptes</Link></li>
                         <li>{">"}</li>
                         <li>Details du compte</li>
                     </ul>
-                </div>
+                </nav>
                 
                 <Outlet />
             </div>
