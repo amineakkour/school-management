@@ -4,7 +4,6 @@ import { customAxios } from "../api/customAxios.js";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/features/userSlice.js";
 import { useTheme } from "../context/ThemeProvider.tsx";
-import { Sun } from "lucide-react";
 import profilePictureNotFound from '../assets/profile_picture_not_found.jpg';
 import {
   DropdownMenu,
