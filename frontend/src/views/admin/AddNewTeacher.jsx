@@ -42,14 +42,7 @@ export default function AddNewTeacher() {
 
     } catch(error) {
       console.error(error);
-
-      if(error.response?.status == 401) {
-        dispatch(logout())
-        navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-      }
-      else{
-        setAlertText("Quelque chose s'est mal passé");
-      }
+      setAlertText("Quelque chose s'est mal passé");
     }
     setIsFetched(true)
   }

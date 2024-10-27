@@ -78,10 +78,7 @@ export default function EditBlog() {
         var key = Object.keys(error)[0];
 
         setError(key, {message: error[key]})
-      }else if(error.response?.status == 401) {
-        dispatch(logout())
-        navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-    }
+      }
       else{
         setAlertText("Quelque chose s'est mal passé");
       }

@@ -32,10 +32,6 @@ function Blog({fetchData, setFetched, setAlertText, blogData}) {
   catch(error) {
     console.error(error)
     setAlertText("Quelque chose s'est mal passé");
-    if(error.response?.status === 401) {
-      dispatch(logout())
-      navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-  }
   }
   
   setIsDeleting(false);
@@ -103,11 +99,6 @@ function AdminBlogs(props) {
     catch(error) {
       console.error(error)
       setAlertText("Quelque chose s'est mal passé");
-
-      if(error.response?.status === 401) {
-          dispatch(logout())
-          navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-      }
     }
 
     setFetched(true)

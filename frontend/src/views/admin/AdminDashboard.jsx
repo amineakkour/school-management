@@ -82,11 +82,6 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error(error);
       setAlertText("Quelque chose s'est mal passé");
-
-      if (error.response?.status === 401) {
-        dispatch(logout());
-        navigate(switchToUrlBaseOnUserRole('admin').loginPage);
-      }
     }
   }
 

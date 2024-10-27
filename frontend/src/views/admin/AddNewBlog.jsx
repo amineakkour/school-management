@@ -47,14 +47,10 @@ export default function AddNewBlog() {
 
       if(error.response.status == 422){
         var error = error.response.data.errors;
-
         var key = Object.keys(error)[0];
 
         setError(key, {message: error[key]})
-      }else if(error.response?.status == 401) {
-        dispatch(logout())
-        navigate(switchToUrlBaseOnUserRole('admin').loginPage)
-    }
+      }
       else{
         setAlertText("Quelque chose s'est mal passé");
       }
